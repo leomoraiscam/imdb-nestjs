@@ -1,0 +1,22 @@
+
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-imdb
+    tty: true
+    volumes:
+      - .pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=imdb
+      - POSTGRES_USER=docker
+      - POSTGRES_PORT=5454
+    ports:
+      - '5454:5454'
+    command: -p 5454
+
+volumes:
+  pgdata:
+    driver: local

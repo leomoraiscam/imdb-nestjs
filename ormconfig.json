@@ -1,0 +1,21 @@
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5454,
+    "username": "docker",
+    "password": "docker",
+    "database": "imdb",
+    "synchronize": false,
+    "entities": [
+      "dist/**/*.entity{.ts,.js}"
+    ],
+    "migrations": [
+      "dist/shared/infra/typeorm/migrations/*{.ts,.js}"
+    ],
+    "cli": {
+      "migrationsDir": "./src/shared/infra/typeorm/migrations"
+    }
+  }
+]
