@@ -2,18 +2,19 @@ import {
   Controller,
   Get,
   Request,
+  UseGuards,
+  HttpCode,
+  HttpStatus,
   Put,
   Body,
-  UseInterceptors,
-  ClassSerializerInterceptor,
 } from '@nestjs/common';
+import { UpdateUserDto } from 'src/modules/users/dtos/UpdateUserDTO';
+import { UpdateUserService } from 'src/modules/users/services/UpdateUserService.service';
 
-import { UpdateUserDto } from '../../../dtos/UpdateUserDTO';
+import { JwtAuthGuard } from '../../../../../shared/infra/http/guards/jwtAuth.guard';
 import { ShowProfileService } from '../../../services/ShowProfileService.service';
-import { UpdateUserService } from '../../../services/UpdateUserService.service';
 import { User } from '../../typeorm/entities/User.entity';
 
-@UseInterceptors(ClassSerializerInterceptor)
 @Controller('profile')
 export class ProfileController {
   constructor(
@@ -22,6 +23,8 @@ export class ProfileController {
   ) {}
 
   @Get()
+  @HttpCode(HttpStatus.CREATED)
+  @UseGuards(JwtAuthGuard)
   public async findOne(@Request() req: any): Promise<User> {
     const user = await this.showProfileService.execute({ userId: req.user.id });
 

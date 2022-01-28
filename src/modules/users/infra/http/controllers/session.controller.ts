@@ -1,6 +1,6 @@
-import { Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { LocalAuthGuard } from 'src/shared/infra/http/guards/localAuth.guard';
 
-import { LocalAuthGuard } from '../../../../../shared/infra/http/guards/LocalAuth.guard';
 import { AuthenticateUserService } from '../../../services/AuthenticateUserService.service';
 import { User } from '../../typeorm/entities/User.entity';
 
@@ -10,8 +10,8 @@ export class SessionController {
     private readonly authenticateUserService: AuthenticateUserService,
   ) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post()
+  @UseGuards(LocalAuthGuard)
   public async create(@Request() req: any) {
     const user = req.user as User;
 
