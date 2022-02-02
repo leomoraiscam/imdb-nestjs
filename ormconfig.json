@@ -10,8 +10,7 @@
     "synchronize": false,
     "entities": [
       "dist/**/*.entity{.ts,.js}"
-    ],
-    "migrations": [
+    ],    "migrations": [
       "dist/shared/infra/typeorm/migrations/*{.ts,.js}"
     ],
     "cli": {
