@@ -2,16 +2,16 @@ import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
-import { UsersRepository } from '../infra/typeorm/repositories/UsersRepository';
-import { FakeUsersRepository } from '../repositories/in-memory/UsersRepositories';
+import { UsersRepository } from '../infra/typeorm/repositories/Users.repository';
+import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { ShowProfileService } from './ShowProfile.service';
 
 describe('ShowProfileService', () => {
   let service: ShowProfileService;
-  let fakeUserRepository: FakeUsersRepository;
+  let fakeUserRepository: InMemoryUsersRepository;
 
   beforeEach(async () => {
-    fakeUserRepository = new FakeUsersRepository();
+    fakeUserRepository = new InMemoryUsersRepository();
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
