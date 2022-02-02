@@ -3,16 +3,16 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { jwt } from '../../config/auth';
-import { ProfileController } from './infra/http/controllers/profile.controller';
-import { SessionController } from './infra/http/controllers/session.controller';
-import { UsersController } from './infra/http/controllers/users.controller';
-import { UsersRepository } from './infra/typeorm/repositories/UsersRepository';
+import { ProfileController } from './infra/http/controllers/Profile.controller';
+import { SessionController } from './infra/http/controllers/Session.controller';
+import { UsersController } from './infra/http/controllers/User.controller';
+import { UsersRepository } from './infra/typeorm/repositories/Users.repository';
 import { AuthProviderModule } from './providers/AuthProvider/authProvider.module';
 import { HashProviderModule } from './providers/HashProvider/hashProvider.module';
-import { AuthenticateUserService } from './services/AuthenticateUserService.service';
-import { CreateUserService } from './services/CreateUserService.service';
-import { ShowProfileService } from './services/ShowProfileService.service';
-import { UpdateUserService } from './services/UpdateUserService.service';
+import { AuthenticateUserService } from './services/AuthenticateUser.service';
+import { CreateUserService } from './services/CreateUser.service';
+import { ShowProfileService } from './services/ShowProfile.service';
+import { UpdateUserService } from './services/UpdateUser.service';
 
 @Module({
   imports: [

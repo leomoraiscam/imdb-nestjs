@@ -1,10 +1,10 @@
 import { v4 as uuid } from 'uuid';
 
-import { CreateUserDTO } from '../../dtos/CreateUserDTO';
+import { CreateUserDTO } from '../../dtos/CreateUser.dto';
 import { User } from '../../infra/typeorm/entities/User.entity';
-import IUsersRepository from '../IUsersRepository';
+import IUsersRepository from '../IUsersRepository.interface';
 
-export class FakeUsersRepository implements IUsersRepository {
+export class InMemoryUsersRepository implements IUsersRepository {
   private users: User[] = [];
 
   public async findById(id: string): Promise<User | undefined> {

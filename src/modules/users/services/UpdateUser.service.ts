@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
-import { UpdateUserDto } from '../dtos/UpdateUserDTO';
+import { UpdateUserDTO } from '../dtos/UpdateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
-import { UsersRepository } from '../infra/typeorm/repositories/UsersRepository';
-import { BCryptHashProvider } from '../providers/HashProvider/implementations/BCryptHashProvider.service';
+import { UsersRepository } from '../infra/typeorm/repositories/Users.repository';
+import { BCryptHashProvider } from '../providers/HashProvider/implementations/BCryptHash.provider';
 
 @Injectable()
 export class UpdateUserService {
@@ -18,7 +18,7 @@ export class UpdateUserService {
     email,
     password,
     oldPassword,
-  }: UpdateUserDto): Promise<User> {
+  }: UpdateUserDTO): Promise<User> {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) {

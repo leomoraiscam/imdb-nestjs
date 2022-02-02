@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
-import { CreateUserDTO } from '../dtos/CreateUserDTO';
+import { CreateUserDTO } from '../dtos/CreateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
-import { UsersRepository } from '../infra/typeorm/repositories/UsersRepository';
-import { BCryptHashProvider } from '../providers/HashProvider/implementations/BCryptHashProvider.service';
+import { UsersRepository } from '../infra/typeorm/repositories/Users.repository';
+import { BCryptHashProvider } from '../providers/HashProvider/implementations/BCryptHash.provider';
 
 @Injectable()
 export class CreateUserService {

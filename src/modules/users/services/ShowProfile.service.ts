@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { User } from '../infra/typeorm/entities/User.entity';
-import { UsersRepository } from '../infra/typeorm/repositories/UsersRepository';
+import { UsersRepository } from '../infra/typeorm/repositories/Users.repository';
 
 interface IRequest {
   userId: string;

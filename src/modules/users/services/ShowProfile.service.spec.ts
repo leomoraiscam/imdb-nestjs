@@ -4,7 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { UsersRepository } from '../infra/typeorm/repositories/UsersRepository';
 import { FakeUsersRepository } from '../repositories/in-memory/UsersRepositories';
-import { ShowProfileService } from './ShowProfileService.service';
+import { ShowProfileService } from './ShowProfile.service';
 
 describe('ShowProfileService', () => {
   let service: ShowProfileService;

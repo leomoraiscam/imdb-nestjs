@@ -1,7 +1,7 @@
 import { AbstractRepository, EntityRepository } from 'typeorm';
 
-import { CreateUserDTO } from '../../../dtos/CreateUserDTO';
-import IUsersRepository from '../../../repositories/IUsersRepository';
+import { CreateUserDTO } from '../../../dtos/CreateUser.dto';
+import IUsersRepository from '../../../repositories/IUsersRepository.interface';
 import { User } from '../entities/User.entity';
 
 @EntityRepository(User)
