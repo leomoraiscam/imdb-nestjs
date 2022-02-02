@@ -2,8 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 
-import { UsersRepository } from '../../../infra/typeorm/repositories/UsersRepository';
-import { BCryptHashProvider } from '../../HashProvider/implementations/BCryptHashProvider.service';
+import { UsersRepository } from '../../../infra/typeorm/repositories/Users.repository';
+import { BCryptHashProvider } from '../../HashProvider/implementations/BCryptHash.provider';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
