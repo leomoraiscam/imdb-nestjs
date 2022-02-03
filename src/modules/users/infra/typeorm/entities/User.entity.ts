@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import {
   Column,
@@ -15,18 +16,22 @@ import { Role } from '../../../../acessControlList/infra/typeorm/entities/Role.e
 
 @Entity('users')
 export class User {
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @ApiProperty()
   @Column()
   name: string;
 
+  @ApiProperty()
   @Column()
   email: string;
 
   @Column()
-  password: string;
   @Exclude()
+  password: string;
+
   @ManyToMany(() => Role)
   @JoinTable({
     name: 'users_roles',
@@ -43,12 +48,15 @@ export class User {
   })
   permissions: Permission[];
 
+  @ApiProperty()
   @CreateDateColumn()
   created_at: Date;
 
+  @ApiProperty()
   @UpdateDateColumn()
   updated_at: Date;
 
+  @ApiProperty()
   @DeleteDateColumn()
   deleted_at: Date;
 }
