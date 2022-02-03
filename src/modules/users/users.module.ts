@@ -6,6 +6,7 @@ import { jwt } from '../../config/auth';
 import { ProfileController } from './infra/http/controllers/Profile.controller';
 import { SessionController } from './infra/http/controllers/Session.controller';
 import { UsersController } from './infra/http/controllers/User.controller';
+import { User } from './infra/typeorm/entities/User.entity';
 import { UsersRepository } from './infra/typeorm/repositories/Users.repository';
 import { AuthProviderModule } from './providers/AuthProvider/authProvider.module';
 import { HashProviderModule } from './providers/HashProvider/hashProvider.module';
@@ -16,7 +17,7 @@ import { UpdateUserService } from './services/UpdateUser.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UsersRepository]),
+    TypeOrmModule.forFeature([User]),
     HashProviderModule,
     AuthProviderModule,
     JwtModule.register({
@@ -26,6 +27,10 @@ import { UpdateUserService } from './services/UpdateUser.service';
   ],
   controllers: [UsersController, ProfileController, SessionController],
   providers: [
+    {
+      provide: 'USER_REPOSITORY',
+      useClass: UsersRepository,
+    },
     CreateUserService,
     ShowProfileService,
     UpdateUserService,
