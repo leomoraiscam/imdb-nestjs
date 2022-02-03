@@ -1,14 +1,15 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
 import { UpdateUserDTO } from '../dtos/UpdateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
-import { UsersRepository } from '../infra/typeorm/repositories/Users.repository';
 import { BCryptHashProvider } from '../providers/HashProvider/implementations/BCryptHash.provider';
+import IUsersRepository from '../repositories/IUsersRepository.interface';
 
 @Injectable()
 export class UpdateUserService {
   constructor(
-    private usersRepository: UsersRepository,
+    @Inject('USER_REPOSITORY')
+    private usersRepository: IUsersRepository,
     private readonly hashProvider: BCryptHashProvider,
   ) {}
 

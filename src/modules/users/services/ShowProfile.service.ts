@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { User } from '../infra/typeorm/entities/User.entity';
-import { UsersRepository } from '../infra/typeorm/repositories/Users.repository';
+import IUsersRepository from '../repositories/IUsersRepository.interface';
 
 interface IRequest {
   userId: string;
@@ -9,7 +9,10 @@ interface IRequest {
 
 @Injectable()
 export class ShowProfileService {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(
+    @Inject('USER_REPOSITORY')
+    private usersRepository: IUsersRepository,
+  ) {}
 
   public async execute({ userId }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(userId);
