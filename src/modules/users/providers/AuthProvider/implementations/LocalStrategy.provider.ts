@@ -1,14 +1,15 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
+import IUsersRepository from 'src/modules/users/repositories/IUsersRepository.interface';
 
-import { UsersRepository } from '../../../infra/typeorm/repositories/Users.repository';
 import { BCryptHashProvider } from '../../HashProvider/implementations/BCryptHash.provider';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
-    private readonly usersRepository: UsersRepository,
+    @Inject('USER_REPOSITORY')
+    private usersRepository: IUsersRepository,
     private readonly hashProvider: BCryptHashProvider,
   ) {
     super({
