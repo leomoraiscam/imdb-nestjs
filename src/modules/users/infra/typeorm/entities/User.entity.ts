@@ -1,6 +1,4 @@
 import { Exclude } from 'class-transformer';
-import { Permission } from 'src/modules/acessControlList/infra/typeorm/entities/Permission.entity';
-import { Role } from 'src/modules/acessControlList/infra/typeorm/entities/Role.entity';
 import {
   Column,
   CreateDateColumn,
@@ -11,6 +9,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { Permission } from '../../../../acessControlList/infra/typeorm/entities/Permission.entity';
+import { Role } from '../../../../acessControlList/infra/typeorm/entities/Role.entity';
 
 @Entity('users')
 export class User {
@@ -24,9 +25,8 @@ export class User {
   email: string;
 
   @Column()
-  @Exclude()
   password: string;
-
+  @Exclude()
   @ManyToMany(() => Role)
   @JoinTable({
     name: 'users_roles',
