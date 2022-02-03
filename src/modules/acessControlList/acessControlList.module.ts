@@ -3,16 +3,22 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { PermissionController } from './infra/http/controllers/Permission.controller';
 import { RolesController } from './infra/http/controllers/Role.controller';
+import { RolePermissionController } from './infra/http/controllers/RolePermissions.controller';
 import { Permission } from './infra/typeorm/entities/Permission.entity';
 import { Role } from './infra/typeorm/entities/Role.entity';
 import { PermissionsRepository } from './infra/typeorm/repositories/Permissions.repository';
 import { RolesRepository } from './infra/typeorm/repositories/Roles.repository';
 import { CreatePermissionService } from './services/CreatePermission.service';
 import { CreateRoleService } from './services/CreateRole.service';
+import { CreateRolePermissionService } from './services/CreateRolePermission.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Role, Permission])],
-  controllers: [RolesController, PermissionController],
+  controllers: [
+    RolesController,
+    PermissionController,
+    RolePermissionController,
+  ],
   providers: [
     {
       provide: 'ROLE_REPOSITORY',
@@ -24,6 +30,7 @@ import { CreateRoleService } from './services/CreateRole.service';
     },
     CreateRoleService,
     CreatePermissionService,
+    CreateRolePermissionService,
   ],
 })
 export class AccessControlListModule {}
