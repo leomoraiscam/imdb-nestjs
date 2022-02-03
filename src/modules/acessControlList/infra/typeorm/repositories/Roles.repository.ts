@@ -13,6 +13,10 @@ export class RolesRepository implements IRolesRepository {
     private repository: Repository<Role>,
   ) {}
 
+  public async findById(id: string): Promise<Role | undefined> {
+    return this.repository.findOne(id);
+  }
+
   public async findByName(name: string): Promise<Role | undefined> {
     return this.repository.findOne({
       where: { name },
@@ -25,5 +29,9 @@ export class RolesRepository implements IRolesRepository {
     await this.repository.save(role);
 
     return role;
+  }
+
+  public async save(role: Role): Promise<Role> {
+    return this.repository.save(role);
   }
 }

@@ -7,6 +7,14 @@ import { IPermissionsRepository } from '../IPermissionsRepository.interface';
 export class InMemoryPermissionsRepository implements IPermissionsRepository {
   private permissions: Permission[] = [];
 
+  async findByIds(ids: string[]): Promise<Permission[]> {
+    const allPermissions = this.permissions.filter((permission) =>
+      ids.includes(permission.id),
+    );
+
+    return allPermissions;
+  }
+
   async findByName(name: string): Promise<Permission | undefined> {
     return this.permissions.find((permission) => permission.name === name);
   }

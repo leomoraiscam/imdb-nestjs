@@ -7,6 +7,10 @@ import IRolesRepository from '../IRolesRepository.interface';
 export class InMemoryRolesRepository implements IRolesRepository {
   private roles: Role[] = [];
 
+  async findById(id: string): Promise<Role | undefined> {
+    return this.roles.find((role) => role.id === id);
+  }
+
   async findByName(name: string): Promise<Role | undefined> {
     return this.roles.find((role) => role.name === name);
   }
@@ -21,6 +25,16 @@ export class InMemoryRolesRepository implements IRolesRepository {
     });
 
     this.roles.push(role);
+
+    return role;
+  }
+
+  async save(role: Role): Promise<Role> {
+    const roleIndex = this.roles.findIndex(
+      (roleData) => roleData.id === role.id,
+    );
+
+    this.roles[roleIndex] = role;
 
     return role;
   }

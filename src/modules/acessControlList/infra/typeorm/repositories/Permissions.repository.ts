@@ -13,6 +13,10 @@ export class PermissionsRepository implements IPermissionsRepository {
     private repository: Repository<Permission>,
   ) {}
 
+  public async findByIds(ids: string[]): Promise<Permission[]> {
+    return this.repository.findByIds(ids);
+  }
+
   public async findByName(name: string): Promise<Permission | undefined> {
     return this.repository.findOne({
       where: { name },
