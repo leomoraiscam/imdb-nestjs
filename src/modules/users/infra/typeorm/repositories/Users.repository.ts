@@ -1,14 +1,18 @@
-import { AbstractRepository, EntityRepository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import IUsersRepository from 'src/modules/users/repositories/IUsersRepository.interface';
+import { Repository } from 'typeorm';
 
 import { CreateUserDTO } from '../../../dtos/CreateUser.dto';
-import IUsersRepository from '../../../repositories/IUsersRepository.interface';
 import { User } from '../entities/User.entity';
 
-@EntityRepository(User)
-export class UsersRepository
-  extends AbstractRepository<User>
-  implements IUsersRepository
-{
+@Injectable()
+export class UsersRepository implements IUsersRepository {
+  constructor(
+    @InjectRepository(User)
+    private repository: Repository<User>,
+  ) {}
+
   public async findById(id: string): Promise<User | undefined> {
     return this.repository.findOne({
       where: { id },
