@@ -1,17 +1,45 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiCreatedResponse,
+  ApiBadRequestResponse,
+  ApiConflictResponse,
+} from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
+import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
 import { CreateUserDTO } from '../../../dtos/CreateUser.dto';
 import { CreateUserService } from '../../../services/CreateUser.service';
 import { User } from '../../typeorm/entities/User.entity';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly createUserService: CreateUserService) {}
+  constructor(private createUserService: CreateUserService) {}
 
   @Post()
-  async create(@Body() createUserDTO: CreateUserDTO): Promise<User> {
-    const user = this.createUserService.execute(createUserDTO);
+  @HttpCode(HttpStatus.CREATED)
+  @ApiCreatedResponse({
+    type: User,
+    description: 'This will be returned when the created user',
+  })
+  @ApiBadRequestResponse({
+    type: ValidationErrorDTO,
+    description: 'This will be returned when has validation error',
+  })
+  @ApiConflictResponse({
+    type: ExceptionErrorDTO,
+    description: 'This will be returned when the email is already in use',
+  })
+  async create(
+    @Body() { password, name, email }: CreateUserDTO,
+  ): Promise<User> {
+    const user = this.createUserService.execute({
+      password,
+      name,
+      email,
+    });
 
     return classToClass(user);
   }
