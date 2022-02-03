@@ -11,6 +11,12 @@ export class InMemoryRolesRepository implements IRolesRepository {
     return this.roles.find((role) => role.id === id);
   }
 
+  async findByIds(ids: string[]): Promise<Role[]> {
+    const allRoles = this.roles.filter((role) => ids.includes(role.id));
+
+    return allRoles;
+  }
+
   async findByName(name: string): Promise<Role | undefined> {
     return this.roles.find((role) => role.name === name);
   }

@@ -17,6 +17,10 @@ export class RolesRepository implements IRolesRepository {
     return this.repository.findOne(id);
   }
 
+  public async findByIds(ids: string[]): Promise<Role[]> {
+    return this.repository.findByIds(ids);
+  }
+
   public async findByName(name: string): Promise<Role | undefined> {
     return this.repository.findOne({
       where: { name },
