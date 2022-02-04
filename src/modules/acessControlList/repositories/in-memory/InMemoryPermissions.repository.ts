@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { ICreateRolesDTO } from '../../dtos/ICreateRoles.dto';
+import { CreateRolesDTO as ICreateRolesDTO } from '../../dtos/ICreateRoles.dto';
 import { Permission } from '../../infra/typeorm/entities/Permission.entity';
 import { IPermissionsRepository } from '../IPermissionsRepository.interface';
 

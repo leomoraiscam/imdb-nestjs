@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { ICreateRolesDTO } from '../../../dtos/ICreateRoles.dto';
+import { CreateRolesDTO as ICreateRolesDTO } from '../../../dtos/ICreateRoles.dto';
 import IRolesRepository from '../../../repositories/IRolesRepository.interface';
 import { Role } from '../entities/Role.entity';
 
