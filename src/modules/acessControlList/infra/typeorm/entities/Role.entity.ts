@@ -1,4 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { RoleEnum } from '../../../../../shared/utils/role.enum';
 import { Permission } from './Permission.entity';
 
 @Entity('roles')
@@ -17,9 +19,20 @@ export class Role {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiHideProperty()
   @Column()
+  @Exclude()
   name: string;
+
+  @ApiProperty({
+    name: 'name',
+    type: 'string',
+    example: 'Admin',
+  })
+  @Expose({ name: 'name' })
+  getAccessType?() {
+    return RoleEnum[this.name];
+  }
 
   @ApiProperty()
   @Column()
