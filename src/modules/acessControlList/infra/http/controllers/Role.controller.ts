@@ -9,7 +9,7 @@ import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { ICreateRolesDTO } from '../../../dtos/ICreateRoles.dto';
+import { CreateRolesDTO as ICreateRolesDTO } from '../../../dtos/ICreateRoles.dto';
 import { CreateRoleService } from '../../../services/CreateRole.service';
 import { Role } from '../../typeorm/entities/Role.entity';
 
