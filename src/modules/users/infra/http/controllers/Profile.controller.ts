@@ -14,6 +14,7 @@ import { UpdateUserDTO } from 'src/modules/users/dtos/UpdateUser.dto';
 import { UpdateUserService } from 'src/modules/users/services/UpdateUser.service';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 
+import { AuthenticatedUser } from '../../../../../shared/decorators/authenticatedUser.decorator';
 import { JwtAuthGuard } from '../../../../../shared/infra/http/guards/jwtAuth.guard';
 import { ShowProfileService } from '../../../services/ShowProfile.service';
 import { User } from '../../typeorm/entities/User.entity';
@@ -35,8 +36,8 @@ export class ProfileController {
       'This will be returned when the interest to be deleted does not exist',
   })
   @UseGuards(JwtAuthGuard)
-  public async findOne(@Request() req: any): Promise<User> {
-    const user = await this.showProfileService.execute({ userId: req.user.id });
+  public async findOne(@AuthenticatedUser('id') id: string): Promise<User> {
+    const user = await this.showProfileService.execute({ userId: id });
 
     return classToClass(user);
   }
