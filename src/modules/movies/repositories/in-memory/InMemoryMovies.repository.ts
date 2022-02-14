@@ -1,11 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { ICreateMovieGenre } from '../../dtos/ICreateMovieGenre.dto';
+import { ICreateMovieDTO } from '../../dtos/ICreateMovie.dto';
 import { Movie } from '../../infra/typeorm/entities/Movie.entity';
 import { IMoviesRepository } from '../IMoviesRepository.interface';
 
 export class InMemoryMoviesRepository implements IMoviesRepository {
   private movies: Movie[] = [];
+
+  async findById(id: string): Promise<Movie | undefined> {
+    return this.movies.find((movie) => movie.id === id);
+  }
 
   async findByName(name: string): Promise<Movie | undefined> {
     return this.movies.find((movie) => movie.name === name);
@@ -18,7 +22,7 @@ export class InMemoryMoviesRepository implements IMoviesRepository {
     duration,
     year,
     genres,
-  }: ICreateMovieGenre): Promise<Movie> {
+  }: ICreateMovieDTO): Promise<Movie> {
     const movie = new Movie();
 
     Object.assign(movie, {

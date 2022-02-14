@@ -1,15 +1,21 @@
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { ICreateMovieGenre } from '../../../dtos/ICreateMovieGenre.dto';
+import { ICreateMovieDTO } from '../../../dtos/ICreateMovie.dto';
 import { IMoviesRepository } from '../../../repositories/IMoviesRepository.interface';
 import { Movie } from '../entities/Movie.entity';
 
+@Injectable()
 export class MoviesRepository implements IMoviesRepository {
   constructor(
     @InjectRepository(Movie)
     private repository: Repository<Movie>,
   ) {}
+
+  async findById(id: string): Promise<Movie | undefined> {
+    return this.repository.findOne(id);
+  }
 
   async findByName(name: string): Promise<Movie | undefined> {
     return this.repository.findOne({
@@ -26,7 +32,7 @@ export class MoviesRepository implements IMoviesRepository {
     duration,
     year,
     genres,
-  }: ICreateMovieGenre): Promise<Movie> {
+  }: ICreateMovieDTO): Promise<Movie> {
     const movie = this.repository.create({
       name,
       description,
