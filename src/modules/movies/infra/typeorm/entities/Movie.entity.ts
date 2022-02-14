@@ -1,10 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Vote } from 'src/modules/votes/infra/typeorm/entities/Vote.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -44,6 +46,9 @@ export class Movie {
     inverseJoinColumns: [{ name: 'genre_id' }],
   })
   genres: Genre[];
+
+  @OneToMany(() => Vote, (vote) => vote)
+  votes: Vote[];
 
   @ApiProperty()
   @CreateDateColumn()
