@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AccessControlListModule } from './modules/acessControlList/acessControlList.module';
+import { MovieModule } from './modules/movies/movie.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
@@ -19,6 +20,7 @@ import { UsersModule } from './modules/users/users.module';
     }),
     UsersModule,
     AccessControlListModule,
+    MovieModule,
   ],
 })
 export class AppModule {}
