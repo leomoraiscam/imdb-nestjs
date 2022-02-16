@@ -25,6 +25,12 @@ export class MoviesRepository implements IMoviesRepository {
     });
   }
 
+  async list(): Promise<Movie[]> {
+    return this.repository.find({
+      relations: ['genres', 'votes'],
+    });
+  }
+
   async create({
     name,
     description,

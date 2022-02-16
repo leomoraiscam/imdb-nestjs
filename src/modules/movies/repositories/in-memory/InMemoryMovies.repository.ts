@@ -15,6 +15,10 @@ export class InMemoryMoviesRepository implements IMoviesRepository {
     return this.movies.find((movie) => movie.name === name);
   }
 
+  async list(): Promise<Movie[]> {
+    return this.movies;
+  }
+
   async create({
     name,
     description,

@@ -1,8 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Movie } from 'src/modules/movies/infra/typeorm/entities/Movie.entity';
+import { User } from 'src/modules/users/infra/typeorm/entities/User.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -24,6 +28,14 @@ export class Vote {
   @ApiProperty()
   @Column()
   user_id: string;
+
+  @ManyToOne(() => Movie, (movie) => movie.votes)
+  @JoinColumn({ name: 'movie_id' })
+  movie: Movie;
+
+  @ManyToOne(() => User, (user) => user)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @ApiProperty()
   @CreateDateColumn()

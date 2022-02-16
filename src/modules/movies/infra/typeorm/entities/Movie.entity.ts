@@ -47,7 +47,7 @@ export class Movie {
   })
   genres: Genre[];
 
-  @OneToMany(() => Vote, (vote) => vote)
+  @OneToMany(() => Vote, (vote) => vote.movie)
   votes: Vote[];
 
   @ApiProperty()
