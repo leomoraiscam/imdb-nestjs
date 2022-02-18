@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 
 import { IOptionsList } from '../dtos/IOptionsToListMovie.dto';
-import { Movie } from '../infra/typeorm/entities/Movie.entity';
+import { ISerializedResponse } from '../dtos/ISerializedMovies.dto';
 import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
 
 export class ListMoviesServices {
@@ -17,8 +17,8 @@ export class ListMoviesServices {
     page,
     skip,
     take,
-  }: IOptionsList): Promise<Movie[]> {
-    return this.movieRepository.list({
+  }: IOptionsList): Promise<ISerializedResponse[]> {
+    const movies = await this.movieRepository.list({
       name,
       author,
       genre_id,
@@ -26,5 +26,24 @@ export class ListMoviesServices {
       skip,
       take,
     });
+
+    const serializedMovies = movies.map((movie) => {
+      let averageValue = null;
+
+      const notes = movie.votes.map((vote) => vote.note);
+
+      if (notes.length) {
+        averageValue = notes?.reduce((prev, acc) => prev + acc / notes.length);
+      }
+
+      const resultSerialized = {
+        ...movie,
+        average: averageValue,
+      };
+
+      return resultSerialized;
+    });
+
+    return serializedMovies;
   }
 }
