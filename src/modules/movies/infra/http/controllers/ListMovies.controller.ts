@@ -1,4 +1,4 @@
-import { Controller, HttpCode, HttpStatus, Get } from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Get, Query } from '@nestjs/common';
 import {
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -8,6 +8,7 @@ import {
 import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 
+import { IOptionsList } from '../../../dtos/IOptionsToListMovie.dto';
 import { ListMoviesServices } from '../../../services/ListMovies.service';
 import { Movie } from '../../typeorm/entities/Movie.entity';
 
@@ -29,8 +30,17 @@ export class ListMoviesController {
     description:
       'This will be returned when some fields did not came the way we needed',
   })
-  public async handle() {
-    const terms = this.listMoviesServices.execute();
+  public async handle(
+    @Query() { name, author, genre_id, take, skip, page }: IOptionsList,
+  ) {
+    const terms = this.listMoviesServices.execute({
+      name,
+      author,
+      genre_id,
+      take,
+      skip,
+      page,
+    });
 
     return classToClass(terms);
   }
