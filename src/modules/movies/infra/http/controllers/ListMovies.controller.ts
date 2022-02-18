@@ -33,7 +33,7 @@ export class ListMoviesController {
   public async handle(
     @Query() { name, author, genre_id, take, skip, page }: IOptionsList,
   ) {
-    const terms = this.listMoviesServices.execute({
+    const movies = await this.listMoviesServices.execute({
       name,
       author,
       genre_id,
@@ -42,6 +42,6 @@ export class ListMoviesController {
       page,
     });
 
-    return classToClass(terms);
+    return classToClass(movies);
   }
 }
