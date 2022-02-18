@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { ICreateMovieDTO } from '../../../dtos/ICreateMovie.dto';
+import { IOptionsList } from '../../../dtos/IOptionsToListMovie.dto';
 import { IMoviesRepository } from '../../../repositories/IMoviesRepository.interface';
 import { Movie } from '../entities/Movie.entity';
 
@@ -25,10 +26,37 @@ export class MoviesRepository implements IMoviesRepository {
     });
   }
 
-  async list(): Promise<Movie[]> {
-    return this.repository.find({
-      relations: ['genres', 'votes'],
-    });
+  async list({
+    name,
+    author,
+    genre_id,
+    take,
+    page,
+  }: IOptionsList): Promise<Movie[]> {
+    const moviesQuery = await this.repository
+      .createQueryBuilder('m')
+      .leftJoinAndSelect('m.genres', 'movies_genres')
+      .leftJoinAndSelect('m.votes', 'votes')
+      .take(take)
+      .skip(take * (page - 1));
+
+    if (name) {
+      moviesQuery.andWhere(`m.name = :name`, { name });
+    }
+
+    if (author) {
+      moviesQuery.andWhere(`m.author = :author`, { author });
+    }
+
+    if (genre_id) {
+      moviesQuery
+        .innerJoin('m.genres', 'movies_genres')
+        .where('movies_genres.id = :genre_id', { genre_id });
+    }
+
+    const movies = await moviesQuery.getMany();
+
+    return movies;
   }
 
   async create({
