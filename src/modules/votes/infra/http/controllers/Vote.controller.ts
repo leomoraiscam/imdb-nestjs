@@ -15,9 +15,12 @@ import {
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
 import { AuthenticatedUser } from 'src/shared/decorators/authenticatedUser.decorator';
+import { HasRoles } from 'src/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
+import { RolesGuard } from 'src/shared/guards/Roles.guard';
 import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
+import { RoleEnum } from 'src/shared/utils/role.enum';
 
 import { ICreateVoteRequestDTO } from '../../../dtos/ICreateVoteRequest';
 import { CreateVotesToMoviesService } from '../../../services/CreateVotesToMovies.service';
@@ -45,7 +48,8 @@ export class VoteController {
     description:
       'This will be returned when the interest to be deleted does not exist',
   })
-  @UseGuards(JwtAuthGuard)
+  @HasRoles(RoleEnum.USER)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async handler(
     @AuthenticatedUser('id') id: string,
     @Param('movie_id') movie_id: string,
