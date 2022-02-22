@@ -1,6 +1,5 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
-import { RoleEnum } from '../../../shared/utils/role.enum';
 import { CreateRolesDTO as ICreateRolesDTO } from '../dtos/ICreateRoles.dto';
 import { Role } from '../infra/typeorm/entities/Role.entity';
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
@@ -17,11 +16,9 @@ export class CreateRoleService {
       throw new BadRequestException('Role already exist');
     }
 
-    const serializedRole = RoleEnum[name];
-
     const role = await this.rolesRepository.create({
       description,
-      name: serializedRole,
+      name,
     });
 
     return role;
