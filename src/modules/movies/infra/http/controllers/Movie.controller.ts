@@ -1,4 +1,11 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiCreatedResponse,
@@ -6,9 +13,13 @@ import {
   ApiConflictResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
+import { HasRoles } from 'src/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
+import { RolesGuard } from 'src/shared/guards/Roles.guard';
+import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
 
+import { RoleEnum } from '../../../../../shared/utils/role.enum';
 import { ICreateMovieRequestDTO } from '../../../dtos/ICreateMovieRequest.dto';
 import { CreateMovieService } from '../../../services/CreateMovie.service';
 import { Movie } from '../../typeorm/entities/Movie.entity';
@@ -32,6 +43,8 @@ export class MoviesController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when the email is already in use',
   })
+  @HasRoles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async create(
     @Body()
     {
@@ -43,7 +56,7 @@ export class MoviesController {
       year,
     }: ICreateMovieRequestDTO,
   ): Promise<Movie> {
-    const movie = this.createMovieService.execute({
+    const movie = await this.createMovieService.execute({
       author,
       description,
       duration,
