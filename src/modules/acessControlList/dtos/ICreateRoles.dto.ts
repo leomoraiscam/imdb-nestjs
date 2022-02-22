@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
 
-type EnumTypes = 'Role' | 'User';
+type EnumTypes = 'admin' | 'user';
 
 export class CreateRolesDTO {
   @ApiProperty()
-  @IsIn(['ADMIN', 'USER'])
+  @IsIn(['admin', 'user'])
   @IsNotEmpty()
   name: EnumTypes;
 
