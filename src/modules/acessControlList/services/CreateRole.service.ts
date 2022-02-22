@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
-import { CreateRolesDTO as ICreateRolesDTO } from '../dtos/ICreateRoles.dto';
+import { CreateRolesDTO } from '../dtos/CreateRoles.dto';
 import { Role } from '../infra/typeorm/entities/Role.entity';
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
 
@@ -9,7 +9,7 @@ export class CreateRoleService {
   constructor(
     @Inject('ROLE_REPOSITORY') private rolesRepository: IPermissionsRepository,
   ) {}
-  async execute({ description, name }: ICreateRolesDTO): Promise<Role> {
+  async execute({ description, name }: CreateRolesDTO): Promise<Role> {
     const roleExist = await this.rolesRepository.findByName(name);
 
     if (roleExist) {

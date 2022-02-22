@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { CreateRolesDTO as ICreateRolesDTO } from '../../dtos/ICreateRoles.dto';
+import { CreatePermissionsDTO } from '../../dtos/CreatePermissions.dto';
 import { Permission } from '../../infra/typeorm/entities/Permission.entity';
 import { IPermissionsRepository } from '../IPermissionsRepository.interface';
 
@@ -19,13 +19,18 @@ export class InMemoryPermissionsRepository implements IPermissionsRepository {
     return this.permissions.find((permission) => permission.name === name);
   }
 
-  async create({ description, name }: ICreateRolesDTO): Promise<Permission> {
+  async create({
+    description,
+    name,
+  }: CreatePermissionsDTO): Promise<Permission> {
     const permission = new Permission();
 
     Object.assign(permission, {
       id: uuidv4(),
       name,
       description,
+      created_at: new Date(),
+      updated_at: new Date(),
     });
 
     this.permissions.push(permission);

@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
-import { ICreatePermissionsDTO } from '../dtos/ICreatePermissions.dto';
+import { CreatePermissionsDTO } from '../dtos/CreatePermissions.dto';
 import { Permission } from '../infra/typeorm/entities/Permission.entity';
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
 
@@ -14,18 +14,18 @@ export class CreatePermissionService {
   async execute({
     description,
     name,
-  }: ICreatePermissionsDTO): Promise<Permission> {
-    const roleExist = await this.permissionRepository.findByName(name);
+  }: CreatePermissionsDTO): Promise<Permission> {
+    const permissionExist = await this.permissionRepository.findByName(name);
 
-    if (roleExist) {
+    if (permissionExist) {
       throw new BadRequestException('Permission already exist');
     }
 
-    const role = await this.permissionRepository.create({
+    const permission = await this.permissionRepository.create({
       description,
       name,
     });
 
-    return role;
+    return permission;
   }
 }

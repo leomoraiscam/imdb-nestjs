@@ -5,7 +5,7 @@ import IUsersRepository from 'src/modules/users/repositories/IUsersRepository.in
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
 import IRolesRepository from '../repositories/IRolesRepository.interface';
 
-interface ICreateAccessControlListToUserService {
+interface ICreateAccessControlListToUserRequest {
   user_id: string;
   roles: string[];
   permissions: string[];
@@ -26,7 +26,7 @@ export class CreateAccessControlListToUserService {
     permissions,
     roles,
     user_id,
-  }: ICreateAccessControlListToUserService): Promise<User> {
+  }: ICreateAccessControlListToUserRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {

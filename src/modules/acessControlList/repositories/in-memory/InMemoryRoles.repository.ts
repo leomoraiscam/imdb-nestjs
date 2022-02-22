@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { CreateRolesDTO as ICreateRolesDTO } from '../../dtos/ICreateRoles.dto';
+import { CreateRolesDTO } from '../../dtos/CreateRoles.dto';
 import { Role } from '../../infra/typeorm/entities/Role.entity';
 import IRolesRepository from '../IRolesRepository.interface';
 
@@ -21,13 +21,15 @@ export class InMemoryRolesRepository implements IRolesRepository {
     return this.roles.find((role) => role.name === name);
   }
 
-  async create({ description, name }: ICreateRolesDTO): Promise<Role> {
+  async create({ description, name }: CreateRolesDTO): Promise<Role> {
     const role = new Role();
 
     Object.assign(role, {
       id: uuidv4(),
       name,
       description,
+      created_at: new Date(),
+      updated_at: new Date(),
     });
 
     this.roles.push(role);

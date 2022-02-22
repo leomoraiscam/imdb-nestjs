@@ -2,7 +2,7 @@ import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemor
 import { InMemoryRolesRepository } from '../repositories/in-memory/InMemoryRoles.repository';
 import { CreateRolePermissionService } from './CreateRolePermission.service';
 
-describe('Crete Roles Permissions', () => {
+describe('Create Roles Permissions', () => {
   let createRolePermissionService: CreateRolePermissionService;
   let inMemoryRolesRepository: InMemoryRolesRepository;
   let inMemoryPermissionsRepository: InMemoryPermissionsRepository;
@@ -20,7 +20,7 @@ describe('Crete Roles Permissions', () => {
   it('should be able to create a permissions to specific role', async () => {
     const role = await inMemoryRolesRepository.create({
       description: 'Role to administrator',
-      name: 'Admin',
+      name: 'admin',
     });
 
     const permission = await inMemoryPermissionsRepository.create({

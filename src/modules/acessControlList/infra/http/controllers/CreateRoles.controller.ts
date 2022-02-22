@@ -9,13 +9,13 @@ import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { CreateRolesDTO as ICreateRolesDTO } from '../../../dtos/ICreateRoles.dto';
+import { CreateRolesDTO } from '../../../dtos/CreateRoles.dto';
 import { CreateRoleService } from '../../../services/CreateRole.service';
 import { Role } from '../../typeorm/entities/Role.entity';
 
 @ApiTags('Access Control List')
 @Controller('roles')
-export class RolesController {
+export class CreateRolesController {
   constructor(private readonly createRoleService: CreateRoleService) {}
 
   @Post()
@@ -32,8 +32,8 @@ export class RolesController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when the email is already in use',
   })
-  async create(@Body() { name, description }: ICreateRolesDTO): Promise<Role> {
-    const roles = this.createRoleService.execute({
+  async handle(@Body() { name, description }: CreateRolesDTO): Promise<Role> {
+    const roles = await this.createRoleService.execute({
       name,
       description,
     });

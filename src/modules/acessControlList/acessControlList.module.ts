@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { User } from '../users/infra/typeorm/entities/User.entity';
 import { UsersRepository } from '../users/infra/typeorm/repositories/Users.repository';
-import { UserAccessControlListController } from './infra/http/controllers/AccessControlList.controller';
-import { PermissionController } from './infra/http/controllers/Permission.controller';
-import { RolesController } from './infra/http/controllers/Role.controller';
-import { RolePermissionController } from './infra/http/controllers/RolePermissions.controller';
+import { CreateUserAccessControlListController } from './infra/http/controllers/CreateAccessControlList.controller';
+import { CreatePermissionController } from './infra/http/controllers/CreatePermissions.controller';
+import { CreateRolesController } from './infra/http/controllers/CreateRoles.controller';
+import { CreateRolePermissionController } from './infra/http/controllers/RolePermissions.controller';
 import { Permission } from './infra/typeorm/entities/Permission.entity';
 import { Role } from './infra/typeorm/entities/Role.entity';
 import { PermissionsRepository } from './infra/typeorm/repositories/Permissions.repository';
@@ -19,10 +19,10 @@ import { CreateRolePermissionService } from './services/CreateRolePermission.ser
 @Module({
   imports: [TypeOrmModule.forFeature([Role, Permission, User])],
   controllers: [
-    RolesController,
-    PermissionController,
-    RolePermissionController,
-    UserAccessControlListController,
+    CreateRolesController,
+    CreatePermissionController,
+    CreateRolePermissionController,
+    CreateUserAccessControlListController,
   ],
   providers: [
     {

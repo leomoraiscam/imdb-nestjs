@@ -3,7 +3,7 @@ import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemor
 import { InMemoryRolesRepository } from '../repositories/in-memory/InMemoryRoles.repository';
 import { CreateAccessControlListToUserService } from './CreateAccessControlListToUser.service';
 
-describe('Crete Roles Permissions', () => {
+describe('Create Access Control List', () => {
   let createAccessControlListToUserService: CreateAccessControlListToUserService;
   let inMemoryUsersRepository: InMemoryUsersRepository;
   let inMemoryRolesRepository: InMemoryRolesRepository;
@@ -31,7 +31,7 @@ describe('Crete Roles Permissions', () => {
 
     const role = await inMemoryRolesRepository.create({
       description: 'Role to administrator',
-      name: 'Admin',
+      name: 'admin',
     });
 
     const permission = await inMemoryPermissionsRepository.create({

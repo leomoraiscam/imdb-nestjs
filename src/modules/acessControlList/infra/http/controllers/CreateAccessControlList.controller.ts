@@ -17,15 +17,12 @@ import { User } from 'src/modules/users/infra/typeorm/entities/User.entity';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
+import { ICreateACLToUser } from '../../../dtos/ICreateAccessControllListToUser.dto';
 import { CreateAccessControlListToUserService } from '../../../services/CreateAccessControlListToUser.service';
-interface ICreateACLToUser {
-  permissions: string[];
-  roles: string[];
-}
 
 @ApiTags('Access Control List')
 @Controller('users/:user_id/acl')
-export class UserAccessControlListController {
+export class CreateUserAccessControlListController {
   constructor(
     private readonly createAccessControlListToUserService: CreateAccessControlListToUserService,
   ) {}
@@ -34,7 +31,7 @@ export class UserAccessControlListController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: null,
-    description: 'This will be returned when the created role',
+    description: 'This will be returned when the created access to user',
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
@@ -43,18 +40,19 @@ export class UserAccessControlListController {
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
     description:
-      'This will be returned when the interest to be deleted does not exist',
+      'This will be returned when the user, role or permission to be deleted does not exist',
   })
-  async handler(
+  async handle(
     @Param('id') user_id: string,
     @Body() { permissions, roles }: ICreateACLToUser,
   ): Promise<User> {
-    const permission = this.createAccessControlListToUserService.execute({
-      user_id,
-      permissions,
-      roles,
-    });
+    const createACLToUsers =
+      await this.createAccessControlListToUserService.execute({
+        user_id,
+        permissions,
+        roles,
+      });
 
-    return classToClass(permission);
+    return classToClass(createACLToUsers);
   }
 }

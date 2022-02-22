@@ -16,16 +16,13 @@ import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
+import { ICreatePermissionRoles } from '../../../dtos/ICreatePermissionRoles.dto';
 import { CreateRolePermissionService } from '../../../services/CreateRolePermission.service';
 import { Permission } from '../../typeorm/entities/Permission.entity';
-interface ICreatePermissionRoles {
-  role_id?: string;
-  permissions?: string[];
-}
 
 @ApiTags('Access Control List')
 @Controller('roles/:id/permissions')
-export class RolePermissionController {
+export class CreateRolePermissionController {
   constructor(
     private readonly createRolePermissionService: CreateRolePermissionService,
   ) {}
@@ -34,7 +31,7 @@ export class RolePermissionController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: null,
-    description: 'This will be returned when the created role',
+    description: 'This will be returned when the created permission role',
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
@@ -43,17 +40,17 @@ export class RolePermissionController {
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
     description:
-      'This will be returned when the interest to be deleted does not exist',
+      'This will be returned when the role or permission to be deleted does not exist',
   })
-  async handler(
+  async handle(
     @Param('id') id: string,
     @Body() { permissions }: ICreatePermissionRoles,
   ): Promise<Permission> {
-    const permission = this.createRolePermissionService.execute({
+    const permissionRoles = await this.createRolePermissionService.execute({
       role_id: id,
       permissions,
     });
 
-    return classToClass(permission);
+    return classToClass(permissionRoles);
   }
 }

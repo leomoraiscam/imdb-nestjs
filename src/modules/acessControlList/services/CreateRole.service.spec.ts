@@ -3,7 +3,7 @@ import { BadRequestException } from '@nestjs/common';
 import { InMemoryRolesRepository } from '../repositories/in-memory/InMemoryRoles.repository';
 import { CreateRoleService } from './CreateRole.service';
 
-describe('Crete Roles', () => {
+describe('Create Roles', () => {
   let createRoleService: CreateRoleService;
   let inMemoryRolesRepository: InMemoryRolesRepository;
   beforeEach(async () => {
@@ -13,7 +13,7 @@ describe('Crete Roles', () => {
 
   it('should be able to create a role', async () => {
     const role = await createRoleService.execute({
-      name: 'Admin',
+      name: 'admin',
       description: 'administration role',
     });
 
@@ -21,14 +21,14 @@ describe('Crete Roles', () => {
   });
 
   it('should not be able to create a role when the same exist', async () => {
-    const role = await inMemoryRolesRepository.create({
-      name: 'Admin',
+    await inMemoryRolesRepository.create({
+      name: 'admin',
       description: 'administration role',
     });
 
     await expect(
       createRoleService.execute({
-        name: role.name,
+        name: 'admin',
         description: 'administration role',
       }),
     ).rejects.toBeInstanceOf(BadRequestException);

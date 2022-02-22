@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IPermissionsRepository } from 'src/modules/acessControlList/repositories/IPermissionsRepository.interface';
 import { Repository } from 'typeorm';
 
-import { ICreatePermissionsDTO } from '../../../dtos/ICreatePermissions.dto';
+import { CreatePermissionsDTO } from '../../../dtos/CreatePermissions.dto';
 import { Permission } from '../entities/Permission.entity';
 
 @Injectable()
@@ -26,11 +26,11 @@ export class PermissionsRepository implements IPermissionsRepository {
   public async create({
     name,
     description,
-  }: ICreatePermissionsDTO): Promise<Permission> {
-    const role = this.repository.create({ name, description });
+  }: CreatePermissionsDTO): Promise<Permission> {
+    const permission = this.repository.create({ name, description });
 
-    await this.repository.save(role);
+    await this.repository.save(permission);
 
-    return role;
+    return permission;
   }
 }

@@ -1,13 +1,9 @@
 import { Inject, NotFoundException } from '@nestjs/common';
 
+import { ICreatePermissionRoles } from '../dtos/ICreatePermissionRoles.dto';
 import { Role } from '../infra/typeorm/entities/Role.entity';
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
 import IRolesRepository from '../repositories/IRolesRepository.interface';
-
-interface ICreatePermissionsRole {
-  role_id: string;
-  permissions: string[];
-}
 
 export class CreateRolePermissionService {
   constructor(
@@ -20,7 +16,7 @@ export class CreateRolePermissionService {
   async execute({
     role_id,
     permissions,
-  }: ICreatePermissionsRole): Promise<Role> {
+  }: ICreatePermissionRoles): Promise<Role> {
     const role = await this.rolesRepository.findById(role_id);
 
     if (!role) {

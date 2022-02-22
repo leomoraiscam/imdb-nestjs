@@ -9,13 +9,13 @@ import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { ICreatePermissionsDTO } from '../../../dtos/ICreatePermissions.dto';
+import { CreatePermissionsDTO } from '../../../dtos/CreatePermissions.dto';
 import { CreatePermissionService } from '../../../services/CreatePermission.service';
 import { Permission } from '../../typeorm/entities/Permission.entity';
 
 @ApiTags('Access Control List')
 @Controller('permissions')
-export class PermissionController {
+export class CreatePermissionController {
   constructor(
     private readonly createPermissionService: CreatePermissionService,
   ) {}
@@ -24,7 +24,7 @@ export class PermissionController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: Permission,
-    description: 'This will be returned when the created role',
+    description: 'This will be returned when the created permission',
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
@@ -32,16 +32,17 @@ export class PermissionController {
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when the email is already in use',
+    description:
+      'This will be returned when the name of permission is already in use',
   })
-  async create(
-    @Body() { name, description }: ICreatePermissionsDTO,
+  async handle(
+    @Body() { name, description }: CreatePermissionsDTO,
   ): Promise<Permission> {
-    const permission = this.createPermissionService.execute({
+    const permissions = this.createPermissionService.execute({
       name,
       description,
     });
 
-    return classToClass(permission);
+    return classToClass(permissions);
   }
 }

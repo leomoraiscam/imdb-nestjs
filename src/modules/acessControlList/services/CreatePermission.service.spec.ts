@@ -3,7 +3,7 @@ import { BadRequestException } from '@nestjs/common';
 import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemoryPermissions.repository';
 import { CreatePermissionService } from './CreatePermission.service';
 
-describe('Crete Permissions', () => {
+describe('Create Permissions', () => {
   let createPermissionService: CreatePermissionService;
   let inMemoryPermissionsRepository: InMemoryPermissionsRepository;
 

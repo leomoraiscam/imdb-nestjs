@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CreateRolesDTO as ICreateRolesDTO } from '../../../dtos/ICreateRoles.dto';
+import { CreateRolesDTO } from '../../../dtos/CreateRoles.dto';
 import IRolesRepository from '../../../repositories/IRolesRepository.interface';
 import { Role } from '../entities/Role.entity';
 
@@ -27,7 +27,7 @@ export class RolesRepository implements IRolesRepository {
     });
   }
 
-  public async create({ name, description }: ICreateRolesDTO): Promise<Role> {
+  public async create({ name, description }: CreateRolesDTO): Promise<Role> {
     const role = this.repository.create({ name, description });
 
     await this.repository.save(role);
