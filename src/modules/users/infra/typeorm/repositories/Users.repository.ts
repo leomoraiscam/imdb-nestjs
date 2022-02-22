@@ -21,6 +21,14 @@ export class UsersRepository implements IUsersRepository {
     return this.repository.findOne({ where: { email } });
   }
 
+  public async findRolesUserById(id: string): Promise<User | undefined> {
+    const user = await this.repository.findOne(id, {
+      relations: ['roles'],
+    });
+
+    return user;
+  }
+
   public async create({ name, email, password }: CreateUserDTO): Promise<User> {
     const user = this.repository.create({ email, password, name });
 

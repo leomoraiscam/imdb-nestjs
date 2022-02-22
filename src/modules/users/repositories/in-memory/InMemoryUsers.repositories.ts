@@ -7,6 +7,10 @@ import IUsersRepository from '../IUsersRepository.interface';
 export class InMemoryUsersRepository implements IUsersRepository {
   private users: User[] = [];
 
+  public async findRolesUserById(id: string): Promise<User | undefined> {
+    return this.users.find((user) => user.id === id);
+  }
+
   public async findById(id: string): Promise<User | undefined> {
     return this.users.find((user) => user.id === id);
   }
