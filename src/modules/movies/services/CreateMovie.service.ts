@@ -1,6 +1,6 @@
 import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
 
-import { ICreateMovieRequestDTO } from '../dtos/ICreateMovieRequest.dto';
+import { CreateMovieRequestDTO } from '../dtos/CreateMovieRequest.dto';
 import { Movie } from '../infra/typeorm/entities/Movie.entity';
 import { IGenresRepository } from '../repositories/IGenresRepository.interface';
 import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
@@ -20,7 +20,7 @@ export class CreateMovieService {
     duration,
     year,
     genre_ids,
-  }: ICreateMovieRequestDTO): Promise<Movie> {
+  }: CreateMovieRequestDTO): Promise<Movie> {
     const uniqueGenresIds = [...new Set(genre_ids)];
 
     const searchGenres = await this.genresRepository.findByIds(genre_ids);

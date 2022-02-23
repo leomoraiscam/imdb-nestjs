@@ -8,7 +8,7 @@ import {
 import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 
-import { IOptionsList } from '../../../dtos/IOptionsToListMovie.dto';
+import { OptionsList } from '../../../dtos/IOptionsToListMovie.dto';
 import { ListMoviesServices } from '../../../services/ListMovies.service';
 import { Movie } from '../../typeorm/entities/Movie.entity';
 
@@ -23,7 +23,7 @@ export class ListMoviesController {
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
     description:
-      'This will be returned when the interest to be deleted does not exist',
+      'This will be returned when the movies to be deleted does not exist',
   })
   @ApiUnprocessableEntityResponse({
     type: ExceptionErrorDTO,
@@ -31,7 +31,7 @@ export class ListMoviesController {
       'This will be returned when some fields did not came the way we needed',
   })
   public async handle(
-    @Query() { name, author, genre_id, take, skip, page }: IOptionsList,
+    @Query() { name, author, genre_id, take, skip, page }: OptionsList,
   ) {
     const movies = await this.listMoviesServices.execute({
       name,

@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 
-import { IOptionsList } from '../dtos/IOptionsToListMovie.dto';
+import { OptionsList } from '../dtos/IOptionsToListMovie.dto';
 import { ISerializedResponse } from '../dtos/ISerializedMovies.dto';
 import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
 
@@ -17,7 +17,7 @@ export class ListMoviesServices {
     page,
     skip,
     take,
-  }: IOptionsList): Promise<ISerializedResponse[]> {
+  }: OptionsList): Promise<ISerializedResponse[]> {
     const movies = await this.movieRepository.list({
       name,
       author,

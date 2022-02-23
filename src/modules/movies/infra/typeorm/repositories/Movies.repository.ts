@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { ICreateMovieDTO } from '../../../dtos/ICreateMovie.dto';
-import { IOptionsList } from '../../../dtos/IOptionsToListMovie.dto';
+import { OptionsList } from '../../../dtos/IOptionsToListMovie.dto';
 import { IMoviesRepository } from '../../../repositories/IMoviesRepository.interface';
 import { Movie } from '../entities/Movie.entity';
 
@@ -32,7 +32,7 @@ export class MoviesRepository implements IMoviesRepository {
     genre_id,
     take,
     page,
-  }: IOptionsList): Promise<Movie[]> {
+  }: OptionsList): Promise<Movie[]> {
     const moviesQuery = await this.repository
       .createQueryBuilder('m')
       .leftJoinAndSelect('m.genres', 'movies_genres')

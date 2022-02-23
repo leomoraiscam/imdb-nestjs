@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { GenresController } from './infra/http/controllers/Genre.controller';
+import { CreateGenresController } from './infra/http/controllers/CreateGenres.controller';
+import { CreateMoviesController } from './infra/http/controllers/CreateMovies.controller';
 import { ListMoviesController } from './infra/http/controllers/ListMovies.controller';
-import { MoviesController } from './infra/http/controllers/Movie.controller';
 import { ShowMoviesController } from './infra/http/controllers/ShowMovies.controller';
 import { Genre } from './infra/typeorm/entities/Genre.entity';
 import { Movie } from './infra/typeorm/entities/Movie.entity';
@@ -17,8 +17,8 @@ import { ShowMoviesServices } from './services/ShowMovies.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Movie, Genre])],
   controllers: [
-    GenresController,
-    MoviesController,
+    CreateGenresController,
+    CreateMoviesController,
     ListMoviesController,
     ShowMoviesController,
   ],

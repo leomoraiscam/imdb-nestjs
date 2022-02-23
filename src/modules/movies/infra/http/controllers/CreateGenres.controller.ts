@@ -9,13 +9,13 @@ import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { ICreateGenreDTO } from '../../../dtos/ICreateGenre.dto';
+import { CreateGenreDTO } from '../../../dtos/CreateGenre.dto';
 import { CreateGenreService } from '../../../services/CreateGenre.service';
 import { Genre } from '../../typeorm/entities/Genre.entity';
 
 @ApiTags('Genres')
 @Controller('genres')
-export class GenresController {
+export class CreateGenresController {
   constructor(private createGenreService: CreateGenreService) {}
 
   @Post()
@@ -30,17 +30,17 @@ export class GenresController {
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when the email is already in use',
+    description: 'This will be returned when the name is already in use',
   })
-  async create(
+  async handle(
     @Body()
-    { name, description }: ICreateGenreDTO,
+    { name, description }: CreateGenreDTO,
   ): Promise<Genre> {
-    const genre = this.createGenreService.execute({
+    const genres = await this.createGenreService.execute({
       name,
       description,
     });
 
-    return classToClass(genre);
+    return classToClass(genres);
   }
 }

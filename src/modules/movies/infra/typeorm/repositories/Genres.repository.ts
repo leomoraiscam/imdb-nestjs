@@ -1,7 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { ICreateGenreDTO } from '../../../dtos/ICreateGenre.dto';
+import { CreateGenreDTO } from '../../../dtos/CreateGenre.dto';
 import { IGenresRepository } from '../../../repositories/IGenresRepository.interface';
 import { Genre } from '../../typeorm/entities/Genre.entity';
 
@@ -13,6 +13,7 @@ export class GenresRepository implements IGenresRepository {
 
   async findByIds(ids: string[]): Promise<Genre[]> {
     const allGenres = this.repository.findByIds(ids);
+
     return allGenres;
   }
 
@@ -24,7 +25,7 @@ export class GenresRepository implements IGenresRepository {
     });
   }
 
-  async create({ name, description }: ICreateGenreDTO): Promise<Genre> {
+  async create({ name, description }: CreateGenreDTO): Promise<Genre> {
     const genre = this.repository.create({
       name,
       description,

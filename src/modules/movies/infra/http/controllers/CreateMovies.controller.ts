@@ -20,13 +20,13 @@ import { RolesGuard } from 'src/shared/guards/Roles.guard';
 import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
 
 import { RoleEnum } from '../../../../../shared/utils/role.enum';
-import { ICreateMovieRequestDTO } from '../../../dtos/ICreateMovieRequest.dto';
+import { CreateMovieRequestDTO } from '../../../dtos/CreateMovieRequest.dto';
 import { CreateMovieService } from '../../../services/CreateMovie.service';
 import { Movie } from '../../typeorm/entities/Movie.entity';
 
 @ApiTags('Movies')
 @Controller('movies')
-export class MoviesController {
+export class CreateMoviesController {
   constructor(private createMovieService: CreateMovieService) {}
 
   @Post()
@@ -41,11 +41,11 @@ export class MoviesController {
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when the email is already in use',
+    description: 'This will be returned when the name is already in use',
   })
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  async create(
+  async handle(
     @Body()
     {
       author,
@@ -54,9 +54,9 @@ export class MoviesController {
       genre_ids,
       name,
       year,
-    }: ICreateMovieRequestDTO,
+    }: CreateMovieRequestDTO,
   ): Promise<Movie> {
-    const movie = await this.createMovieService.execute({
+    const movies = await this.createMovieService.execute({
       author,
       description,
       duration,
@@ -65,6 +65,6 @@ export class MoviesController {
       year,
     });
 
-    return classToClass(movie);
+    return classToClass(movies);
   }
 }

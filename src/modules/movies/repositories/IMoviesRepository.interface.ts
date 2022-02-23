@@ -1,5 +1,5 @@
 import { ICreateMovieDTO } from '../dtos/ICreateMovie.dto';
-import { IOptionsList } from '../dtos/IOptionsToListMovie.dto';
+import { OptionsList } from '../dtos/IOptionsToListMovie.dto';
 import { Movie } from '../infra/typeorm/entities/Movie.entity';
 
 export interface IMoviesRepository {
@@ -12,6 +12,6 @@ export interface IMoviesRepository {
     page,
     skip,
     take,
-  }: IOptionsList): Promise<Movie[]>;
+  }: OptionsList): Promise<Movie[]>;
   create(data: ICreateMovieDTO): Promise<Movie>;
 }

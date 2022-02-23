@@ -13,12 +13,12 @@ describe('Create Genres', () => {
   });
 
   it('should be able to create a genre', async () => {
-    const role = await createGenreService.execute({
+    const genre = await createGenreService.execute({
       name: 'action',
       description: 'action genre',
     });
 
-    expect(role).toHaveProperty('id');
+    expect(genre).toHaveProperty('id');
   });
 
   it('should not be able to create a role when the same exist', async () => {

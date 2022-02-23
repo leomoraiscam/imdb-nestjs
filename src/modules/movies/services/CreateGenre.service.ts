@@ -1,6 +1,6 @@
 import { ConflictException, Inject } from '@nestjs/common';
 
-import { ICreateGenreDTO } from '../dtos/ICreateGenre.dto';
+import { CreateGenreDTO } from '../dtos/CreateGenre.dto';
 import { Genre } from '../infra/typeorm/entities/Genre.entity';
 import { IGenresRepository } from '../repositories/IGenresRepository.interface';
 
@@ -10,7 +10,7 @@ export class CreateGenreService {
     private genresRepository: IGenresRepository,
   ) {}
 
-  async execute({ name, description }: ICreateGenreDTO): Promise<Genre> {
+  async execute({ name, description }: CreateGenreDTO): Promise<Genre> {
     const genreExist = await this.genresRepository.findByName(name);
 
     if (genreExist) {

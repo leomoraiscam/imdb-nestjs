@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { ICreateGenreDTO } from '../../dtos/ICreateGenre.dto';
+import { CreateGenreDTO } from '../../dtos/CreateGenre.dto';
 import { Genre } from '../../infra/typeorm/entities/Genre.entity';
 import { IGenresRepository } from '../IGenresRepository.interface';
 
@@ -17,7 +17,7 @@ export class InMemoryGenresRepository implements IGenresRepository {
     return this.genres.find((genre) => genre.name === name);
   }
 
-  async create({ name, description }: ICreateGenreDTO): Promise<Genre> {
+  async create({ name, description }: CreateGenreDTO): Promise<Genre> {
     const genre = new Genre();
 
     Object.assign(genre, {
