@@ -15,7 +15,7 @@ import { User } from '../../typeorm/entities/User.entity';
 
 @ApiTags('Users')
 @Controller('users')
-export class UsersController {
+export class CreateUsersController {
   constructor(private createUserService: CreateUserService) {}
 
   @Post()
@@ -32,10 +32,10 @@ export class UsersController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when the email is already in use',
   })
-  async create(
+  async handle(
     @Body() { password, name, email }: CreateUserDTO,
   ): Promise<User> {
-    const user = this.createUserService.execute({
+    const user = await this.createUserService.execute({
       password,
       name,
       email,

@@ -23,7 +23,7 @@ import { User } from '../../typeorm/entities/User.entity';
 
 @ApiTags('Sessions')
 @Controller('sessions')
-export class SessionController {
+export class AuthenticatedUserController {
   constructor(
     private readonly authenticateUserService: AuthenticateUserService,
   ) {}
@@ -49,10 +49,10 @@ export class SessionController {
       'This will be returned when the user to be deleted does not exist',
   })
   @UseGuards(LocalAuthGuard)
-  public async create(@Request() req: any) {
+  public async handle(@Request() req: any) {
     const user = req.user as User;
 
-    const authenticateUser = this.authenticateUserService.execute(user);
+    const authenticateUser = await this.authenticateUserService.execute(user);
 
     return classToClass(authenticateUser);
   }

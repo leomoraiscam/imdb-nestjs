@@ -3,16 +3,16 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { jwt } from '../../config/auth';
-import { ProfileController } from './infra/http/controllers/Profile.controller';
-import { SessionController } from './infra/http/controllers/Session.controller';
-import { UsersController } from './infra/http/controllers/User.controller';
+import { AuthenticatedUserController } from './infra/http/controllers/AuthenticatedUser.controller';
+import { CreateUsersController } from './infra/http/controllers/CreateUser.controller';
+import { ProfileUserController } from './infra/http/controllers/ProfileUser.controller';
 import { User } from './infra/typeorm/entities/User.entity';
 import { UsersRepository } from './infra/typeorm/repositories/Users.repository';
 import { AuthProviderModule } from './providers/AuthProvider/authProvider.module';
 import { HashProviderModule } from './providers/HashProvider/hashProvider.module';
 import { AuthenticateUserService } from './services/AuthenticateUser.service';
 import { CreateUserService } from './services/CreateUser.service';
-import { ShowProfileService } from './services/ShowProfile.service';
+import { ShowProfileUserService } from './services/ShowProfileUser.service';
 import { UpdateUserService } from './services/UpdateUser.service';
 
 @Module({
@@ -25,14 +25,18 @@ import { UpdateUserService } from './services/UpdateUser.service';
       signOptions: { expiresIn: jwt.expiresIn },
     }),
   ],
-  controllers: [UsersController, ProfileController, SessionController],
+  controllers: [
+    CreateUsersController,
+    ProfileUserController,
+    AuthenticatedUserController,
+  ],
   providers: [
     {
       provide: 'USER_REPOSITORY',
       useClass: UsersRepository,
     },
     CreateUserService,
-    ShowProfileService,
+    ShowProfileUserService,
     UpdateUserService,
     AuthenticateUserService,
   ],

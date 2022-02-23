@@ -16,14 +16,14 @@ import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 
 import { AuthenticatedUser } from '../../../../../shared/decorators/authenticatedUser.decorator';
 import { JwtAuthGuard } from '../../../../../shared/infra/http/guards/jwtAuth.guard';
-import { ShowProfileService } from '../../../services/ShowProfile.service';
+import { ShowProfileUserService } from '../../../services/ShowProfileUser.service';
 import { User } from '../../typeorm/entities/User.entity';
 
 @ApiTags('Users')
 @Controller('profile')
-export class ProfileController {
+export class ProfileUserController {
   constructor(
-    private readonly showProfileService: ShowProfileService,
+    private readonly showProfileService: ShowProfileUserService,
     private readonly updateUserService: UpdateUserService,
   ) {}
 
@@ -33,7 +33,7 @@ export class ProfileController {
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
     description:
-      'This will be returned when the interest to be deleted does not exist',
+      'This will be returned when the user to be deleted does not exist',
   })
   @UseGuards(JwtAuthGuard)
   public async findOne(@AuthenticatedUser('id') id: string): Promise<User> {
@@ -48,7 +48,7 @@ export class ProfileController {
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
     description:
-      'This will be returned when the interest to be deleted does not exist',
+      'This will be returned when the user to be deleted does not exist',
   })
   public async update(
     @Request() req: any,

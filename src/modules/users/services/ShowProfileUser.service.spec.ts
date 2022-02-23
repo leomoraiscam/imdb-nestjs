@@ -4,10 +4,10 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { UsersRepository } from '../infra/typeorm/repositories/Users.repository';
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
-import { ShowProfileService } from './ShowProfile.service';
+import { ShowProfileUserService } from './ShowProfileUser.service';
 
 describe('ShowProfileService', () => {
-  let service: ShowProfileService;
+  let service: ShowProfileUserService;
   let fakeUserRepository: InMemoryUsersRepository;
 
   beforeEach(async () => {
@@ -15,7 +15,7 @@ describe('ShowProfileService', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ShowProfileService,
+        ShowProfileUserService,
         {
           provide: getRepositoryToken(UsersRepository),
           useValue: fakeUserRepository,
@@ -23,7 +23,7 @@ describe('ShowProfileService', () => {
       ],
     }).compile();
 
-    service = module.get<ShowProfileService>(ShowProfileService);
+    service = module.get<ShowProfileUserService>(ShowProfileUserService);
   });
 
   it('should be defined', () => {
