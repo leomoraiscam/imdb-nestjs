@@ -3,14 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Movie } from '../movies/infra/typeorm/entities/Movie.entity';
 import { MoviesRepository } from '../movies/infra/typeorm/repositories/Movies.repository';
-import { VoteController } from './infra/http/controllers/Vote.controller';
+import { CreateVoteController } from './infra/http/controllers/CreateVote.controller';
 import { Vote } from './infra/typeorm/entities/Vote.entity';
 import { VotesRepository } from './infra/typeorm/repositories/Votes.repository';
 import { CreateVotesToMoviesService } from './services/CreateVotesToMovies.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Vote, Movie])],
-  controllers: [VoteController],
+  controllers: [CreateVoteController],
   providers: [
     {
       provide: 'MOVIE_REPOSITORY',

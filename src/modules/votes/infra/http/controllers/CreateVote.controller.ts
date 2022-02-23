@@ -22,13 +22,13 @@ import { RolesGuard } from 'src/shared/guards/Roles.guard';
 import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
 import { RoleEnum } from 'src/shared/utils/role.enum';
 
-import { ICreateVoteRequestDTO } from '../../../dtos/ICreateVoteRequest';
+import { CreateVoteRequestDTO } from '../../../dtos/CreateVoteRequest';
 import { CreateVotesToMoviesService } from '../../../services/CreateVotesToMovies.service';
 import { Vote } from '../../typeorm/entities/Vote.entity';
 
 @ApiTags('Vote')
 @Controller('movies/:movie_id/vote')
-export class VoteController {
+export class CreateVoteController {
   constructor(
     private readonly createVotesToMoviesService: CreateVotesToMoviesService,
   ) {}
@@ -37,7 +37,7 @@ export class VoteController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: null,
-    description: 'This will be returned when the created role',
+    description: 'This will be returned when the created vote',
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
@@ -46,14 +46,14 @@ export class VoteController {
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
     description:
-      'This will be returned when the interest to be deleted does not exist',
+      'This will be returned when the movie to be deleted does not exist',
   })
   @HasRoles(RoleEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  async handler(
+  async handle(
     @AuthenticatedUser('id') id: string,
     @Param('movie_id') movie_id: string,
-    @Body() { note }: ICreateVoteRequestDTO,
+    @Body() { note }: CreateVoteRequestDTO,
   ): Promise<Vote> {
     const vote = await this.createVotesToMoviesService.execute({
       movie_id,
