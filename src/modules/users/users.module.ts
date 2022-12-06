@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+// import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -16,6 +17,7 @@ import { AuthenticateUserService } from './services/AuthenticateUser.service';
 import { CreateUserService } from './services/CreateUser.service';
 import { ShowProfileUserService } from './services/ShowProfileUser.service';
 import { UpdateUserService } from './services/UpdateUser.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -42,6 +44,7 @@ import { UpdateUserService } from './services/UpdateUser.service';
       provide: 'HASH_PROVIDER',
       useClass: BCryptHashProvider,
     },
+    JwtStrategy,
     CreateUserService,
     ShowProfileUserService,
     UpdateUserService,
