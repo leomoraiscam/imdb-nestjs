@@ -1,11 +1,4 @@
-import {
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiTags,
   ApiUnprocessableEntityResponse,
@@ -16,10 +9,14 @@ import {
 import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
-import { LocalAuthGuard } from 'src/shared/infra/http/guards/localAuth.guard';
 
 import { AuthenticateUserService } from '../../../services/AuthenticateUser.service';
 import { User } from '../../typeorm/entities/User.entity';
+
+interface IUser {
+  email: string;
+  password: string;
+}
 
 @ApiTags('Sessions')
 @Controller('sessions')
@@ -48,11 +45,11 @@ export class AuthenticatedUserController {
     description:
       'This will be returned when the user to be deleted does not exist',
   })
-  @UseGuards(LocalAuthGuard)
-  public async handle(@Request() req: any) {
-    const user = req.user as User;
-
-    const authenticateUser = await this.authenticateUserService.execute(user);
+  public async handle(@Body() { email, password }: IUser) {
+    const authenticateUser = await this.authenticateUserService.execute({
+      email,
+      password,
+    });
 
     return classToClass(authenticateUser);
   }
