@@ -1,8 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 
-import { UsersRepository } from '../infra/typeorm/repositories/Users.repository';
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { ShowProfileUserService } from './ShowProfileUser.service';
 
@@ -11,19 +9,17 @@ describe('ShowProfileService', () => {
   let fakeUserRepository: InMemoryUsersRepository;
 
   beforeEach(async () => {
-    fakeUserRepository = new InMemoryUsersRepository();
-
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         ShowProfileUserService,
-        {
-          provide: getRepositoryToken(UsersRepository),
-          useValue: fakeUserRepository,
-        },
+        { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
       ],
     }).compile();
 
-    service = module.get<ShowProfileUserService>(ShowProfileUserService);
+    fakeUserRepository =
+      moduleRef.get<InMemoryUsersRepository>('USER_REPOSITORY');
+
+    service = moduleRef.get<ShowProfileUserService>(ShowProfileUserService);
   });
 
   it('should be defined', () => {
@@ -38,14 +34,14 @@ describe('ShowProfileService', () => {
         password: '123456',
       });
 
-      const findUser = await service.execute({ userId: user.id });
+      const findUser = await service.execute({ user_id: user.id });
 
       expect(findUser).toEqual(user);
     });
 
     it('should return an error if user dont exists', async () => {
       await expect(
-        service.execute({ userId: 'non-existing-user' }),
+        service.execute({ user_id: 'non-existing-user' }),
       ).rejects.toBeInstanceOf(NotFoundException);
     });
   });
