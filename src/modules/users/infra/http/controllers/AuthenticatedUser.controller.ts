@@ -1,22 +1,18 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiTags,
-  ApiUnprocessableEntityResponse,
   ApiBadRequestResponse,
   ApiNotFoundResponse,
   ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
+import { AuthenticateUserResponseDTO } from 'src/modules/users/dtos/AuthenticateUserResponse.dto';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
 import { AuthenticateUserService } from '../../../services/AuthenticateUser.service';
-import { User } from '../../typeorm/entities/User.entity';
-
-interface IUser {
-  email: string;
-  password: string;
-}
+import { AuthenticateUserRequestDTO } from './../../../dtos/AuthenticateUserRequest.dto';
 
 @ApiTags('Sessions')
 @Controller('sessions')
@@ -28,13 +24,8 @@ export class AuthenticatedUserController {
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiCreatedResponse({
-    type: User,
+    type: AuthenticateUserResponseDTO,
     description: 'This will be returned when the created session',
-  })
-  @ApiUnprocessableEntityResponse({
-    type: ExceptionErrorDTO,
-    description:
-      'This will be returned when some fields did not came the way we needed',
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
@@ -45,7 +36,11 @@ export class AuthenticatedUserController {
     description:
       'This will be returned when the user to be deleted does not exist',
   })
-  public async handle(@Body() { email, password }: IUser) {
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: 'This will be returned when an unexpected error occurs',
+  })
+  public async handle(@Body() { email, password }: AuthenticateUserRequestDTO) {
     const authenticateUser = await this.authenticateUserService.execute({
       email,
       password,
