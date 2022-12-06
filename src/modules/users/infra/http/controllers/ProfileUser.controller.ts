@@ -37,7 +37,7 @@ export class ProfileUserController {
   })
   @UseGuards(JwtAuthGuard)
   public async findOne(@AuthenticatedUser('id') id: string): Promise<User> {
-    const user = await this.showProfileService.execute({ userId: id });
+    const user = await this.showProfileService.execute({ user_id: id });
 
     return classToClass(user);
   }
