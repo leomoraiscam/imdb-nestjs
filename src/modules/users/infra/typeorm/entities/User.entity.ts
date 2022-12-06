@@ -16,15 +16,21 @@ import { Role } from '../../../../acessControlList/infra/typeorm/entities/Role.e
 
 @Entity('users')
 export class User {
-  @ApiProperty()
+  @ApiProperty({
+    example: 'cc1b9ff1-6956-4db1-9500-9fbd9b37635d',
+  })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'John Doe',
+  })
   @Column()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'john@email.com',
+  })
   @Column()
   email: string;
 
