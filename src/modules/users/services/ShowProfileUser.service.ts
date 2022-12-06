@@ -4,7 +4,7 @@ import { User } from '../infra/typeorm/entities/User.entity';
 import IUsersRepository from '../repositories/IUsersRepository.interface';
 
 interface IRequest {
-  userId: string;
+  user_id: string;
 }
 
 @Injectable()
@@ -14,8 +14,8 @@ export class ShowProfileUserService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({ userId }: IRequest): Promise<User> {
-    const user = await this.usersRepository.findById(userId);
+  public async execute({ user_id }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new NotFoundException('User not found');
