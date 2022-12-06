@@ -5,7 +5,7 @@ import {
   HttpStatus,
   Put,
   Body,
-  Param,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -21,6 +21,7 @@ import { UpdateUserDTO } from 'src/modules/users/dtos/UpdateUser.dto';
 import { UpdateUserService } from 'src/modules/users/services/UpdateUser.service';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
+import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
 
 import { User } from '../../typeorm/entities/User.entity';
 
@@ -29,7 +30,7 @@ import { User } from '../../typeorm/entities/User.entity';
 export class UpdateProfileUserController {
   constructor(private readonly updateUserService: UpdateUserService) {}
 
-  @Put(':id')
+  @Put()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: User })
   @ApiBadRequestResponse({
@@ -54,8 +55,8 @@ export class UpdateProfileUserController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
+  @UseGuards(JwtAuthGuard)
   public async update(
-    @Param('id') id: string,
     @Request() req: any,
     @Body() updateUserDTO: UpdateUserDTO,
   ): Promise<User> {
