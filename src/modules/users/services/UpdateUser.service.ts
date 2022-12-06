@@ -1,16 +1,23 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { UpdateUserDTO } from '../dtos/UpdateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
-import { BCryptHashProvider } from '../providers/HashProvider/implementations/BCryptHash.provider';
+import { IHashProvider } from '../providers/HashProvider/models/IHashProvider.interface';
 import IUsersRepository from '../repositories/IUsersRepository.interface';
 
 @Injectable()
 export class UpdateUserService {
   constructor(
+    @Inject('HASH_PROVIDER')
+    private readonly hashProvider: IHashProvider,
     @Inject('USER_REPOSITORY')
     private usersRepository: IUsersRepository,
-    private readonly hashProvider: BCryptHashProvider,
   ) {}
 
   public async execute({
@@ -23,13 +30,13 @@ export class UpdateUserService {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) {
-      throw new BadRequestException('User not found');
+      throw new NotFoundException('User not found');
     }
 
     const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
 
     if (userWithUpdatedEmail && userWithUpdatedEmail.id !== userId) {
-      throw new BadRequestException('Email already in use');
+      throw new ConflictException('Email already in use');
     }
 
     Object.assign(user, { name, email });
