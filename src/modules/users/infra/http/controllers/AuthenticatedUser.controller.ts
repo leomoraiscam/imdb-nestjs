@@ -1,10 +1,9 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiTags,
-  ApiBadRequestResponse,
-  ApiNotFoundResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
 import { AuthenticateUserResponseDTO } from 'src/modules/users/dtos/AuthenticateUserResponse.dto';
@@ -22,19 +21,15 @@ export class AuthenticatedUserController {
   ) {}
 
   @Post()
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: AuthenticateUserResponseDTO,
     description: 'This will be returned when the created session',
   })
-  @ApiBadRequestResponse({
+  @ApiUnauthorizedResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
-  })
-  @ApiNotFoundResponse({
-    type: ExceptionErrorDTO,
     description:
-      'This will be returned when the user to be deleted does not exist',
+      'This will be return when client doesnt provide Authorization Cookie',
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
