@@ -45,7 +45,7 @@ export class ShowProfileUserController {
   })
   @UseGuards(JwtAuthGuard)
   public async handle(@AuthenticatedUser('id') id: string): Promise<User> {
-    const user = await this.showProfileService.execute({ user_id: id });
+    const user = await this.showProfileService.execute(id);
 
     return classToClass(user);
   }

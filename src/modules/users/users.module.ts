@@ -11,13 +11,13 @@ import { UpdateProfileUserController } from './infra/http/controllers/UpdateProf
 import { User } from './infra/typeorm/entities/User.entity';
 import { UsersRepository } from './infra/typeorm/repositories/Users.repository';
 import { AuthProviderModule } from './providers/authProvider/authProvider.module';
+import { JwtStrategy } from './providers/authProvider/implementations/JwtStrategy.provider';
 import { HashProviderModule } from './providers/hashProvider/hashProvider.module';
 import { BCryptHashProvider } from './providers/hashProvider/implementations/BCryptHash.provider';
 import { AuthenticateUserService } from './services/AuthenticateUser.service';
 import { CreateUserService } from './services/CreateUser.service';
 import { ShowProfileUserService } from './services/ShowProfileUser.service';
 import { UpdateUserService } from './services/UpdateUser.service';
-import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
