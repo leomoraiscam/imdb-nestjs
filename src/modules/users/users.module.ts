@@ -10,9 +10,9 @@ import { ShowProfileUserController } from './infra/http/controllers/ShowProfileU
 import { UpdateProfileUserController } from './infra/http/controllers/UpdateProfileUser.controller';
 import { User } from './infra/typeorm/entities/User.entity';
 import { UsersRepository } from './infra/typeorm/repositories/Users.repository';
-import { AuthProviderModule } from './providers/AuthProvider/authProvider.module';
-import { HashProviderModule } from './providers/HashProvider/hashProvider.module';
-import { BCryptHashProvider } from './providers/HashProvider/implementations/BCryptHash.provider';
+import { AuthProviderModule } from './providers/authProvider/authProvider.module';
+import { HashProviderModule } from './providers/hashProvider/hashProvider.module';
+import { BCryptHashProvider } from './providers/hashProvider/implementations/BCryptHash.provider';
 import { AuthenticateUserService } from './services/AuthenticateUser.service';
 import { CreateUserService } from './services/CreateUser.service';
 import { ShowProfileUserService } from './services/ShowProfileUser.service';

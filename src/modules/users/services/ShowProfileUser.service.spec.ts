@@ -34,15 +34,15 @@ describe('ShowProfileService', () => {
         password: '123456',
       });
 
-      const findUser = await service.execute({ user_id: user.id });
+      const findUser = await service.execute(user.id);
 
       expect(findUser).toEqual(user);
     });
 
     it('should return an error if user dont exists', async () => {
-      await expect(
-        service.execute({ user_id: 'non-existing-user' }),
-      ).rejects.toBeInstanceOf(NotFoundException);
+      await expect(service.execute('non-existing-user')).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
     });
   });
 });

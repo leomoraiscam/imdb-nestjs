@@ -3,13 +3,9 @@ import { JwtService } from '@nestjs/jwt';
 import { sign } from 'jsonwebtoken';
 
 import { jwt } from '../../../config/auth';
-import { IHashProvider } from '../providers/HashProvider/models/IHashProvider.interface';
+import { AuthenticateUserRequestDTO } from '../dtos/AuthenticateUserRequest.dto';
+import { IHashProvider } from '../providers/hashProvider/models/IHashProvider.interface';
 import IUsersRepository from '../repositories/IUsersRepository.interface';
-
-interface IUser {
-  email: string;
-  password: string;
-}
 
 @Injectable()
 export class AuthenticateUserService {
@@ -21,7 +17,7 @@ export class AuthenticateUserService {
     private readonly usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({ email, password }: IUser) {
+  public async execute({ email, password }: AuthenticateUserRequestDTO) {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {

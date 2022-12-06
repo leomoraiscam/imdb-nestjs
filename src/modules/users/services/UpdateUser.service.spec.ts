@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
-import FakeHashProvider from '../providers/HashProvider/in-memory/InMemoryHash.provider';
+import FakeHashProvider from '../providers/hashProvider/in-memory/InMemoryHash.provider';
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { UpdateUserService } from './UpdateUser.service';
 

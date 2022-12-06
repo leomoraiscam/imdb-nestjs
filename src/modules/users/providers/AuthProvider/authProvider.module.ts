@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { User } from '../../infra/typeorm/entities/User.entity';
 import { UsersRepository } from '../../infra/typeorm/repositories/Users.repository';
-import { HashProviderModule } from '../HashProvider/hashProvider.module';
+import { HashProviderModule } from '../hashProvider/hashProvider.module';
 import { JwtStrategy } from './implementations/JwtStrategy.provider';
 import { LocalStrategy } from './implementations/LocalStrategy.provider';
 

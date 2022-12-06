@@ -8,7 +8,7 @@ import {
 
 import { UpdateUserDTO } from '../dtos/UpdateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
-import { IHashProvider } from '../providers/HashProvider/models/IHashProvider.interface';
+import { IHashProvider } from '../providers/hashProvider/models/IHashProvider.interface';
 import IUsersRepository from '../repositories/IUsersRepository.interface';
 
 @Injectable()
@@ -21,13 +21,13 @@ export class UpdateUserService {
   ) {}
 
   public async execute({
-    userId,
+    user_id,
     name,
     email,
     password,
-    oldPassword,
+    old_password,
   }: UpdateUserDTO): Promise<User> {
-    const user = await this.usersRepository.findById(userId);
+    const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new NotFoundException('User not found');
@@ -35,15 +35,15 @@ export class UpdateUserService {
 
     const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
 
-    if (userWithUpdatedEmail && userWithUpdatedEmail.id !== userId) {
+    if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user_id) {
       throw new ConflictException('Email already in use');
     }
 
     Object.assign(user, { name, email });
 
-    if (password && oldPassword) {
+    if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(
-        oldPassword,
+        old_password,
         user.password,
       );
 

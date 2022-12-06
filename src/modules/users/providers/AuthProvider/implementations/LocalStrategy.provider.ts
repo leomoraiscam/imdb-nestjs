@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import IUsersRepository from 'src/modules/users/repositories/IUsersRepository.interface';
 
-import { BCryptHashProvider } from '../../HashProvider/implementations/BCryptHash.provider';
+import { BCryptHashProvider } from '../../hashProvider/implementations/BCryptHash.provider';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

@@ -60,12 +60,12 @@ export class UpdateProfileUserController {
     @Request() req: any,
     @Body() updateUserDTO: UpdateUserDTO,
   ): Promise<User> {
-    const userId = req.user.id;
-    const { email, name, password, oldPassword } = updateUserDTO;
+    const user_id = req.user.id;
+    const { email, name, password, old_password } = updateUserDTO;
 
     const user = await this.updateUserService.execute({
-      userId,
-      oldPassword,
+      user_id,
+      old_password,
       password,
       name,
       email,
