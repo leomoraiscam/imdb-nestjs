@@ -1,3 +1,8 @@
+import { AuthenticateUserRequestDTO } from '@/modules/users/dtos/AuthenticateUserRequest.dto';
+import { AuthenticateUserResponseDTO } from '@/modules/users/dtos/AuthenticateUserResponse.dto';
+import { AuthenticateUserService } from '@/modules/users/services/AuthenticateUser.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiTags,
@@ -6,12 +11,6 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
-import { AuthenticateUserResponseDTO } from 'src/modules/users/dtos/AuthenticateUserResponse.dto';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
-
-import { AuthenticateUserService } from '../../../services/AuthenticateUser.service';
-import { AuthenticateUserRequestDTO } from './../../../dtos/AuthenticateUserRequest.dto';
 
 @ApiTags('Sessions')
 @Controller('sessions')

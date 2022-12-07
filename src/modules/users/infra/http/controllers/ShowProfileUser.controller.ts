@@ -1,3 +1,8 @@
+import { ShowProfileUserService } from '@/modules/users/services/ShowProfileUser.service';
+import { AuthenticatedUser } from '@/shared/decorators/authenticatedUser.decorator';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
+import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
 import {
   Controller,
   Get,
@@ -13,12 +18,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { AuthenticatedUser } from '../../../../../shared/decorators/authenticatedUser.decorator';
-import { JwtAuthGuard } from '../../../../../shared/infra/http/guards/jwtAuth.guard';
-import { ShowProfileUserService } from '../../../services/ShowProfileUser.service';
 import { User } from '../../typeorm/entities/User.entity';
 
 @ApiTags('Users')

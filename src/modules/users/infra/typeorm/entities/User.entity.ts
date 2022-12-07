@@ -1,3 +1,5 @@
+import { Permission } from '@/modules/acessControlList/infra/typeorm/entities/Permission.entity';
+import { Role } from '@/modules/acessControlList/infra/typeorm/entities/Role.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import {
@@ -10,9 +12,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
-import { Permission } from '../../../../acessControlList/infra/typeorm/entities/Permission.entity';
-import { Role } from '../../../../acessControlList/infra/typeorm/entities/Role.entity';
 
 @Entity('users')
 export class User {

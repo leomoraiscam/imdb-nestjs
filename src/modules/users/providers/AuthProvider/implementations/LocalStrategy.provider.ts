@@ -1,7 +1,7 @@
+import IUsersRepository from '@/modules/users/repositories/IUsersRepository.interface';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import IUsersRepository from 'src/modules/users/repositories/IUsersRepository.interface';
 
 import { BCryptHashProvider } from '../../hashProvider/implementations/BCryptHash.provider';
 

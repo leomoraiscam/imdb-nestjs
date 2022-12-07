@@ -1,9 +1,9 @@
+import { CreateUserDTO } from '@/modules/users/dtos/CreateUser.dto';
+import IUsersRepository from '@/modules/users/repositories/IUsersRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import IUsersRepository from 'src/modules/users/repositories/IUsersRepository.interface';
 import { Repository } from 'typeorm';
 
-import { CreateUserDTO } from '../../../dtos/CreateUser.dto';
 import { User } from '../entities/User.entity';
 
 @Injectable()

@@ -1,3 +1,7 @@
+import { CreateUserDTO } from '@/modules/users/dtos/CreateUser.dto';
+import { CreateUserService } from '@/modules/users/services/CreateUser.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiTags,
@@ -7,11 +11,7 @@ import {
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { CreateUserDTO } from '../../../dtos/CreateUser.dto';
-import { CreateUserService } from '../../../services/CreateUser.service';
 import { User } from '../../typeorm/entities/User.entity';
 
 @ApiTags('Users')

@@ -1,8 +1,8 @@
+import { jwt } from '@/config/auth';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { sign } from 'jsonwebtoken';
 
-import { jwt } from '../../../config/auth';
 import { AuthenticateUserRequestDTO } from '../dtos/AuthenticateUserRequest.dto';
 import { IHashProvider } from '../providers/hashProvider/models/IHashProvider.interface';
 import IUsersRepository from '../repositories/IUsersRepository.interface';

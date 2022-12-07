@@ -1,3 +1,8 @@
+import { UpdateUserDTO } from '@/modules/users/dtos/UpdateUser.dto';
+import { UpdateUserService } from '@/modules/users/services/UpdateUser.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
+import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
 import {
   Controller,
   Request,
@@ -17,11 +22,6 @@ import {
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
-import { UpdateUserDTO } from 'src/modules/users/dtos/UpdateUser.dto';
-import { UpdateUserService } from 'src/modules/users/services/UpdateUser.service';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
-import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
 
 import { User } from '../../typeorm/entities/User.entity';
 
