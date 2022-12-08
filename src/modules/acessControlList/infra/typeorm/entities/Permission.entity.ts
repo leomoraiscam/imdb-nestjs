@@ -9,15 +9,21 @@ import {
 
 @Entity('permissions')
 export class Permission {
-  @ApiProperty()
+  @ApiProperty({
+    example: '5a8ace8d-3181-4ee7-8603-2e8801238dbb',
+  })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'create',
+  })
   @Column()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'this permission to create data',
+  })
   @Column()
   description: string;
 

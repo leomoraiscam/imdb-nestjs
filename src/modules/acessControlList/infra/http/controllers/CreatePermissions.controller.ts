@@ -4,8 +4,8 @@ import {
   ApiCreatedResponse,
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
@@ -35,14 +35,16 @@ export class CreatePermissionController {
     description:
       'This will be returned when the name of permission is already in use',
   })
-  async handle(
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: 'This will be returned when an unexpected error occurs',
+  })
+  handle(
     @Body() { name, description }: CreatePermissionsDTO,
   ): Promise<Permission> {
-    const permissions = this.createPermissionService.execute({
+    return this.createPermissionService.execute({
       name,
       description,
     });
-
-    return classToClass(permissions);
   }
 }
