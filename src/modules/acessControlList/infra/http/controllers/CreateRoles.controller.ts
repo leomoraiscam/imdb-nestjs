@@ -4,8 +4,8 @@ import {
   ApiCreatedResponse,
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
@@ -32,12 +32,14 @@ export class CreateRolesController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when the email is already in use',
   })
-  async handle(@Body() { name, description }: CreateRolesDTO): Promise<Role> {
-    const roles = await this.createRoleService.execute({
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: 'This will be returned when an unexpected error occurs',
+  })
+  handle(@Body() { name, description }: CreateRolesDTO): Promise<Role> {
+    return this.createRoleService.execute({
       name,
       description,
     });
-
-    return classToClass(roles);
   }
 }

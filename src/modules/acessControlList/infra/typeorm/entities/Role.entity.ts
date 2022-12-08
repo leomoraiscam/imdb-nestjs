@@ -13,15 +13,21 @@ import { Permission } from './Permission.entity';
 
 @Entity('roles')
 export class Role {
-  @ApiProperty()
+  @ApiProperty({
+    example: '1e131dd6-3945-460f-a417-fd2b0e90fac4',
+  })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'admin',
+  })
   @Column()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'this role is the administrator',
+  })
   @Column()
   description: string;
 
