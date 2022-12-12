@@ -11,13 +11,15 @@ import {
   ApiCreatedResponse,
   ApiBadRequestResponse,
   ApiNotFoundResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
+import { plainToClass } from 'class-transformer';
 import { User } from 'src/modules/users/infra/typeorm/entities/User.entity';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { ICreateACLToUser } from '../../../dtos/ICreateAccessControllListToUser.dto';
+import { ICreateACLToUserRequestDTO } from '../../../dtos/ICreateAccessControllListToUserRequest.dto';
+import { ICreateACLToUserResponseDTO } from '../../../dtos/ICreateAccessControllListToUserResponse.dto';
 import { CreateAccessControlListToUserService } from '../../../services/CreateAccessControlListToUser.service';
 
 @ApiTags('Access Control List')
@@ -30,7 +32,7 @@ export class CreateUserAccessControlListController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
-    type: null,
+    type: ICreateACLToUserResponseDTO,
     description: 'This will be returned when the created access to user',
   })
   @ApiBadRequestResponse({
@@ -42,9 +44,13 @@ export class CreateUserAccessControlListController {
     description:
       'This will be returned when the user, role or permission to be deleted does not exist',
   })
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: 'This will be returned when an unexpected error occurs',
+  })
   async handle(
     @Param('id') user_id: string,
-    @Body() { permissions, roles }: ICreateACLToUser,
+    @Body() { permissions, roles }: ICreateACLToUserRequestDTO,
   ): Promise<User> {
     const createACLToUsers =
       await this.createAccessControlListToUserService.execute({
@@ -53,6 +59,6 @@ export class CreateUserAccessControlListController {
         roles,
       });
 
-    return classToClass(createACLToUsers);
+    return plainToClass(User, createACLToUsers);
   }
 }

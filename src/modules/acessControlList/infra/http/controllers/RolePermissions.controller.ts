@@ -1,3 +1,4 @@
+import { CreatePermissionRolesResponseDTO } from '@/modules/acessControlList/dtos/CreatePermissionRolesResponse.dto';
 import {
   Body,
   Controller,
@@ -11,12 +12,12 @@ import {
   ApiCreatedResponse,
   ApiBadRequestResponse,
   ApiNotFoundResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { ICreatePermissionRoles } from '../../../dtos/ICreatePermissionRoles.dto';
+import { CreatePermissionRolesRequestDTO } from '../../../dtos/CreatePermissionRolesRequest.dto';
 import { CreateRolePermissionService } from '../../../services/CreateRolePermission.service';
 import { Permission } from '../../typeorm/entities/Permission.entity';
 
@@ -30,7 +31,7 @@ export class CreateRolePermissionController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
-    type: null,
+    type: CreatePermissionRolesResponseDTO,
     description: 'This will be returned when the created permission role',
   })
   @ApiBadRequestResponse({
@@ -42,15 +43,17 @@ export class CreateRolePermissionController {
     description:
       'This will be returned when the role or permission to be deleted does not exist',
   })
-  async handle(
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: 'This will be returned when an unexpected error occurs',
+  })
+  handle(
     @Param('id') id: string,
-    @Body() { permissions }: ICreatePermissionRoles,
+    @Body() { permissions }: CreatePermissionRolesRequestDTO,
   ): Promise<Permission> {
-    const permissionRoles = await this.createRolePermissionService.execute({
+    return this.createRolePermissionService.execute({
       role_id: id,
       permissions,
     });
-
-    return classToClass(permissionRoles);
   }
 }

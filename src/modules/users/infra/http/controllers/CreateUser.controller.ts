@@ -10,7 +10,7 @@ import {
   ApiConflictResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
+import { classToPlain } from 'class-transformer';
 
 import { User } from '../../typeorm/entities/User.entity';
 
@@ -37,15 +37,13 @@ export class CreateUsersController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
-  async handle(
-    @Body() { password, name, email }: CreateUserDTO,
-  ): Promise<User> {
+  async handle(@Body() { password, name, email }: CreateUserDTO) {
     const user = await this.createUserService.execute({
       password,
       name,
       email,
     });
 
-    return classToClass(user);
+    return classToPlain(user);
   }
 }
