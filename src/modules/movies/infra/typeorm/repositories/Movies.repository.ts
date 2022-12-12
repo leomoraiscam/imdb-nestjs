@@ -1,10 +1,10 @@
+import { ICreateMovieDTO } from '@/modules/movies/dtos/ICreateMovie.dto';
+import { OptionsList } from '@/modules/movies/dtos/IOptionsToListMovie.dto';
+import { IMoviesRepository } from '@/modules/movies/repositories/IMoviesRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { ICreateMovieDTO } from '../../../dtos/ICreateMovie.dto';
-import { OptionsList } from '../../../dtos/IOptionsToListMovie.dto';
-import { IMoviesRepository } from '../../../repositories/IMoviesRepository.interface';
 import { Movie } from '../entities/Movie.entity';
 
 @Injectable()
