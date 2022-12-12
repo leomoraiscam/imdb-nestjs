@@ -9,15 +9,21 @@ import {
 
 @Entity('genres')
 export class Genre {
-  @ApiProperty()
+  @ApiProperty({
+    example: '37b75d18-d4cf-499a-9129-b71f2c4abc76',
+  })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'aventura',
+  })
   @Column()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'this all movies of adventure',
+  })
   @Column()
   description: string;
 

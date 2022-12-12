@@ -11,8 +11,9 @@ import {
   ApiCreatedResponse,
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
 import { HasRoles } from 'src/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
@@ -39,9 +40,18 @@ export class CreateMoviesController {
     type: ValidationErrorDTO,
     description: 'This will be returned when has validation error',
   })
+  @ApiUnauthorizedResponse({
+    type: ValidationErrorDTO,
+    description:
+      'This will be return when client doesnt provide Authorization Cookie',
+  })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
     description: 'This will be returned when the name is already in use',
+  })
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: 'This will be returned when an unexpected error occurs',
   })
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -56,7 +66,7 @@ export class CreateMoviesController {
       year,
     }: CreateMovieRequestDTO,
   ): Promise<Movie> {
-    const movies = await this.createMovieService.execute({
+    return this.createMovieService.execute({
       author,
       description,
       duration,
@@ -64,7 +74,5 @@ export class CreateMoviesController {
       name,
       year,
     });
-
-    return classToClass(movies);
   }
 }

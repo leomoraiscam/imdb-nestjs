@@ -1,9 +1,8 @@
 import { Controller, HttpCode, HttpStatus, Get, Query } from '@nestjs/common';
 import {
-  ApiNotFoundResponse,
+  ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiTags,
-  ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
@@ -20,15 +19,9 @@ export class ListMoviesController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: Movie })
-  @ApiNotFoundResponse({
+  @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description:
-      'This will be returned when the movies to be deleted does not exist',
-  })
-  @ApiUnprocessableEntityResponse({
-    type: ExceptionErrorDTO,
-    description:
-      'This will be returned when some fields did not came the way we needed',
+    description: 'This will be returned when an unexpected error occurs',
   })
   public async handle(
     @Query() { name, author, genre_id, take, skip, page }: OptionsList,

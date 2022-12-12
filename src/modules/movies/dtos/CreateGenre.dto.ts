@@ -2,12 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateGenreDTO {
-  @ApiProperty()
+  @ApiProperty({
+    example: 'adventure',
+  })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'this all movies of adventure',
+  })
   @IsString()
   @IsNotEmpty()
   description: string;

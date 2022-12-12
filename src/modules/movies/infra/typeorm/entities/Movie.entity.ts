@@ -15,27 +15,39 @@ import { Genre } from './Genre.entity';
 
 @Entity('movies')
 export class Movie {
-  @ApiProperty()
+  @ApiProperty({
+    example: '935a220e-a653-4856-80ba-990a71aa069d',
+  })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'Transformers',
+  })
   @Column()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'The robots movie',
+  })
   @Column()
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'John Doe',
+  })
   @Column()
   author: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 2018,
+  })
   @Column()
   year: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: '1h:20',
+  })
   @Column()
   duration: string;
 

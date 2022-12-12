@@ -4,8 +4,9 @@ import {
   ApiCreatedResponse,
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiUnauthorizedResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
@@ -28,19 +29,26 @@ export class CreateGenresController {
     type: ValidationErrorDTO,
     description: 'This will be returned when has validation error',
   })
+  @ApiUnauthorizedResponse({
+    type: ValidationErrorDTO,
+    description:
+      'This will be return when client doesnt provide Authorization Cookie',
+  })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
     description: 'This will be returned when the name is already in use',
+  })
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: 'This will be returned when an unexpected error occurs',
   })
   async handle(
     @Body()
     { name, description }: CreateGenreDTO,
   ): Promise<Genre> {
-    const genres = await this.createGenreService.execute({
+    return this.createGenreService.execute({
       name,
       description,
     });
-
-    return classToClass(genres);
   }
 }
