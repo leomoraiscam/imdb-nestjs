@@ -28,6 +28,9 @@ export class ListMoviesController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: Movie })
+  @ApiNoContentResponse({
+    description: 'This will be returned when the receive empty list',
+  })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
