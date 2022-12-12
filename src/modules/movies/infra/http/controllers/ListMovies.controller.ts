@@ -1,9 +1,18 @@
 import { OptionsList } from '@/modules/movies/dtos/IOptionsToListMovie.dto';
 import { ListMoviesServices } from '@/modules/movies/services/ListMovies.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
-import { Controller, HttpCode, HttpStatus, Get, Query } from '@nestjs/common';
+import { CheckEmptyListInterceptor } from '@/shared/interceptors/checkEmptyList.interceptor';
+import {
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Get,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import {
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -23,6 +32,7 @@ export class ListMoviesController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
+  @UseInterceptors(new CheckEmptyListInterceptor())
   public async handle(
     @Query() { name, author, genre_id, take, skip, page }: OptionsList,
   ) {
