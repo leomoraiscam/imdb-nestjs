@@ -1,5 +1,5 @@
+import { Vote } from '@/modules/votes/infra/typeorm/entities/Vote.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { Vote } from 'src/modules/votes/infra/typeorm/entities/Vote.entity';
 import {
   Column,
   CreateDateColumn,

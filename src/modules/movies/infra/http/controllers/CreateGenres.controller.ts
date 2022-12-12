@@ -1,3 +1,7 @@
+import { CreateGenreDTO } from '@/modules/movies/dtos/CreateGenre.dto';
+import { CreateGenreService } from '@/modules/movies/services/CreateGenre.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiTags,
@@ -7,11 +11,7 @@ import {
   ApiUnauthorizedResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { CreateGenreDTO } from '../../../dtos/CreateGenre.dto';
-import { CreateGenreService } from '../../../services/CreateGenre.service';
 import { Genre } from '../../typeorm/entities/Genre.entity';
 
 @ApiTags('Genres')

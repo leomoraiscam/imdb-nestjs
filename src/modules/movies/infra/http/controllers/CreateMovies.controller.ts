@@ -1,3 +1,11 @@
+import { CreateMovieRequestDTO } from '@/modules/movies/dtos/CreateMovieRequest.dto';
+import { CreateMovieService } from '@/modules/movies/services/CreateMovie.service';
+import { HasRoles } from '@/shared/decorators/roles.decorator';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
+import { RolesGuard } from '@/shared/guards/Roles.guard';
+import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
+import { RoleEnum } from '@/shared/utils/role.enum';
 import {
   Body,
   Controller,
@@ -14,15 +22,7 @@ import {
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { HasRoles } from 'src/shared/decorators/roles.decorator';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
-import { RolesGuard } from 'src/shared/guards/Roles.guard';
-import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
 
-import { RoleEnum } from '../../../../../shared/utils/role.enum';
-import { CreateMovieRequestDTO } from '../../../dtos/CreateMovieRequest.dto';
-import { CreateMovieService } from '../../../services/CreateMovie.service';
 import { Movie } from '../../typeorm/entities/Movie.entity';
 
 @ApiTags('Movies')

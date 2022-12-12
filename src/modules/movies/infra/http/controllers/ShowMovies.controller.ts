@@ -1,3 +1,5 @@
+import { ShowMoviesServices } from '@/modules/movies/services/ShowMovies.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { Controller, HttpCode, HttpStatus, Get, Param } from '@nestjs/common';
 import {
   ApiInternalServerErrorResponse,
@@ -6,9 +8,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 
-import { ShowMoviesServices } from '../../../services/ShowMovies.service';
 import { Movie } from '../../typeorm/entities/Movie.entity';
 
 @ApiTags('Movies')

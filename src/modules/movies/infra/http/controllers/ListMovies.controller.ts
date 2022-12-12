@@ -1,3 +1,6 @@
+import { OptionsList } from '@/modules/movies/dtos/IOptionsToListMovie.dto';
+import { ListMoviesServices } from '@/modules/movies/services/ListMovies.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { Controller, HttpCode, HttpStatus, Get, Query } from '@nestjs/common';
 import {
   ApiInternalServerErrorResponse,
@@ -5,10 +8,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 
-import { OptionsList } from '../../../dtos/IOptionsToListMovie.dto';
-import { ListMoviesServices } from '../../../services/ListMovies.service';
 import { Movie } from '../../typeorm/entities/Movie.entity';
 
 @ApiTags('Movies')
