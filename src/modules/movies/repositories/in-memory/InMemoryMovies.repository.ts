@@ -1,7 +1,9 @@
+import { OptionsList } from '@/modules/movies/dtos/IOptionsToListMovie.dto';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ICreateMovieDTO } from '../../dtos/ICreateMovie.dto';
 import { Movie } from '../../infra/typeorm/entities/Movie.entity';
+import { paginate } from '../../utils/paginateArrayInMemory';
 import { IMoviesRepository } from '../IMoviesRepository.interface';
 
 export class InMemoryMoviesRepository implements IMoviesRepository {
@@ -15,8 +17,22 @@ export class InMemoryMoviesRepository implements IMoviesRepository {
     return this.movies.find((movie) => movie.name === name);
   }
 
-  async list(): Promise<Movie[]> {
-    return this.movies;
+  async list({ take, skip }: OptionsList): Promise<Movie[]> {
+    let data = [];
+
+    take = take || 1;
+    skip = skip || 10;
+
+    const auxVar = this.movies;
+
+    data = auxVar.map((term) => {
+      const json = Object.assign({}, term);
+      return json;
+    });
+
+    data = paginate(data, skip, take);
+
+    return data;
   }
 
   async create({

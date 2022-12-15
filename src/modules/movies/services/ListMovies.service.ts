@@ -28,10 +28,10 @@ export class ListMoviesServices {
       take: Number(take),
     });
 
-    const serializedMovies = movies.map((movie) => {
+    const serializedMovies = movies?.map((movie) => {
       let averageValue = null;
 
-      const notes = movie.votes.map((vote) => vote.note);
+      const notes = movie?.votes.map((vote) => vote.note);
 
       if (notes.length) {
         averageValue = notes?.reduce((prev, acc) => prev + acc / notes.length);
