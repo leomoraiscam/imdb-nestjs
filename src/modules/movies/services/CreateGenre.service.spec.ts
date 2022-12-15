@@ -21,7 +21,7 @@ describe('Create Genres', () => {
     expect(genre).toHaveProperty('id');
   });
 
-  it('should not be able to create a role when the same exist', async () => {
+  it('should not be able to create a genre when the same exist', async () => {
     const genre = await inMemoryGenresRepository.create({
       name: 'adventure',
       description: 'adventure genre',
