@@ -10,7 +10,7 @@ export class ShowMoviesServices {
   ) {}
 
   async execute(id: string): Promise<Movie> {
-    const movie = this.movieRepository.findById(id);
+    const movie = await this.movieRepository.findById(id);
 
     if (!movie) {
       throw new NotFoundException('movie not found');
