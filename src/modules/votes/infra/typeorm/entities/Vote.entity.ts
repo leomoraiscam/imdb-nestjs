@@ -1,6 +1,6 @@
+import { Movie } from '@/modules/movies/infra/typeorm/entities/Movie.entity';
+import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { Movie } from 'src/modules/movies/infra/typeorm/entities/Movie.entity';
-import { User } from 'src/modules/users/infra/typeorm/entities/User.entity';
 import {
   Column,
   CreateDateColumn,
