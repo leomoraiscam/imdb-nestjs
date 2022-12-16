@@ -2,7 +2,7 @@ import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { CreateUserDTO } from '../dtos/CreateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
-import { IHashProvider } from '../providers/hashProvider/models/IHashProvider.interface';
+import { IHashProvider } from '../providers/hashProvider/models/HashProvider.interface';
 import { IUsersRepository } from '../repositories/UsersRepository.interface';
 
 @Injectable()
