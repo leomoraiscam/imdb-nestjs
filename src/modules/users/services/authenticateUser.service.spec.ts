@@ -2,14 +2,14 @@ import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 
-import FakeHashProvider from '../providers/hashProvider/in-memory/InMemoryHash.provider';
+import { InMemoryHashProvider } from '../providers/hashProvider/in-memory/InMemoryHash.provider';
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { AuthenticateUserService } from './AuthenticateUser.service';
 
-describe('Authenticate User Service', () => {
-  let authenticateUserService: AuthenticateUserService;
-  let inMemoryUserRepository: InMemoryUsersRepository;
+let authenticateUserService: AuthenticateUserService;
+let inMemoryUserRepository: InMemoryUsersRepository;
 
+describe('AuthenticateUserService', () => {
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
@@ -22,7 +22,7 @@ describe('Authenticate User Service', () => {
           },
         },
         { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
-        { provide: 'HASH_PROVIDER', useClass: FakeHashProvider },
+        { provide: 'HASH_PROVIDER', useClass: InMemoryHashProvider },
       ],
     }).compile();
 

@@ -5,20 +5,20 @@ import {
 } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
-import FakeHashProvider from '../providers/hashProvider/in-memory/InMemoryHash.provider';
+import { InMemoryHashProvider } from '../providers/hashProvider/in-memory/InMemoryHash.provider';
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { UpdateUserService } from './UpdateUser.service';
 
-describe('Update User Service', () => {
-  let updateUserService: UpdateUserService;
-  let inMemoryUserRepository: InMemoryUsersRepository;
+let updateUserService: UpdateUserService;
+let inMemoryUserRepository: InMemoryUsersRepository;
 
+describe('UpdateUserService', () => {
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         UpdateUserService,
         { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
-        { provide: 'HASH_PROVIDER', useClass: FakeHashProvider },
+        { provide: 'HASH_PROVIDER', useClass: InMemoryHashProvider },
       ],
     }).compile();
 

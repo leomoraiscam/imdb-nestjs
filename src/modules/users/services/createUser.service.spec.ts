@@ -1,20 +1,20 @@
 import { ConflictException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
-import FakeHashProvider from '../providers/hashProvider/in-memory/InMemoryHash.provider';
+import { InMemoryHashProvider } from '../providers/hashProvider/in-memory/InMemoryHash.provider';
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { CreateUserService } from './CreateUser.service';
 
-describe('Create User Service', () => {
-  let createUserService: CreateUserService;
-  let inMemoryUserRepository: InMemoryUsersRepository;
+let createUserService: CreateUserService;
+let inMemoryUserRepository: InMemoryUsersRepository;
 
+describe('CreateUserService', () => {
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         CreateUserService,
         { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
-        { provide: 'HASH_PROVIDER', useClass: FakeHashProvider },
+        { provide: 'HASH_PROVIDER', useClass: InMemoryHashProvider },
       ],
     }).compile();
 

@@ -4,10 +4,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { ShowProfileUserService } from './ShowProfileUser.service';
 
-describe('ShowProfileService', () => {
-  let service: ShowProfileUserService;
-  let fakeUserRepository: InMemoryUsersRepository;
+let showProfileUserService: ShowProfileUserService;
+let inMemoryUserRepository: InMemoryUsersRepository;
 
+describe('ShowProfileService', () => {
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
@@ -16,33 +16,31 @@ describe('ShowProfileService', () => {
       ],
     }).compile();
 
-    fakeUserRepository =
+    inMemoryUserRepository =
       moduleRef.get<InMemoryUsersRepository>('USER_REPOSITORY');
 
-    service = moduleRef.get<ShowProfileUserService>(ShowProfileUserService);
-  });
-
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+    showProfileUserService = moduleRef.get<ShowProfileUserService>(
+      ShowProfileUserService,
+    );
   });
 
   describe('execute', () => {
     it('should return an user from database', async () => {
-      const user = await fakeUserRepository.create({
+      const user = await inMemoryUserRepository.create({
         email: 'teste@teste.com',
         name: 'teste',
         password: '123456',
       });
 
-      const findUser = await service.execute(user.id);
+      const findUser = await showProfileUserService.execute(user.id);
 
       expect(findUser).toEqual(user);
     });
 
     it('should return an error if user dont exists', async () => {
-      await expect(service.execute('non-existing-user')).rejects.toBeInstanceOf(
-        NotFoundException,
-      );
+      await expect(
+        showProfileUserService.execute('non-existing-user'),
+      ).rejects.toBeInstanceOf(NotFoundException);
     });
   });
 });
