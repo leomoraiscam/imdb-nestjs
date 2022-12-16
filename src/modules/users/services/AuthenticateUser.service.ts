@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { sign } from 'jsonwebtoken';
 
 import { AuthenticateUserRequestDTO } from '../dtos/AuthenticateUserRequest.dto';
+import { AuthenticateUserResponseDTO } from '../dtos/AuthenticateUserResponse.dto';
 import { IHashProvider } from '../providers/hashProvider/models/IHashProvider.interface';
 import IUsersRepository from '../repositories/IUsersRepository.interface';
 
@@ -17,7 +18,10 @@ export class AuthenticateUserService {
     private readonly usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({ email, password }: AuthenticateUserRequestDTO) {
+  public async execute({
+    email,
+    password,
+  }: AuthenticateUserRequestDTO): Promise<AuthenticateUserResponseDTO> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
