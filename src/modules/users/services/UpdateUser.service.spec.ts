@@ -36,10 +36,10 @@ describe('Update User Service', () => {
     });
 
     const userUpdated = await updateUserService.execute({
-      userId: user.id,
+      user_id: user.id,
       email: user.email,
       name: 'John Doe Two',
-      oldPassword: user.password,
+      old_password: user.password,
     });
 
     expect(userUpdated.email).toEqual('jonh@email.com');
@@ -49,10 +49,10 @@ describe('Update User Service', () => {
   it('should not be able update an user when the same does not exist', async () => {
     await expect(
       updateUserService.execute({
-        userId: 'invalid-user',
+        user_id: 'invalid-user',
         email: 'jonhdoe@email.cm',
         name: 'John Doe Two',
-        oldPassword: 'test@123',
+        old_password: 'test@123',
       }),
     ).rejects.toBeInstanceOf(NotFoundException);
   });
@@ -72,10 +72,10 @@ describe('Update User Service', () => {
 
     await expect(
       updateUserService.execute({
-        userId: secondUser.id,
+        user_id: secondUser.id,
         email: firstUser.email,
         name: secondUser.name,
-        oldPassword: secondUser.password,
+        old_password: secondUser.password,
       }),
     ).rejects.toBeInstanceOf(ConflictException);
   });
@@ -88,10 +88,10 @@ describe('Update User Service', () => {
     });
 
     const updatedUser = await updateUserService.execute({
-      userId: firstUser.id,
+      user_id: firstUser.id,
       email: firstUser.email,
       name: firstUser.name,
-      oldPassword: firstUser.password,
+      old_password: firstUser.password,
       password: 'Test@1234',
     });
 
@@ -107,11 +107,11 @@ describe('Update User Service', () => {
 
     await expect(
       updateUserService.execute({
-        userId: user.id,
+        user_id: user.id,
         name: 'Joe Smith',
         email: 'joe@example.com',
         password: '123123',
-        oldPassword: 'wrong-old-password',
+        old_password: 'wrong-old-password',
       }),
     ).rejects.toBeInstanceOf(BadRequestException);
   });
@@ -125,11 +125,11 @@ describe('Update User Service', () => {
 
     await expect(
       updateUserService.execute({
-        userId: user.id,
+        user_id: user.id,
         name: 'Joe Smith',
         email: 'joe@example.com',
         password: '123123',
-        oldPassword: '123123',
+        old_password: '123123',
       }),
     ).rejects.toBeInstanceOf(BadRequestException);
   });
