@@ -1,7 +1,7 @@
 import { CreateUserDTO } from '../dtos/CreateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
 
-export default interface IUsersRepository {
+export interface IUsersRepository {
   findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
   findRolesUserById(id: string): Promise<User | undefined>;

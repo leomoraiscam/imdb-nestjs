@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 import { CreateUserDTO } from '../../dtos/CreateUser.dto';
 import { User } from '../../infra/typeorm/entities/User.entity';
-import IUsersRepository from '../IUsersRepository.interface';
+import { IUsersRepository } from '../UsersRepository.interface';
 
 export class InMemoryUsersRepository implements IUsersRepository {
   private users: User[] = [];

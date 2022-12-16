@@ -5,7 +5,7 @@ import { sign } from 'jsonwebtoken';
 import { AuthenticateUserRequestDTO } from '../dtos/AuthenticateUserRequest.dto';
 import { AuthenticateUserResponseDTO } from '../dtos/AuthenticateUserResponse.dto';
 import { IHashProvider } from '../providers/hashProvider/models/IHashProvider.interface';
-import IUsersRepository from '../repositories/IUsersRepository.interface';
+import { IUsersRepository } from '../repositories/UsersRepository.interface';
 
 @Injectable()
 export class AuthenticateUserService {

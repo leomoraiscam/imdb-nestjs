@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from 'src/modules/users/infra/typeorm/entities/User.entity';
-import IUsersRepository from 'src/modules/users/repositories/IUsersRepository.interface';
+import { IUsersRepository } from 'src/modules/users/repositories/UsersRepository.interface';
 
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
 import IRolesRepository from '../repositories/IRolesRepository.interface';

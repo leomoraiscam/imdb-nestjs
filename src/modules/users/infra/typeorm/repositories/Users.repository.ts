@@ -1,5 +1,5 @@
 import { CreateUserDTO } from '@/modules/users/dtos/CreateUser.dto';
-import IUsersRepository from '@/modules/users/repositories/IUsersRepository.interface';
+import { IUsersRepository } from '@/modules/users/repositories/UsersRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

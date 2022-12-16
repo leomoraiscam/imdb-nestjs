@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { User } from '../infra/typeorm/entities/User.entity';
-import IUsersRepository from '../repositories/IUsersRepository.interface';
+import { IUsersRepository } from '../repositories/UsersRepository.interface';
 
 @Injectable()
 export class ShowProfileUserService {
