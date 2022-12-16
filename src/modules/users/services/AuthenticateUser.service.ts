@@ -40,8 +40,6 @@ export class AuthenticateUserService {
       expiresIn: jwt.expiresIn,
     });
 
-    delete user.password;
-
-    return { ...user, token };
+    return { user, token };
   }
 }
