@@ -10,7 +10,7 @@ import {
   ApiConflictResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { classToPlain } from 'class-transformer';
+import { classToClass } from 'class-transformer';
 
 import { User } from '../../typeorm/entities/User.entity';
 
@@ -44,6 +44,6 @@ export class CreateUsersController {
       email,
     });
 
-    return classToPlain(user);
+    return classToClass(user);
   }
 }

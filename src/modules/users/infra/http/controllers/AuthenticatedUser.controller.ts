@@ -9,6 +9,7 @@ import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
+  ApiBadRequestResponse,
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
 
@@ -25,10 +26,13 @@ export class AuthenticatedUserController {
     type: AuthenticateUserResponseDTO,
     description: 'This will be returned when the created session',
   })
+  @ApiBadRequestResponse({
+    type: ValidationErrorDTO,
+    description: 'This will be returned when has validation error',
+  })
   @ApiUnauthorizedResponse({
     type: ValidationErrorDTO,
-    description:
-      'This will be return when client doesnt provide Authorization Cookie',
+    description: 'This will be return when email or password wrong',
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,

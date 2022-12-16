@@ -32,7 +32,10 @@ export class UpdateProfileUserController {
 
   @Put()
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: User })
+  @ApiOkResponse({
+    type: User,
+    description: 'This will be returned when user updated',
+  })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
     description: 'This will be returned when has validation error',
@@ -45,7 +48,7 @@ export class UpdateProfileUserController {
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
     description:
-      'This will be returned when the user to be deleted does not exist',
+      'This will be returned when the user to be deleted or does not exist',
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,

@@ -28,16 +28,20 @@ export class ShowProfileUserController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: User })
-  @ApiNotFoundResponse({
-    type: ExceptionErrorDTO,
+  @ApiOkResponse({
+    type: User,
     description:
-      'This will be returned when the user to be deleted does not exist',
+      'This will be returned when the user was found and the same return data',
   })
   @ApiUnauthorizedResponse({
     type: ValidationErrorDTO,
     description:
       'This will be return when client doesnt provide Authorization Cookie',
+  })
+  @ApiNotFoundResponse({
+    type: ExceptionErrorDTO,
+    description:
+      'This will be returned when the user to be deleted or does not exist',
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
