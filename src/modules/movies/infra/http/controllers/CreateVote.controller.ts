@@ -27,7 +27,7 @@ import { CreateVotesToMoviesService } from '../../../services/CreateVotesToMovie
 import { Vote } from '../../typeorm/entities/Vote.entity';
 
 @ApiTags('Vote')
-@Controller('movies/:movie_id/vote')
+@Controller('movies/:movie_id/votes')
 export class CreateVoteController {
   constructor(
     private readonly createVotesToMoviesService: CreateVotesToMoviesService,
@@ -48,8 +48,8 @@ export class CreateVoteController {
     description:
       'This will be returned when the movie to be deleted does not exist',
   })
-  @HasRoles(RoleEnum.USER)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  // @HasRoles(RoleEnum.USER)
+  @UseGuards(JwtAuthGuard)
   async handle(
     @AuthenticatedUser('id') id: string,
     @Param('movie_id') movie_id: string,

@@ -1,4 +1,4 @@
-import { Vote } from '@/modules/votes/infra/typeorm/entities/Vote.entity';
+import { Vote } from '@/modules/movies/infra/typeorm/entities/Vote.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,

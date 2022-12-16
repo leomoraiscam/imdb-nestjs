@@ -1,6 +1,6 @@
+import { IVotesRepository } from '@/modules/movies/repositories/IVotesRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IVotesRepository } from 'src/modules/votes/repositories/IVotesRepository.interface';
 import { Repository } from 'typeorm';
 
 import { ICreateVoteDTO } from '../../../dtos/ICreateVotes.dto';

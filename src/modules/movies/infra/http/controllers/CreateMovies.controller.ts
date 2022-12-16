@@ -53,8 +53,8 @@ export class CreateMoviesController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
-  @HasRoles(RoleEnum.ADMIN)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  // @HasRoles(RoleEnum.ADMIN)
+  // @UseGuards(JwtAuthGuard, RolesGuard)
   async handle(
     @Body()
     {

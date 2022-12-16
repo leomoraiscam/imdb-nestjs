@@ -52,6 +52,6 @@ export class CreateMovieRequestDTO {
   })
   @IsArray()
   @ArrayMinSize(1)
-  @ValidateNested({ each: true })
+  // @ValidateNested({ each: true })
   genre_ids: string[];
 }
