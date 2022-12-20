@@ -4,7 +4,7 @@ import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty } from 'class-validator';
 
-export class CreateACLToUserResponseDTO extends User {
+export class CreatedACLToUserDTO extends User {
   @ApiProperty({
     type: [Permission],
   })

@@ -1,5 +1,5 @@
-import { CreatePermissionRolesRequestDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissionRolesRequest.dto';
-import { CreatePermissionRolesResponseDTO } from '@/modules/accessControlList/dtos/http/responses/CreatePermissionRolesResponse.dto';
+import { CreatePermissionRolesDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissionRoles.dto';
+import { CreatedPermissionRolesDTO } from '@/modules/accessControlList/dtos/http/responses/CreatedPermissionRoles.dto';
 import { CreateRolePermissionService } from '@/modules/accessControlList/services/CreateRolePermission.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -31,7 +31,7 @@ export class CreateRolePermissionController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
-    type: CreatePermissionRolesResponseDTO,
+    type: CreatedPermissionRolesDTO,
     description: 'This will be returned when the created permission role',
   })
   @ApiBadRequestResponse({
@@ -49,7 +49,7 @@ export class CreateRolePermissionController {
   })
   handle(
     @Param('id') id: string,
-    @Body() { permissions }: CreatePermissionRolesRequestDTO,
+    @Body() { permissions }: CreatePermissionRolesDTO,
   ): Promise<Permission> {
     return this.createRolePermissionService.execute({
       role_id: id,

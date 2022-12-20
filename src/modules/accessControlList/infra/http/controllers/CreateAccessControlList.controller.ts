@@ -1,5 +1,5 @@
-import { CreateACLToUserRequestDTO } from '@/modules/accessControlList/dtos/http/requests/CreateAccessControlListToUserRequest.dto';
-import { CreateACLToUserResponseDTO } from '@/modules/accessControlList/dtos/http/responses/CreateAccessControlListToUserResponse.dto';
+import { CreateACLToUserDTO } from '@/modules/accessControlList/dtos/http/requests/CreateAccessControlListToUser.dto';
+import { CreatedACLToUserDTO } from '@/modules/accessControlList/dtos/http/responses/CreatedAccessControlListToUser.dto';
 import { CreateAccessControlListToUserService } from '@/modules/accessControlList/services/CreateAccessControlListToUser.service';
 import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
@@ -31,7 +31,7 @@ export class CreateUserAccessControlListController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
-    type: CreateACLToUserResponseDTO,
+    type: CreatedACLToUserDTO,
     description: 'This will be returned when the created access to user',
   })
   @ApiBadRequestResponse({
@@ -49,7 +49,7 @@ export class CreateUserAccessControlListController {
   })
   async handle(
     @Param('id') user_id: string,
-    @Body() { permissions, roles }: CreateACLToUserRequestDTO,
+    @Body() { permissions, roles }: CreateACLToUserDTO,
   ): Promise<User> {
     const createACLToUsers =
       await this.createAccessControlListToUserService.execute({
