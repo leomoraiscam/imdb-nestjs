@@ -1,4 +1,8 @@
-import { CreatePermissionRolesResponseDTO } from '@/modules/acessControlList/dtos/http/responses/CreatePermissionRolesResponse.dto';
+import { CreatePermissionRolesRequestDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissionRolesRequest.dto';
+import { CreatePermissionRolesResponseDTO } from '@/modules/accessControlList/dtos/http/responses/CreatePermissionRolesResponse.dto';
+import { CreateRolePermissionService } from '@/modules/accessControlList/services/CreateRolePermission.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import {
   Body,
   Controller,
@@ -14,11 +18,7 @@ import {
   ApiNotFoundResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { CreatePermissionRolesRequestDTO } from '../../../dtos/http/requests/CreatePermissionRolesRequest.dto';
-import { CreateRolePermissionService } from '../../../services/CreateRolePermission.service';
 import { Permission } from '../../typeorm/entities/Permission.entity';
 
 @ApiTags('Access Control List')

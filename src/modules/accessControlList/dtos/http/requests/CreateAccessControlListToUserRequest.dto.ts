@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty, ValidateNested } from 'class-validator';
 
-export class ICreateACLToUserRequestDTO {
+export class CreateACLToUserRequestDTO {
   @ApiProperty({
     example: ['9eeedc0d-e903-4ea3-98e1-0938cd50e540'],
   })

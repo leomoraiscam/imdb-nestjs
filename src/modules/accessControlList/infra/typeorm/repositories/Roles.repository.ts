@@ -1,9 +1,9 @@
+import { CreateRolesDTO } from '@/modules/accessControlList/dtos/http/requests/CreateRoles.dto';
+import IRolesRepository from '@/modules/accessControlList/repositories/IRolesRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CreateRolesDTO } from '../../../../acessControlList/dtos/http/requests/CreateRoles.dto';
-import IRolesRepository from '../../../repositories/IRolesRepository.interface';
 import { Role } from '../entities/Role.entity';
 
 @Injectable()

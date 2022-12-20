@@ -1,3 +1,9 @@
+import { CreateACLToUserRequestDTO } from '@/modules/accessControlList/dtos/http/requests/CreateAccessControlListToUserRequest.dto';
+import { CreateACLToUserResponseDTO } from '@/modules/accessControlList/dtos/http/responses/CreateAccessControlListToUserResponse.dto';
+import { CreateAccessControlListToUserService } from '@/modules/accessControlList/services/CreateAccessControlListToUser.service';
+import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import {
   Body,
   Controller,
@@ -14,13 +20,6 @@ import {
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
-import { User } from 'src/modules/users/infra/typeorm/entities/User.entity';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
-
-import { ICreateACLToUserRequestDTO } from '../../../dtos/http/requests/ICreateAccessControllListToUserRequest.dto';
-import { ICreateACLToUserResponseDTO } from '../../../dtos/http/responses/ICreateAccessControllListToUserResponse.dto';
-import { CreateAccessControlListToUserService } from '../../../services/CreateAccessControlListToUser.service';
 
 @ApiTags('Access Control List')
 @Controller('users/:user_id/acl')
@@ -32,7 +31,7 @@ export class CreateUserAccessControlListController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
-    type: ICreateACLToUserResponseDTO,
+    type: CreateACLToUserResponseDTO,
     description: 'This will be returned when the created access to user',
   })
   @ApiBadRequestResponse({
@@ -50,7 +49,7 @@ export class CreateUserAccessControlListController {
   })
   async handle(
     @Param('id') user_id: string,
-    @Body() { permissions, roles }: ICreateACLToUserRequestDTO,
+    @Body() { permissions, roles }: CreateACLToUserRequestDTO,
   ): Promise<User> {
     const createACLToUsers =
       await this.createAccessControlListToUserService.execute({

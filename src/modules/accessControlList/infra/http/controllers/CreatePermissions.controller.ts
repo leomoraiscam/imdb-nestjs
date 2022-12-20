@@ -1,3 +1,7 @@
+import { CreatePermissionsDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissions.dto';
+import { CreatePermissionService } from '@/modules/accessControlList/services/CreatePermission.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiTags,
@@ -6,11 +10,7 @@ import {
   ApiConflictResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { CreatePermissionsDTO } from '../../../dtos/http/requests/CreatePermissions.dto';
-import { CreatePermissionService } from '../../../services/CreatePermission.service';
 import { Permission } from '../../typeorm/entities/Permission.entity';
 
 @ApiTags('Access Control List')

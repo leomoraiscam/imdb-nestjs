@@ -1,4 +1,4 @@
-export interface ICreateACLToUser {
+export interface ICreateACLToUserDTO {
   permissions: string[];
   roles: string[];
 }

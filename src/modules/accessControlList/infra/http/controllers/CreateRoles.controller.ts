@@ -1,3 +1,7 @@
+import { CreateRolesDTO } from '@/modules/accessControlList/dtos/http/requests/CreateRoles.dto';
+import { CreateRoleService } from '@/modules/accessControlList/services/CreateRole.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiTags,
@@ -6,11 +10,7 @@ import {
   ApiConflictResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
-import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { CreateRolesDTO } from '../../../dtos/http/requests/CreateRoles.dto';
-import { CreateRoleService } from '../../../services/CreateRole.service';
 import { Role } from '../../typeorm/entities/Role.entity';
 
 @ApiTags('Access Control List')

@@ -1,9 +1,9 @@
+import { CreatePermissionsDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissions.dto';
+import { IPermissionsRepository } from '@/modules/accessControlList/repositories/IPermissionsRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IPermissionsRepository } from 'src/modules/acessControlList/repositories/IPermissionsRepository.interface';
 import { Repository } from 'typeorm';
 
-import { CreatePermissionsDTO } from '../../../../acessControlList/dtos/http/requests/CreatePermissions.dto';
 import { Permission } from '../entities/Permission.entity';
 
 @Injectable()

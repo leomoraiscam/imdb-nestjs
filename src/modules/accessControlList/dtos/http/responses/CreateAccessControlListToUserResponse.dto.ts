@@ -1,11 +1,10 @@
+import { Permission } from '@/modules/accessControlList/infra/typeorm/entities/Permission.entity';
+import { Role } from '@/modules/accessControlList/infra/typeorm/entities/Role.entity';
 import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty } from 'class-validator';
 
-import { Permission } from '../../../infra/typeorm/entities/Permission.entity';
-import { Role } from '../../../infra/typeorm/entities/Role.entity';
-
-export class ICreateACLToUserResponseDTO extends User {
+export class CreateACLToUserResponseDTO extends User {
   @ApiProperty({
     type: [Permission],
   })

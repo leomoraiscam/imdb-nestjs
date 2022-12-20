@@ -1,5 +1,5 @@
-import { Permission } from '@/modules/acessControlList/infra/typeorm/entities/Permission.entity';
-import { Role } from '@/modules/acessControlList/infra/typeorm/entities/Role.entity';
+import { Permission } from '@/modules/accessControlList/infra/typeorm/entities/Permission.entity';
+import { Role } from '@/modules/accessControlList/infra/typeorm/entities/Role.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import {
