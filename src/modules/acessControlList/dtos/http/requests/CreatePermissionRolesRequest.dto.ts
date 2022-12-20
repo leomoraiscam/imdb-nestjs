@@ -9,6 +9,6 @@ export class CreatePermissionRolesRequestDTO {
     ],
   })
   @IsArray()
-  @Min(1)
+  // @Min(1)
   permissions: string[];
 }
