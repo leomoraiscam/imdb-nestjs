@@ -1,4 +1,4 @@
-import { CreatePermissionsDTO } from '../dtos/CreatePermissions.dto';
+import { CreatePermissionsDTO } from '../dtos/http/requests/CreatePermissions.dto';
 import { Role } from '../infra/typeorm/entities/Role.entity';
 
 interface IRolesRepository {

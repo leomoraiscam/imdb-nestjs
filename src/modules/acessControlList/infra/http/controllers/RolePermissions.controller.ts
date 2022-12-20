@@ -1,4 +1,4 @@
-import { CreatePermissionRolesResponseDTO } from '@/modules/acessControlList/dtos/CreatePermissionRolesResponse.dto';
+import { CreatePermissionRolesResponseDTO } from '@/modules/acessControlList/dtos/http/responses/CreatePermissionRolesResponse.dto';
 import {
   Body,
   Controller,
@@ -17,7 +17,7 @@ import {
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { CreatePermissionRolesRequestDTO } from '../../../dtos/CreatePermissionRolesRequest.dto';
+import { CreatePermissionRolesRequestDTO } from '../../../dtos/http/requests/CreatePermissionRolesRequest.dto';
 import { CreateRolePermissionService } from '../../../services/CreateRolePermission.service';
 import { Permission } from '../../typeorm/entities/Permission.entity';
 

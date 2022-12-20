@@ -9,7 +9,7 @@ import {
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { CreateRolesDTO } from '../../../dtos/CreateRoles.dto';
+import { CreateRolesDTO } from '../../../dtos/http/requests/CreateRoles.dto';
 import { CreateRoleService } from '../../../services/CreateRole.service';
 import { Role } from '../../typeorm/entities/Role.entity';
 

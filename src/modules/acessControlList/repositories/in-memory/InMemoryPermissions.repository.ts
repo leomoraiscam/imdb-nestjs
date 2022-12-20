@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { CreatePermissionsDTO } from '../../dtos/CreatePermissions.dto';
+import { CreatePermissionsDTO } from '../../../acessControlList/dtos/http/requests/CreatePermissions.dto';
 import { Permission } from '../../infra/typeorm/entities/Permission.entity';
 import { IPermissionsRepository } from '../IPermissionsRepository.interface';
 

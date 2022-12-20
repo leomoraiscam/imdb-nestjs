@@ -18,8 +18,8 @@ import { User } from 'src/modules/users/infra/typeorm/entities/User.entity';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 
-import { ICreateACLToUserRequestDTO } from '../../../dtos/ICreateAccessControllListToUserRequest.dto';
-import { ICreateACLToUserResponseDTO } from '../../../dtos/ICreateAccessControllListToUserResponse.dto';
+import { ICreateACLToUserRequestDTO } from '../../../dtos/http/requests/ICreateAccessControllListToUserRequest.dto';
+import { ICreateACLToUserResponseDTO } from '../../../dtos/http/responses/ICreateAccessControllListToUserResponse.dto';
 import { CreateAccessControlListToUserService } from '../../../services/CreateAccessControlListToUser.service';
 
 @ApiTags('Access Control List')

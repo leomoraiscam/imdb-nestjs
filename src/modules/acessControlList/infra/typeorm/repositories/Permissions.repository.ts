@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IPermissionsRepository } from 'src/modules/acessControlList/repositories/IPermissionsRepository.interface';
 import { Repository } from 'typeorm';
 
-import { CreatePermissionsDTO } from '../../../dtos/CreatePermissions.dto';
+import { CreatePermissionsDTO } from '../../../../acessControlList/dtos/http/requests/CreatePermissions.dto';
 import { Permission } from '../entities/Permission.entity';
 
 @Injectable()

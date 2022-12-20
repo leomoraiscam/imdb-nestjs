@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { CreateRolesDTO } from '../../dtos/CreateRoles.dto';
+import { CreateRolesDTO } from '../../../acessControlList/dtos/http/requests/CreateRoles.dto';
 import { Role } from '../../infra/typeorm/entities/Role.entity';
 import IRolesRepository from '../IRolesRepository.interface';
 

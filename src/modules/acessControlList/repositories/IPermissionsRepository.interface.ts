@@ -1,4 +1,4 @@
-import { CreatePermissionsDTO } from '../dtos/CreatePermissions.dto';
+import { CreatePermissionsDTO } from '../dtos/http/requests/CreatePermissions.dto';
 import { Permission } from '../infra/typeorm/entities/Permission.entity';
 
 export interface IPermissionsRepository {
