@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
-import { CreateRolesDTO } from '../dtos/CreateRoles.dto';
+import { CreateRolesDTO } from '../dtos/http/requests/CreateRoles.dto';
 import { Role } from '../infra/typeorm/entities/Role.entity';
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
 
