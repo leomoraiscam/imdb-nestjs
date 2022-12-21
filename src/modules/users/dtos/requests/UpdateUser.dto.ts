@@ -7,12 +7,12 @@ export class UpdateUserDTO extends PartialType(CreateUserDTO) {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  user_id?: string;
+  userId?: string;
 
   @ApiProperty({
     example: 'test@123',
   })
   @ValidateIf((requestBody) => !!requestBody.password)
   @IsNotEmpty()
-  old_password: string;
+  oldPassword: string;
 }

@@ -1,5 +1,5 @@
-import { AuthenticateUserRequestDTO } from '@/modules/users/dtos/AuthenticateUserRequest.dto';
-import { AuthenticateUserResponseDTO } from '@/modules/users/dtos/AuthenticateUserResponse.dto';
+import { AuthenticateUserDTO } from '@/modules/users/dtos/requests/AuthenticateUser.dto';
+import { AuthenticatedUserDTO } from '@/modules/users/dtos/responses/AuthenticatedUser.dto';
 import { AuthenticateUserService } from '@/modules/users/services/AuthenticateUser.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -23,7 +23,7 @@ export class AuthenticatedUserController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
-    type: AuthenticateUserResponseDTO,
+    type: AuthenticatedUserDTO,
     description: 'This will be returned when the created session',
   })
   @ApiBadRequestResponse({
@@ -38,7 +38,7 @@ export class AuthenticatedUserController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
-  public async handle(@Body() { email, password }: AuthenticateUserRequestDTO) {
+  public async handle(@Body() { email, password }: AuthenticateUserDTO) {
     const authenticateUser = await this.authenticateUserService.execute({
       email,
       password,

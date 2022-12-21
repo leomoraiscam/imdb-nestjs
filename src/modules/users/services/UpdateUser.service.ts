@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { UpdateUserDTO } from '../dtos/UpdateUser.dto';
+import { UpdateUserDTO } from '../dtos/requests/UpdateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
 import { IHashProvider } from '../providers/hashProvider/models/HashProvider.interface';
 import { IUsersRepository } from '../repositories/UsersRepository.interface';
@@ -21,13 +21,13 @@ export class UpdateUserService {
   ) {}
 
   public async execute({
-    user_id,
+    userId,
     name,
     email,
     password,
-    old_password,
+    oldPassword,
   }: UpdateUserDTO): Promise<User> {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(userId);
 
     if (!user) {
       throw new NotFoundException('User not found');
@@ -35,15 +35,15 @@ export class UpdateUserService {
 
     const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
 
-    if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user_id) {
+    if (userWithUpdatedEmail && userWithUpdatedEmail.id !== userId) {
       throw new ConflictException('Email already in use');
     }
 
     Object.assign(user, { name, email });
 
-    if (password && old_password) {
+    if (password && oldPassword) {
       const checkOldPassword = await this.hashProvider.compareHash(
-        old_password,
+        oldPassword,
         user.password,
       );
 

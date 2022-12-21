@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '../dtos/CreateUser.dto';
+import { CreateUserDTO } from '../dtos/requests/CreateUser.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
 
 export interface IUsersRepository {

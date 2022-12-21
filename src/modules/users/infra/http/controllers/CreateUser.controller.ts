@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '@/modules/users/dtos/CreateUser.dto';
+import { CreateUserDTO } from '@/modules/users/dtos/requests/CreateUser.dto';
 import { CreateUserService } from '@/modules/users/services/CreateUser.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';

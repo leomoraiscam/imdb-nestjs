@@ -1,4 +1,4 @@
-import { UpdateUserDTO } from '@/modules/users/dtos/UpdateUser.dto';
+import { UpdateUserDTO } from '@/modules/users/dtos/requests/UpdateUser.dto';
 import { UpdateUserService } from '@/modules/users/services/UpdateUser.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -63,12 +63,12 @@ export class UpdateProfileUserController {
     @Request() req: any,
     @Body() updateUserDTO: UpdateUserDTO,
   ): Promise<User> {
-    const user_id = req.user.id;
-    const { email, name, password, old_password } = updateUserDTO;
+    const userId = req.user.id;
+    const { email, name, password, oldPassword } = updateUserDTO;
 
     const user = await this.updateUserService.execute({
-      user_id,
-      old_password,
+      userId,
+      oldPassword,
       password,
       name,
       email,

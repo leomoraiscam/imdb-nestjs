@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '@/modules/users/dtos/CreateUser.dto';
+import { CreateUserDTO } from '@/modules/users/dtos/requests/CreateUser.dto';
 import { IUsersRepository } from '@/modules/users/repositories/UsersRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

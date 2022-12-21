@@ -2,8 +2,8 @@ import { jwt } from '@/config/auth';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
 
-import { AuthenticateUserRequestDTO } from '../dtos/AuthenticateUserRequest.dto';
-import { AuthenticateUserResponseDTO } from '../dtos/AuthenticateUserResponse.dto';
+import { AuthenticateUserDTO } from '../dtos/requests/AuthenticateUser.dto';
+import { AuthenticatedUserDTO } from '../dtos/responses/AuthenticatedUser.dto';
 import { IHashProvider } from '../providers/hashProvider/models/HashProvider.interface';
 import { IUsersRepository } from '../repositories/UsersRepository.interface';
 
@@ -19,7 +19,7 @@ export class AuthenticateUserService {
   public async execute({
     email,
     password,
-  }: AuthenticateUserRequestDTO): Promise<AuthenticateUserResponseDTO> {
+  }: AuthenticateUserDTO): Promise<AuthenticatedUserDTO> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
