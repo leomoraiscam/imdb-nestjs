@@ -1,4 +1,4 @@
-import { OptionsList } from '@/modules/movies/dtos/IOptionsToListMovie.dto';
+import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
 import { ListMoviesServices } from '@/modules/movies/services/ListMovies.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { CheckEmptyListInterceptor } from '@/shared/interceptors/checkEmptyList.interceptor';
@@ -37,12 +37,12 @@ export class ListMoviesController {
   })
   @UseInterceptors(new CheckEmptyListInterceptor())
   public async handle(
-    @Query() { name, author, genre_id, take, skip, page }: OptionsList,
+    @Query() { name, author, genreIds, take, skip, page }: OptionsList,
   ) {
     const movies = await this.listMoviesServices.execute({
       name,
       author,
-      genre_id,
+      genreIds,
       take,
       skip,
       page,

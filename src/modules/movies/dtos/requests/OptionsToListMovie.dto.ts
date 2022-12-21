@@ -23,7 +23,7 @@ export class OptionsList {
   })
   @IsString()
   @IsOptional()
-  genre_id?: string;
+  genreIds?: string;
 
   @ApiPropertyOptional({
     example: 10,

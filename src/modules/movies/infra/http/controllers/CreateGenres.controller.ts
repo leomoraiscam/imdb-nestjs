@@ -1,4 +1,4 @@
-import { CreateGenreDTO } from '@/modules/movies/dtos/CreateGenre.dto';
+import { CreateGenresDTO } from '@/modules/movies/dtos/requests/CreateGenres.dto';
 import { CreateGenreService } from '@/modules/movies/services/CreateGenre.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -44,7 +44,7 @@ export class CreateGenresController {
   })
   async handle(
     @Body()
-    { name, description }: CreateGenreDTO,
+    { name, description }: CreateGenresDTO,
   ): Promise<Genre> {
     return this.createGenreService.execute({
       name,

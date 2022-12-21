@@ -1,5 +1,5 @@
 import { ICreateMovieDTO } from '../dtos/ICreateMovie.dto';
-import { OptionsList } from '../dtos/IOptionsToListMovie.dto';
+import { OptionsList } from '../dtos/requests/OptionsToListMovie.dto';
 import { Movie } from '../infra/typeorm/entities/Movie.entity';
 
 export interface IMoviesRepository {
@@ -8,7 +8,7 @@ export interface IMoviesRepository {
   list({
     name,
     author,
-    genre_id,
+    genreIds,
     page,
     skip,
     take,

@@ -13,10 +13,10 @@ export class VotesRepository implements IVotesRepository {
     private repository: Repository<Vote>,
   ) {}
 
-  async create({ user_id, movie_id, note }: ICreateVoteDTO): Promise<Vote> {
+  async create({ userId, movieId, note }: ICreateVoteDTO): Promise<Vote> {
     const vote = this.repository.create({
-      user_id,
-      movie_id,
+      userId,
+      movieId,
       note,
     });
 

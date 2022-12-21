@@ -1,4 +1,4 @@
-import { OptionsList } from '@/modules/movies/dtos/IOptionsToListMovie.dto';
+import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ICreateMovieDTO } from '../../dtos/ICreateMovie.dto';
@@ -53,8 +53,8 @@ export class InMemoryMoviesRepository implements IMoviesRepository {
       duration,
       year,
       genres,
-      created_at: new Date(),
-      updated_at: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     this.movies.push(movie);

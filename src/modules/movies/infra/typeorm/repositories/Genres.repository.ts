@@ -1,4 +1,4 @@
-import { CreateGenreDTO } from '@/modules/movies/dtos/CreateGenre.dto';
+import { CreateGenresDTO } from '@/modules/movies/dtos/requests/CreateGenres.dto';
 import { IGenresRepository } from '@/modules/movies/repositories/IGenresRepository.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -25,7 +25,7 @@ export class GenresRepository implements IGenresRepository {
     });
   }
 
-  async create({ name, description }: CreateGenreDTO): Promise<Genre> {
+  async create({ name, description }: CreateGenresDTO): Promise<Genre> {
     const genre = this.repository.create({
       name,
       description,

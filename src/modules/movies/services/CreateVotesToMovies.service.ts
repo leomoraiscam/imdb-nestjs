@@ -14,17 +14,17 @@ export class CreateVotesToMoviesService {
     private votesRepository: IVotesRepository,
   ) {}
 
-  async execute({ movie_id, user_id, note }: ICreateVoteDTO): Promise<Vote> {
-    const movie = await this.moviesRepository.findById(movie_id);
+  async execute({ movieId, userId, note }: ICreateVoteDTO): Promise<Vote> {
+    const movie = await this.moviesRepository.findById(movieId);
 
     if (!movie) {
       throw new NotFoundException('movie not found');
     }
 
     const vote = await this.votesRepository.create({
-      movie_id,
+      movieId,
       note,
-      user_id,
+      userId,
     });
 
     return vote;

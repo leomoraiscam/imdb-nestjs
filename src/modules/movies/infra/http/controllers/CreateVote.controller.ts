@@ -15,19 +15,19 @@ import {
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
 import { AuthenticatedUser } from 'src/shared/decorators/authenticatedUser.decorator';
-import { HasRoles } from 'src/shared/decorators/roles.decorator';
+// import { HasRoles } from 'src/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
-import { RolesGuard } from 'src/shared/guards/Roles.guard';
+// import { RolesGuard } from 'src/shared/guards/Roles.guard';
 import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
-import { RoleEnum } from 'src/shared/utils/role.enum';
+// import { RoleEnum } from 'src/shared/utils/role.enum';
 
-import { CreateVoteRequestDTO } from '../../../dtos/CreateVoteRequest';
+import { CreateVotesDTO } from '../../../dtos/requests/CreateVotes.dto';
 import { CreateVotesToMoviesService } from '../../../services/CreateVotesToMovies.service';
 import { Vote } from '../../typeorm/entities/Vote.entity';
 
 @ApiTags('Vote')
-@Controller('movies/:movie_id/votes')
+@Controller('movies/:movieId/votes')
 export class CreateVoteController {
   constructor(
     private readonly createVotesToMoviesService: CreateVotesToMoviesService,
@@ -52,13 +52,13 @@ export class CreateVoteController {
   @UseGuards(JwtAuthGuard)
   async handle(
     @AuthenticatedUser('id') id: string,
-    @Param('movie_id') movie_id: string,
-    @Body() { note }: CreateVoteRequestDTO,
+    @Param('movieId') movieId: string,
+    @Body() { note }: CreateVotesDTO,
   ): Promise<Vote> {
     const vote = await this.createVotesToMoviesService.execute({
-      movie_id,
+      movieId,
       note,
-      user_id: id,
+      userId: id,
     });
 
     return classToClass(vote);

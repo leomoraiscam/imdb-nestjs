@@ -5,10 +5,10 @@ import {
   IsInt,
   IsNotEmpty,
   IsString,
-  ValidateNested,
+  // ValidateNested,
 } from 'class-validator';
 
-export class CreateMovieRequestDTO {
+export class CreateMoviesDTO {
   @ApiProperty({
     example: 'Transformers',
   })
@@ -53,5 +53,5 @@ export class CreateMovieRequestDTO {
   @IsArray()
   @ArrayMinSize(1)
   // @ValidateNested({ each: true })
-  genre_ids: string[];
+  genreIds: string[];
 }

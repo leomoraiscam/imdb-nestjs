@@ -6,16 +6,16 @@ import { Vote } from '../../infra/typeorm/entities/Vote.entity';
 export class InMemoryVotesRepository {
   private votes: Vote[] = [];
 
-  async create({ user_id, movie_id, note }: ICreateVoteDTO): Promise<Vote> {
+  async create({ userId, movieId, note }: ICreateVoteDTO): Promise<Vote> {
     const vote = new Vote();
 
     Object.assign(vote, {
       id: uuidv4(),
-      user_id,
-      movie_id,
+      userId,
+      movieId,
       note,
-      created_at: new Date(),
-      updated_at: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     this.votes.push(vote);

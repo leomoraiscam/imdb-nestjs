@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 
-import { OptionsList } from '../dtos/IOptionsToListMovie.dto';
 import { ISerializedResponse } from '../dtos/ISerializedMovies.dto';
+import { OptionsList } from '../dtos/requests/OptionsToListMovie.dto';
 import { Movie } from '../infra/typeorm/entities/Movie.entity';
 import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
 
@@ -14,7 +14,7 @@ export class ListMoviesServices {
   async execute({
     name,
     author,
-    genre_id,
+    genreIds,
     take = 10,
     page = 1,
     skip = 0,
@@ -22,7 +22,7 @@ export class ListMoviesServices {
     const movies = await this.movieRepository.list({
       name,
       author,
-      genre_id,
+      genreIds,
       page: Number(page),
       skip: Number(skip),
       take: Number(take),

@@ -34,8 +34,8 @@ describe('ShowMoviesService', () => {
             id: '37b75d18-d4cf-499a-9129-b71f2c4abc76',
             name: 'aventura',
             description: 'this all movies of adventure',
-            created_at: new Date(),
-            updated_at: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
           },
         ],
       });

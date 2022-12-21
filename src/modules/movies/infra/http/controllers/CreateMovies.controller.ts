@@ -1,18 +1,18 @@
-import { CreateMovieRequestDTO } from '@/modules/movies/dtos/CreateMovieRequest.dto';
+import { CreateMoviesDTO } from '@/modules/movies/dtos/requests/CreateMovies.dto';
 import { CreateMovieService } from '@/modules/movies/services/CreateMovie.service';
-import { HasRoles } from '@/shared/decorators/roles.decorator';
+// import { HasRoles } from '@/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
-import { RolesGuard } from '@/shared/guards/Roles.guard';
-import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
-import { RoleEnum } from '@/shared/utils/role.enum';
+// import { RolesGuard } from '@/shared/guards/Roles.guard';
+// import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
+// import { RoleEnum } from '@/shared/utils/role.enum';
 import {
   Body,
   Controller,
   HttpCode,
   HttpStatus,
   Post,
-  UseGuards,
+  // UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -57,20 +57,13 @@ export class CreateMoviesController {
   // @UseGuards(JwtAuthGuard, RolesGuard)
   async handle(
     @Body()
-    {
-      author,
-      description,
-      duration,
-      genre_ids,
-      name,
-      year,
-    }: CreateMovieRequestDTO,
+    { author, description, duration, genreIds, name, year }: CreateMoviesDTO,
   ): Promise<Movie> {
     return this.createMovieService.execute({
       author,
       description,
       duration,
-      genre_ids,
+      genreIds,
       name,
       year,
     });

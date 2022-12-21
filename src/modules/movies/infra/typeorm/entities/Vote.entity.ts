@@ -22,12 +22,12 @@ export class Vote {
   note: number;
 
   @ApiProperty()
-  @Column()
-  movie_id: string;
+  @Column({ name: 'movie_id' })
+  movieId: string;
 
   @ApiProperty()
-  @Column()
-  user_id: string;
+  @Column({ name: 'user_id' })
+  userId: string;
 
   @ManyToOne(() => Movie, (movie) => movie.votes)
   @JoinColumn({ name: 'movie_id' })
@@ -38,10 +38,10 @@ export class Vote {
   user: User;
 
   @ApiProperty()
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
   @ApiProperty()
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

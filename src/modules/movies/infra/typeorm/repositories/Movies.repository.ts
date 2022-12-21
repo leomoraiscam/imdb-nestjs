@@ -1,5 +1,5 @@
 import { ICreateMovieDTO } from '@/modules/movies/dtos/ICreateMovie.dto';
-import { OptionsList } from '@/modules/movies/dtos/IOptionsToListMovie.dto';
+import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
 import { IMoviesRepository } from '@/modules/movies/repositories/IMoviesRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -29,7 +29,7 @@ export class MoviesRepository implements IMoviesRepository {
   async list({
     name,
     author,
-    genre_id,
+    genreIds,
     take,
     page,
   }: OptionsList): Promise<Movie[]> {
@@ -48,10 +48,10 @@ export class MoviesRepository implements IMoviesRepository {
       moviesQuery.andWhere(`m.author = :author`, { author });
     }
 
-    if (genre_id) {
+    if (genreIds) {
       moviesQuery
         .innerJoin('m.genres', 'movies_genres')
-        .where('movies_genres.id = :genre_id', { genre_id });
+        .where('movies_genres.id = :genre_id', { genreIds });
     }
 
     const movies = await moviesQuery.getMany();
