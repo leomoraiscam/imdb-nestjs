@@ -52,7 +52,7 @@ export class CreateRolePermissionController {
     @Body() { permissions }: CreatePermissionRolesDTO,
   ): Promise<Permission> {
     return this.createRolePermissionService.execute({
-      role_id: id,
+      roleId: id,
       permissions,
     });
   }

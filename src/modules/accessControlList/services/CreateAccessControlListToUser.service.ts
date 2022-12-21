@@ -6,7 +6,7 @@ import { IPermissionsRepository } from '../repositories/IPermissionsRepository.i
 import IRolesRepository from '../repositories/IRolesRepository.interface';
 
 interface ICreateAccessControlListToUserRequest {
-  user_id: string;
+  userId: string;
   roles: string[];
   permissions: string[];
 }
@@ -25,9 +25,9 @@ export class CreateAccessControlListToUserService {
   async execute({
     permissions,
     roles,
-    user_id,
+    userId,
   }: ICreateAccessControlListToUserRequest): Promise<User> {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(userId);
 
     if (!user) {
       throw new NotFoundException('User does not exist');

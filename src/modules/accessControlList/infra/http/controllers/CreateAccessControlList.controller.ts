@@ -48,12 +48,12 @@ export class CreateUserAccessControlListController {
     description: 'This will be returned when an unexpected error occurs',
   })
   async handle(
-    @Param('id') user_id: string,
+    @Param('id') userId: string,
     @Body() { permissions, roles }: CreateACLToUserDTO,
   ): Promise<User> {
     const createACLToUsers =
       await this.createAccessControlListToUserService.execute({
-        user_id,
+        userId,
         permissions,
         roles,
       });

@@ -14,10 +14,10 @@ export class CreateRolePermissionService {
   ) {}
 
   async execute({
-    role_id,
+    roleId,
     permissions,
   }: ICreatePermissionRolesDTO): Promise<Role> {
-    const role = await this.rolesRepository.findById(role_id);
+    const role = await this.rolesRepository.findById(roleId);
 
     if (!role) {
       throw new NotFoundException('Role not found');

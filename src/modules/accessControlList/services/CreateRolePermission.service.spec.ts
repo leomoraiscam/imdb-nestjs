@@ -29,7 +29,7 @@ describe('Create Roles Permissions', () => {
     });
 
     const permissionsRole = await createRolePermissionService.execute({
-      role_id: role.id,
+      roleId: role.id,
       permissions: [permission.id],
     });
 

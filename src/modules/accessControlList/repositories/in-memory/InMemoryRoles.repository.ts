@@ -28,8 +28,8 @@ export class InMemoryRolesRepository implements IRolesRepository {
       id: uuidv4(),
       name,
       description,
-      created_at: new Date(),
-      updated_at: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     this.roles.push(role);

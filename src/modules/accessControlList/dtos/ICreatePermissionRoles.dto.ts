@@ -1,4 +1,4 @@
 export interface ICreatePermissionRolesDTO {
-  role_id?: string;
+  roleId?: string;
   permissions?: string[];
 }
