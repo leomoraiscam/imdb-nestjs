@@ -9,10 +9,11 @@ export class CreateRoleService {
   constructor(
     @Inject('ROLE_REPOSITORY') private rolesRepository: IPermissionsRepository,
   ) {}
-  async execute({ description, name }: CreateRolesDTO): Promise<Role> {
-    const roleExist = await this.rolesRepository.findByName(name);
 
-    if (roleExist) {
+  async execute({ description, name }: CreateRolesDTO): Promise<Role> {
+    const checkRoleExist = await this.rolesRepository.findByName(name);
+
+    if (checkRoleExist) {
       throw new BadRequestException('Role already exist');
     }
 

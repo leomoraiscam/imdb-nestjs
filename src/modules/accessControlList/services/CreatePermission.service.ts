@@ -15,9 +15,11 @@ export class CreatePermissionService {
     description,
     name,
   }: CreatePermissionsDTO): Promise<Permission> {
-    const permissionExist = await this.permissionRepository.findByName(name);
+    const checkPermissionExist = await this.permissionRepository.findByName(
+      name,
+    );
 
-    if (permissionExist) {
+    if (checkPermissionExist) {
       throw new BadRequestException('Permission already exist');
     }
 

@@ -27,7 +27,9 @@ export class CreateRolePermissionService {
       permissions,
     );
 
-    role.permissions = permissionsExist;
+    Object.assign(role, {
+      permissions: permissionsExist,
+    });
 
     this.rolesRepository.save(role);
 
