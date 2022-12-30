@@ -5,7 +5,6 @@ import {
   IsInt,
   IsNotEmpty,
   IsString,
-  // ValidateNested,
 } from 'class-validator';
 
 export class CreateMoviesDTO {
@@ -52,6 +51,5 @@ export class CreateMoviesDTO {
   })
   @IsArray()
   @ArrayMinSize(1)
-  // @ValidateNested({ each: true })
   genreIds: string[];
 }
