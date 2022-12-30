@@ -1,8 +1,12 @@
 import { CreatePermissionRolesDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissionRoles.dto';
 import { CreatedPermissionRolesDTO } from '@/modules/accessControlList/dtos/http/responses/CreatedPermissionRoles.dto';
 import { CreateRolePermissionService } from '@/modules/accessControlList/services/CreateRolePermission.service';
+import { HasRoles } from '@/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
+import { RolesGuard } from '@/shared/guards/Roles.guard';
+import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
+import { RoleEnum } from '@/shared/utils/role.enum';
 import {
   Body,
   Controller,
@@ -10,6 +14,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -47,6 +52,8 @@ export class CreateRolePermissionController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
+  @HasRoles(RoleEnum.USER)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   handle(
     @Param('id') id: string,
     @Body() { permissions }: CreatePermissionRolesDTO,

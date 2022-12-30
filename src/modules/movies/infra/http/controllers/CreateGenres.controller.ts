@@ -1,8 +1,19 @@
 import { CreateGenresDTO } from '@/modules/movies/dtos/requests/CreateGenres.dto';
 import { CreateGenreService } from '@/modules/movies/services/CreateGenre.service';
+import { HasRoles } from '@/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { RolesGuard } from '@/shared/guards/Roles.guard';
+import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
+import { RoleEnum } from '@/shared/utils/role.enum';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiCreatedResponse,
@@ -42,7 +53,9 @@ export class CreateGenresController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
-  async handle(
+  @HasRoles(RoleEnum.USER)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  handle(
     @Body()
     { name, description }: CreateGenresDTO,
   ): Promise<Genre> {

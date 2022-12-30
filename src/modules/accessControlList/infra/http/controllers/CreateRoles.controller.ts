@@ -1,8 +1,19 @@
 import { CreateRolesDTO } from '@/modules/accessControlList/dtos/http/requests/CreateRoles.dto';
 import { CreateRoleService } from '@/modules/accessControlList/services/CreateRole.service';
+import { HasRoles } from '@/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { RolesGuard } from '@/shared/guards/Roles.guard';
+import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
+import { RoleEnum } from '@/shared/utils/role.enum';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiCreatedResponse,
@@ -36,6 +47,8 @@ export class CreateRolesController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
+  @HasRoles(RoleEnum.USER)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   handle(@Body() { name, description }: CreateRolesDTO): Promise<Role> {
     return this.createRoleService.execute({
       name,
