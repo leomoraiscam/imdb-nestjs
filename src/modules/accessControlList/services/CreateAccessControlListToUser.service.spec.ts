@@ -1,25 +1,42 @@
+import { Test } from '@nestjs/testing';
+
 import { InMemoryUsersRepository } from '../../users/repositories/in-memory/InMemoryUsers.repositories';
 import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemoryPermissions.repository';
 import { InMemoryRolesRepository } from '../repositories/in-memory/InMemoryRoles.repository';
 import { CreateAccessControlListToUserService } from './CreateAccessControlListToUser.service';
 
-describe('Create Access Control List', () => {
+describe('CreateAccessControlListService', () => {
   let createAccessControlListToUserService: CreateAccessControlListToUserService;
   let inMemoryUsersRepository: InMemoryUsersRepository;
   let inMemoryRolesRepository: InMemoryRolesRepository;
   let inMemoryPermissionsRepository: InMemoryPermissionsRepository;
 
   beforeEach(async () => {
-    inMemoryRolesRepository = new InMemoryRolesRepository();
-    inMemoryPermissionsRepository = new InMemoryPermissionsRepository();
-    inMemoryUsersRepository = new InMemoryUsersRepository();
+    const moduleRef = await Test.createTestingModule({
+      providers: [
+        CreateAccessControlListToUserService,
+        { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
+        { provide: 'ROLE_REPOSITORY', useClass: InMemoryRolesRepository },
+        {
+          provide: 'PERMISSION_REPOSITORY',
+          useClass: InMemoryPermissionsRepository,
+        },
+      ],
+    }).compile();
 
     createAccessControlListToUserService =
-      new CreateAccessControlListToUserService(
-        inMemoryUsersRepository,
-        inMemoryRolesRepository,
-        inMemoryPermissionsRepository,
+      moduleRef.get<CreateAccessControlListToUserService>(
+        CreateAccessControlListToUserService,
       );
+
+    inMemoryUsersRepository =
+      moduleRef.get<InMemoryUsersRepository>('USER_REPOSITORY');
+
+    inMemoryRolesRepository =
+      moduleRef.get<InMemoryRolesRepository>('ROLE_REPOSITORY');
+
+    inMemoryPermissionsRepository =
+      moduleRef.get<InMemoryPermissionsRepository>('PERMISSION_REPOSITORY');
   });
 
   it('should be able to create a permissions to specific role', async () => {
@@ -41,7 +58,7 @@ describe('Create Access Control List', () => {
 
     const userAccessControlList =
       await createAccessControlListToUserService.execute({
-        user_id: user.id,
+        userId: user.id,
         roles: [role.id],
         permissions: [permission.id],
       });

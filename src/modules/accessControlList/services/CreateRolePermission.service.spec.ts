@@ -1,20 +1,38 @@
+import { Test } from '@nestjs/testing';
+
 import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemoryPermissions.repository';
 import { InMemoryRolesRepository } from '../repositories/in-memory/InMemoryRoles.repository';
 import { CreateRolePermissionService } from './CreateRolePermission.service';
 
-describe('Create Roles Permissions', () => {
+describe('CreateRolesPermissionsService', () => {
   let createRolePermissionService: CreateRolePermissionService;
   let inMemoryRolesRepository: InMemoryRolesRepository;
   let inMemoryPermissionsRepository: InMemoryPermissionsRepository;
 
   beforeEach(async () => {
-    inMemoryRolesRepository = new InMemoryRolesRepository();
-    inMemoryPermissionsRepository = new InMemoryPermissionsRepository();
+    const moduleRef = await Test.createTestingModule({
+      providers: [
+        CreateRolePermissionService,
+        {
+          provide: 'ROLE_REPOSITORY',
+          useClass: InMemoryRolesRepository,
+        },
+        {
+          provide: 'PERMISSION_REPOSITORY',
+          useClass: InMemoryPermissionsRepository,
+        },
+      ],
+    }).compile();
 
-    createRolePermissionService = new CreateRolePermissionService(
-      inMemoryRolesRepository,
-      inMemoryPermissionsRepository,
+    createRolePermissionService = moduleRef.get<CreateRolePermissionService>(
+      CreateRolePermissionService,
     );
+
+    inMemoryPermissionsRepository =
+      moduleRef.get<InMemoryPermissionsRepository>('PERMISSION_REPOSITORY');
+
+    inMemoryRolesRepository =
+      moduleRef.get<InMemoryRolesRepository>('ROLE_REPOSITORY');
   });
 
   it('should be able to create a permissions to specific role', async () => {

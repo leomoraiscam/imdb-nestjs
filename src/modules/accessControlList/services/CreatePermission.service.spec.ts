@@ -1,17 +1,30 @@
 import { BadRequestException } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
 
 import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemoryPermissions.repository';
 import { CreatePermissionService } from './CreatePermission.service';
 
-describe('Create Permissions', () => {
+describe('CreatePermissionsService', () => {
   let createPermissionService: CreatePermissionService;
   let inMemoryPermissionsRepository: InMemoryPermissionsRepository;
 
   beforeEach(async () => {
-    inMemoryPermissionsRepository = new InMemoryPermissionsRepository();
-    createPermissionService = new CreatePermissionService(
-      inMemoryPermissionsRepository,
+    const moduleRef = await Test.createTestingModule({
+      providers: [
+        CreatePermissionService,
+        {
+          provide: 'PERMISSION_REPOSITORY',
+          useClass: InMemoryPermissionsRepository,
+        },
+      ],
+    }).compile();
+
+    createPermissionService = moduleRef.get<CreatePermissionService>(
+      CreatePermissionService,
     );
+
+    inMemoryPermissionsRepository =
+      moduleRef.get<InMemoryPermissionsRepository>('PERMISSION_REPOSITORY');
   });
 
   it('should be able to create a role', async () => {
