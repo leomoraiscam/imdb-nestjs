@@ -1,4 +1,5 @@
 import { PermissionEnum } from '@/modules/accessControlList/dtos/permissions.enum';
+import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import { CreateGenresDTO } from '@/modules/movies/dtos/requests/CreateGenres.dto';
 import { CreateGenreService } from '@/modules/movies/services/CreateGenre.service';
 import { HasPermissions } from '@/shared/decorators/permissions.decorator';
@@ -8,7 +9,6 @@ import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { PermissionsGuard } from '@/shared/guards/Permissions.guard';
 import { RolesGuard } from '@/shared/guards/Roles.guard';
 import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
-import { RoleEnum } from '@/shared/utils/role.enum';
 import {
   Body,
   Controller,
@@ -56,7 +56,7 @@ export class CreateGenresController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
-  @HasRoles(RoleEnum.ADMIN, RoleEnum.USER)
+  @HasRoles(RolesEnum.ADMIN, RolesEnum.USER)
   @HasPermissions(
     PermissionEnum.CREATE,
     PermissionEnum.UPDATE,

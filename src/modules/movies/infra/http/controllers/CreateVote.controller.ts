@@ -1,3 +1,4 @@
+import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import {
   Body,
   Controller,
@@ -20,7 +21,6 @@ import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from 'src/shared/errors/dtos/validationError.dto';
 import { RolesGuard } from 'src/shared/guards/Roles.guard';
 import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
-import { RoleEnum } from 'src/shared/utils/role.enum';
 
 import { CreateVotesDTO } from '../../../dtos/requests/CreateVotes.dto';
 import { CreateVotesToMoviesService } from '../../../services/CreateVotesToMovies.service';
@@ -48,7 +48,7 @@ export class CreateVoteController {
     description:
       'This will be returned when the movie to be deleted does not exist',
   })
-  @HasRoles(RoleEnum.USER)
+  @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)
   async handle(
     @AuthenticatedUser('id') id: string,

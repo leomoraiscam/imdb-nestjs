@@ -1,3 +1,4 @@
+import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import { CreateMoviesDTO } from '@/modules/movies/dtos/requests/CreateMovies.dto';
 import { CreateMovieService } from '@/modules/movies/services/CreateMovie.service';
 import { HasRoles } from '@/shared/decorators/roles.decorator';
@@ -5,7 +6,6 @@ import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { RolesGuard } from '@/shared/guards/Roles.guard';
 import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
-import { RoleEnum } from '@/shared/utils/role.enum';
 import {
   Body,
   Controller,
@@ -53,7 +53,7 @@ export class CreateMoviesController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
-  @HasRoles(RoleEnum.USER)
+  @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)
   async handle(
     @Body()

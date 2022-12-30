@@ -1,5 +1,6 @@
 import { CreateACLToUserDTO } from '@/modules/accessControlList/dtos/http/requests/CreateAccessControlListToUser.dto';
 import { CreatedACLToUserDTO } from '@/modules/accessControlList/dtos/http/responses/CreatedAccessControlListToUser.dto';
+import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import { CreateAccessControlListToUserService } from '@/modules/accessControlList/services/CreateAccessControlListToUser.service';
 import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
 import { HasRoles } from '@/shared/decorators/roles.decorator';
@@ -7,7 +8,6 @@ import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { RolesGuard } from '@/shared/guards/Roles.guard';
 import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
-import { RoleEnum } from '@/shared/utils/role.enum';
 import {
   Body,
   Controller,
@@ -52,7 +52,7 @@ export class CreateUserAccessControlListController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
-  @HasRoles(RoleEnum.USER)
+  @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)
   async handle(
     @Param('id') userId: string,
