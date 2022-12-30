@@ -17,7 +17,7 @@ export class UpdateUserService {
     @Inject('HASH_PROVIDER')
     private readonly hashProvider: IHashProvider,
     @Inject('USER_REPOSITORY')
-    private usersRepository: IUsersRepository,
+    private readonly usersRepository: IUsersRepository,
   ) {}
 
   public async execute({
