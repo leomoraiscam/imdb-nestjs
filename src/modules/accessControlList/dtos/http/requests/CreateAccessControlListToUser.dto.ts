@@ -6,7 +6,7 @@ export class CreateACLToUserDTO {
     example: ['3f6647c5-2ce7-4908-b8c5-b421990dfae8'],
   })
   @IsOptional()
-  userId: string;
+  userId?: string;
 
   @ApiProperty({
     example: ['9eeedc0d-e903-4ea3-98e1-0938cd50e540'],

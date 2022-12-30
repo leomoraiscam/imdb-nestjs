@@ -1,18 +1,18 @@
 import { CreateMoviesDTO } from '@/modules/movies/dtos/requests/CreateMovies.dto';
 import { CreateMovieService } from '@/modules/movies/services/CreateMovie.service';
-// import { HasRoles } from '@/shared/decorators/roles.decorator';
+import { HasRoles } from '@/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
-// import { RolesGuard } from '@/shared/guards/Roles.guard';
-// import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
-// import { RoleEnum } from '@/shared/utils/role.enum';
+import { RolesGuard } from '@/shared/guards/Roles.guard';
+import { JwtAuthGuard } from '@/shared/infra/http/guards/jwtAuth.guard';
+import { RoleEnum } from '@/shared/utils/role.enum';
 import {
   Body,
   Controller,
   HttpCode,
   HttpStatus,
   Post,
-  // UseGuards,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -53,8 +53,8 @@ export class CreateMoviesController {
     type: ExceptionErrorDTO,
     description: 'This will be returned when an unexpected error occurs',
   })
-  // @HasRoles(RoleEnum.ADMIN)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
+  @HasRoles(RoleEnum.USER)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async handle(
     @Body()
     { author, description, duration, genreIds, name, year }: CreateMoviesDTO,

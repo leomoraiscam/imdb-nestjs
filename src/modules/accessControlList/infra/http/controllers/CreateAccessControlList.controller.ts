@@ -22,7 +22,7 @@ import {
 import { plainToClass } from 'class-transformer';
 
 @ApiTags('Access Control List')
-@Controller('users/:user_id/acl')
+@Controller('users/:id/acl')
 export class CreateUserAccessControlListController {
   constructor(
     private readonly createAccessControlListToUserService: CreateAccessControlListToUserService,
