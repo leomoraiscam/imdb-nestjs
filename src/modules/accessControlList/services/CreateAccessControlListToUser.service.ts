@@ -2,14 +2,9 @@ import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
 import { IUsersRepository } from '@/modules/users/repositories/UsersRepository.interface';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
+import { CreateACLToUserDTO } from '../dtos/http/requests/CreateAccessControlListToUser.dto';
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
 import IRolesRepository from '../repositories/IRolesRepository.interface';
-
-interface ICreateAccessControlListToUserRequest {
-  userId: string;
-  roles: string[];
-  permissions: string[];
-}
 
 @Injectable()
 export class CreateAccessControlListToUserService {
@@ -26,7 +21,7 @@ export class CreateAccessControlListToUserService {
     permissions,
     roles,
     userId,
-  }: ICreateAccessControlListToUserRequest): Promise<User> {
+  }: CreateACLToUserDTO): Promise<User> {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) {
@@ -39,9 +34,10 @@ export class CreateAccessControlListToUserService {
       permissions,
     );
 
-    user.roles = rolesExist;
-
-    user.permissions = permissionsExist;
+    Object.assign(user, {
+      roles: rolesExist,
+      permissions: permissionsExist,
+    });
 
     await this.usersRepository.save(user);
 

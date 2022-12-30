@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, Min } from 'class-validator';
+import { ArrayMinSize, IsArray } from 'class-validator';
 
 export class CreatePermissionRolesDTO {
   @ApiProperty({
@@ -9,6 +9,6 @@ export class CreatePermissionRolesDTO {
     ],
   })
   @IsArray()
-  // @Min(1)
+  @ArrayMinSize(1)
   permissions: string[];
 }
