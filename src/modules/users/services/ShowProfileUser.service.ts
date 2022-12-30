@@ -7,7 +7,7 @@ import { IUsersRepository } from '../repositories/UsersRepository.interface';
 export class ShowProfileUserService {
   constructor(
     @Inject('USER_REPOSITORY')
-    private usersRepository: IUsersRepository,
+    private readonly usersRepository: IUsersRepository,
   ) {}
 
   public async execute(userId: string): Promise<User> {

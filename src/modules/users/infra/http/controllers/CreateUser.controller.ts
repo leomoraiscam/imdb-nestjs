@@ -17,7 +17,7 @@ import { User } from '../../typeorm/entities/User.entity';
 @ApiTags('Users')
 @Controller('users')
 export class CreateUsersController {
-  constructor(private createUserService: CreateUserService) {}
+  constructor(private readonly createUserService: CreateUserService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
