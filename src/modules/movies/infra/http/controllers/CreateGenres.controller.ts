@@ -17,7 +17,7 @@ import { Genre } from '../../typeorm/entities/Genre.entity';
 @ApiTags('Genres')
 @Controller('genres')
 export class CreateGenresController {
-  constructor(private createGenreService: CreateGenreService) {}
+  constructor(private readonly createGenreService: CreateGenreService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)

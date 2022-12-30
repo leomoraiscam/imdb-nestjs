@@ -28,7 +28,7 @@ import { Movie } from '../../typeorm/entities/Movie.entity';
 @ApiTags('Movies')
 @Controller('movies')
 export class CreateMoviesController {
-  constructor(private createMovieService: CreateMovieService) {}
+  constructor(private readonly createMovieService: CreateMovieService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
