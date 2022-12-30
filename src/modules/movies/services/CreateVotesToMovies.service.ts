@@ -9,9 +9,9 @@ import { IVotesRepository } from '../repositories/IVotesRepository.interface';
 export class CreateVotesToMoviesService {
   constructor(
     @Inject('MOVIE_REPOSITORY')
-    private moviesRepository: IMoviesRepository,
+    private readonly moviesRepository: IMoviesRepository,
     @Inject('VOTE_REPOSITORY')
-    private votesRepository: IVotesRepository,
+    private readonly votesRepository: IVotesRepository,
   ) {}
 
   async execute({ movieId, userId, note }: ICreateVoteDTO): Promise<Vote> {

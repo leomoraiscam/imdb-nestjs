@@ -7,7 +7,7 @@ import { IGenresRepository } from '../repositories/IGenresRepository.interface';
 export class CreateGenreService {
   constructor(
     @Inject('GENRE_REPOSITORY')
-    private genresRepository: IGenresRepository,
+    private readonly genresRepository: IGenresRepository,
   ) {}
 
   async execute({ name, description }: CreateGenresDTO): Promise<Genre> {

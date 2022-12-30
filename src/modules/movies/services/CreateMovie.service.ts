@@ -8,9 +8,9 @@ import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
 export class CreateMovieService {
   constructor(
     @Inject('MOVIE_REPOSITORY')
-    private moviesRepository: IMoviesRepository,
+    private readonly moviesRepository: IMoviesRepository,
     @Inject('GENRE_REPOSITORY')
-    private genresRepository: IGenresRepository,
+    private readonly genresRepository: IGenresRepository,
   ) {}
 
   async execute({

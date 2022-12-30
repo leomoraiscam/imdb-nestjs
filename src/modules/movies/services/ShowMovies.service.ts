@@ -6,7 +6,7 @@ import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
 export class ShowMoviesServices {
   constructor(
     @Inject('MOVIE_REPOSITORY')
-    private movieRepository: IMoviesRepository,
+    private readonly movieRepository: IMoviesRepository,
   ) {}
 
   async execute(id: string): Promise<Movie> {
