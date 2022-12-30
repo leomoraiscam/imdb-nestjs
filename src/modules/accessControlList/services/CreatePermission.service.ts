@@ -8,7 +8,7 @@ import { IPermissionsRepository } from '../repositories/IPermissionsRepository.i
 export class CreatePermissionService {
   constructor(
     @Inject('PERMISSION_REPOSITORY')
-    private permissionRepository: IPermissionsRepository,
+    private readonly permissionRepository: IPermissionsRepository,
   ) {}
 
   async execute({

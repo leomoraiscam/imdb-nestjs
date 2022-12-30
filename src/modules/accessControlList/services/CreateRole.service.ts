@@ -7,7 +7,8 @@ import { IPermissionsRepository } from '../repositories/IPermissionsRepository.i
 @Injectable()
 export class CreateRoleService {
   constructor(
-    @Inject('ROLE_REPOSITORY') private rolesRepository: IPermissionsRepository,
+    @Inject('ROLE_REPOSITORY')
+    private readonly rolesRepository: IPermissionsRepository,
   ) {}
 
   async execute({ description, name }: CreateRolesDTO): Promise<Role> {

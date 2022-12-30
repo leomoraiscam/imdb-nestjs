@@ -10,11 +10,11 @@ import IRolesRepository from '../repositories/IRolesRepository.interface';
 export class CreateAccessControlListToUserService {
   constructor(
     @Inject('USER_REPOSITORY')
-    private usersRepository: IUsersRepository,
+    private readonly usersRepository: IUsersRepository,
     @Inject('ROLE_REPOSITORY')
-    private rolesRepository: IRolesRepository,
+    private readonly rolesRepository: IRolesRepository,
     @Inject('PERMISSION_REPOSITORY')
-    private permissionsRepository: IPermissionsRepository,
+    private readonly permissionsRepository: IPermissionsRepository,
   ) {}
 
   async execute({

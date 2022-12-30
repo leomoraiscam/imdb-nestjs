@@ -8,9 +8,9 @@ import IRolesRepository from '../repositories/IRolesRepository.interface';
 export class CreateRolePermissionService {
   constructor(
     @Inject('ROLE_REPOSITORY')
-    private rolesRepository: IRolesRepository,
+    private readonly rolesRepository: IRolesRepository,
     @Inject('PERMISSION_REPOSITORY')
-    private permissionsRepository: IPermissionsRepository,
+    private readonly permissionsRepository: IPermissionsRepository,
   ) {}
 
   async execute({
