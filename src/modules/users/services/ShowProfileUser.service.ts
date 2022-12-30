@@ -10,8 +10,8 @@ export class ShowProfileUserService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute(user_id: string): Promise<User> {
-    const user = await this.usersRepository.findById(user_id);
+  public async execute(userId: string): Promise<User> {
+    const user = await this.usersRepository.findById(userId);
 
     if (!user) {
       throw new NotFoundException('User not found');
