@@ -23,28 +23,20 @@ export class ListMoviesServices {
       name,
       author,
       genreIds,
-      page: Number(page),
-      skip: Number(skip),
-      take: Number(take),
+      page,
+      skip,
+      take,
     });
 
-    const serializedMovies = movies?.map((movie) => {
-      let averageValue = null;
+    return movies.map((item) => {
+      const average = item.votes.reduce(function (accumulator, object) {
+        return accumulator + object.note / item.votes.length;
+      }, 0);
 
-      const notes = movie?.votes.map((vote) => vote.note);
-
-      if (notes.length) {
-        averageValue = notes?.reduce((prev, acc) => prev + acc / notes.length);
-      }
-
-      const resultSerialized = {
-        ...movie,
-        average: averageValue,
+      return {
+        ...item,
+        average,
       };
-
-      return resultSerialized;
     });
-
-    return serializedMovies;
   }
 }

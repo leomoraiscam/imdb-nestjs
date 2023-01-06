@@ -1,4 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import { IsOptional, IsString } from 'class-validator';
 
 export class OptionsList {
@@ -29,17 +30,20 @@ export class OptionsList {
     example: 10,
   })
   @IsOptional()
+  @Transform(({ value }) => Number(value))
   take?: number;
 
   @ApiPropertyOptional({
     example: 0,
   })
   @IsOptional()
+  @Transform(({ value }) => Number(value))
   skip?: number;
 
   @ApiPropertyOptional({
     example: 1,
   })
   @IsOptional()
+  @Transform(({ value }) => Number(value))
   page?: number;
 }
