@@ -52,4 +52,13 @@ export class CreateMoviesDTO {
   @IsArray()
   @ArrayMinSize(1)
   genreIds: string[];
+
+  @ApiProperty()
+  @IsArray()
+  @ArrayMinSize(1)
+  actorIds: string[];
+
+  @ApiProperty()
+  @IsString()
+  directorId: string;
 }

@@ -57,7 +57,16 @@ export class CreateMoviesController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   async handle(
     @Body()
-    { author, description, duration, genreIds, name, year }: CreateMoviesDTO,
+    {
+      author,
+      description,
+      duration,
+      genreIds,
+      name,
+      year,
+      actorIds,
+      directorId,
+    }: CreateMoviesDTO,
   ): Promise<Movie> {
     return this.createMovieService.execute({
       author,
@@ -66,6 +75,8 @@ export class CreateMoviesController {
       genreIds,
       name,
       year,
+      actorIds,
+      directorId,
     });
   }
 }

@@ -37,6 +37,8 @@ export class MoviesRepository implements IMoviesRepository {
       .createQueryBuilder('m')
       .leftJoinAndSelect('m.genres', 'movies_genres')
       .leftJoinAndSelect('m.votes', 'votes')
+      .leftJoinAndSelect('m.actors', 'actors')
+      .leftJoinAndSelect('m.director', 'directors')
       .take(take)
       .skip(take * (page - 1));
 
@@ -66,6 +68,8 @@ export class MoviesRepository implements IMoviesRepository {
     duration,
     year,
     genres,
+    actors,
+    directorId,
   }: ICreateMovieDTO): Promise<Movie> {
     const movie = this.repository.create({
       name,
@@ -74,6 +78,8 @@ export class MoviesRepository implements IMoviesRepository {
       duration,
       year,
       genres,
+      actors,
+      directorId,
     });
 
     await this.repository.save(movie);
