@@ -1,11 +1,15 @@
+import { Actor } from '@/modules/casts/infra/typeorm/entities/Actor.entity';
+import { Director } from '@/modules/casts/infra/typeorm/entities/Direction.entity';
 import { Vote } from '@/modules/movies/infra/typeorm/entities/Vote.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -58,6 +62,22 @@ export class Movie {
     inverseJoinColumns: [{ name: 'genre_id' }],
   })
   genres: Genre[];
+
+  @ApiProperty()
+  @Column({ name: 'director_id' })
+  public directorId: string;
+
+  @ManyToOne(() => Director, (director) => director.movies)
+  @JoinColumn({ name: 'director_id' })
+  director: Director;
+
+  @ManyToMany(() => Actor)
+  @JoinTable({
+    name: 'movies_cast',
+    joinColumns: [{ name: 'movie_id' }],
+    inverseJoinColumns: [{ name: 'actor_id' }],
+  })
+  actors: Actor[];
 
   @OneToMany(() => Vote, (vote) => vote.movie)
   votes: Vote[];
