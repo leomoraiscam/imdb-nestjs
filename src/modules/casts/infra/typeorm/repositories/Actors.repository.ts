@@ -1,3 +1,4 @@
+import { CreateActorDTO } from '@/modules/casts/dtos/requests/CreateActor.dto';
 import { IActorsRepository } from '@/modules/casts/repositories/ActorsRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,5 +15,24 @@ export class ActorsRepository implements IActorsRepository {
 
   async findByIds(ids: string[]): Promise<Actor[]> {
     return this.repository.findByIds(ids);
+  }
+
+  async findByName(name: string): Promise<Actor> {
+    return this.repository.findOne({
+      where: {
+        name,
+      },
+    });
+  }
+
+  async create({ name, gender }: CreateActorDTO): Promise<Actor> {
+    const actor = this.repository.create({
+      name,
+      gender,
+    });
+
+    await this.repository.save(actor);
+
+    return actor;
   }
 }
