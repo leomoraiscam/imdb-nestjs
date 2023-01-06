@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { Actor } from '../casts/infra/typeorm/entities/Actor.entity';
+import { Director } from '../casts/infra/typeorm/entities/Direction.entity';
+import { ActorsRepository } from '../casts/infra/typeorm/repositories/Actors.repository';
+import { DirectorsRepository } from '../casts/infra/typeorm/repositories/Directors.repository';
 import { CreateGenresController } from './infra/http/controllers/CreateGenres.controller';
 import { CreateMoviesController } from './infra/http/controllers/CreateMovies.controller';
 import { CreateVoteController } from './infra/http/controllers/CreateVote.controller';
@@ -19,7 +23,7 @@ import { ListMoviesServices } from './services/ListMovies.service';
 import { ShowMoviesServices } from './services/ShowMovies.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie, Genre, Vote])],
+  imports: [TypeOrmModule.forFeature([Movie, Genre, Vote, Actor, Director])],
   controllers: [
     CreateGenresController,
     CreateMoviesController,
@@ -39,6 +43,14 @@ import { ShowMoviesServices } from './services/ShowMovies.service';
     {
       provide: 'VOTE_REPOSITORY',
       useClass: VotesRepository,
+    },
+    {
+      provide: 'DIRECTOR_REPOSITORY',
+      useClass: DirectorsRepository,
+    },
+    {
+      provide: 'ACTOR_REPOSITORY',
+      useClass: ActorsRepository,
     },
     CreateGenreService,
     CreateMovieService,
