@@ -1,4 +1,5 @@
 import { CreateDirectorDTO } from '@/modules/casts/dtos/requests/CreateDirector.dto';
+import { OptionsList } from '@/modules/casts/dtos/requests/OptionsToListData.dto';
 import { IDirectorsRepository } from '@/modules/casts/repositories/DirectorsRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -23,6 +24,21 @@ export class DirectorsRepository implements IDirectorsRepository {
         name,
       },
     });
+  }
+
+  async list({ name, take, page }: OptionsList): Promise<Director[]> {
+    const directorsQuery = await this.repository
+      .createQueryBuilder('m')
+      .take(take)
+      .skip(take * (page - 1));
+
+    if (name) {
+      directorsQuery.andWhere(`m.name = :name`, { name });
+    }
+
+    const directors = await directorsQuery.getMany();
+
+    return directors;
   }
 
   async create({ name, gender }: CreateDirectorDTO): Promise<Director> {

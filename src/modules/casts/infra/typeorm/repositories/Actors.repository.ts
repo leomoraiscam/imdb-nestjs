@@ -1,4 +1,5 @@
 import { CreateActorDTO } from '@/modules/casts/dtos/requests/CreateActor.dto';
+import { OptionsList } from '@/modules/casts/dtos/requests/OptionsToListData.dto';
 import { IActorsRepository } from '@/modules/casts/repositories/ActorsRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -23,6 +24,21 @@ export class ActorsRepository implements IActorsRepository {
         name,
       },
     });
+  }
+
+  async list({ name, take, page }: OptionsList): Promise<Actor[]> {
+    const actorsQuery = await this.repository
+      .createQueryBuilder('m')
+      .take(take)
+      .skip(take * (page - 1));
+
+    if (name) {
+      actorsQuery.andWhere(`m.name = :name`, { name });
+    }
+
+    const actors = await actorsQuery.getMany();
+
+    return actors;
   }
 
   async create({ name, gender }: CreateActorDTO): Promise<Actor> {
