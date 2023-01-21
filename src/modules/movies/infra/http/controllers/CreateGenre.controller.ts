@@ -1,3 +1,11 @@
+import { GENRES } from '@/config/constants/resourceTags.constants';
+import {
+  CREATED_RESPONSE,
+  BAD_REQUEST_RESPONSE,
+  UNAUTHORIZED_RESPONSE,
+  CONFLICT_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+} from '@/config/constants/responses.constant';
 import { PermissionEnum } from '@/modules/accessControlList/dtos/permissions.enum';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import { CreateGenresDTO } from '@/modules/movies/dtos/requests/CreateGenres.dto';
@@ -28,33 +36,32 @@ import {
 
 import { Genre } from '../../typeorm/entities/Genre.entity';
 
-@ApiTags('Genres')
-@Controller('genres')
-export class CreateGenresController {
+@ApiTags(GENRES)
+@Controller(GENRES.toLowerCase())
+export class CreateGenreController {
   constructor(private readonly createGenreService: CreateGenreService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: Genre,
-    description: 'This will be returned when the created genre',
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
   })
   @ApiUnauthorizedResponse({
     type: ValidationErrorDTO,
-    description:
-      'This will be return when client doesnt provide Authorization Cookie',
+    description: UNAUTHORIZED_RESPONSE,
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when the name is already in use',
+    description: CONFLICT_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @HasRoles(RolesEnum.ADMIN, RolesEnum.USER)
   @HasPermissions(

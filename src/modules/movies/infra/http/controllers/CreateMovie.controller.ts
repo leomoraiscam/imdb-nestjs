@@ -35,7 +35,7 @@ import { Movie } from '../../typeorm/entities/Movie.entity';
 
 @ApiTags(MOVIES)
 @Controller(MOVIES.toLowerCase())
-export class CreateMoviesController {
+export class CreateMovieController {
   constructor(private readonly createMovieService: CreateMovieService) {}
 
   @Post()

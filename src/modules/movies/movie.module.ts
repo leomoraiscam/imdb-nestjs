@@ -5,8 +5,8 @@ import { Actor } from '../casts/infra/typeorm/entities/Actor.entity';
 import { Director } from '../casts/infra/typeorm/entities/Direction.entity';
 import { ActorsRepository } from '../casts/infra/typeorm/repositories/Actors.repository';
 import { DirectorsRepository } from '../casts/infra/typeorm/repositories/Directors.repository';
-import { CreateGenresController } from './infra/http/controllers/CreateGenres.controller';
-import { CreateMoviesController } from './infra/http/controllers/CreateMovies.controller';
+import { CreateGenreController } from './infra/http/controllers/CreateGenre.controller';
+import { CreateMovieController } from './infra/http/controllers/CreateMovie.controller';
 import { CreateVoteController } from './infra/http/controllers/CreateVote.controller';
 import { ListMoviesController } from './infra/http/controllers/ListMovies.controller';
 import { ShowMoviesController } from './infra/http/controllers/ShowMovies.controller';
@@ -25,8 +25,8 @@ import { ShowMoviesServices } from './services/ShowMovies.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Movie, Genre, Vote, Actor, Director])],
   controllers: [
-    CreateGenresController,
-    CreateMoviesController,
+    CreateGenreController,
+    CreateMovieController,
     ListMoviesController,
     ShowMoviesController,
     CreateVoteController,
