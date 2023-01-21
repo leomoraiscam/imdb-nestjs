@@ -62,7 +62,7 @@ export class CreateMovieController {
   })
   @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  async handle(
+  handle(
     @Body()
     {
       author,

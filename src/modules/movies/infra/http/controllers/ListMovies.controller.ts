@@ -1,3 +1,9 @@
+import { MOVIES } from '@/config/constants/resourceTags.constants';
+import {
+  OK_RESPONSE,
+  NO_CONTENT_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+} from '@/config/constants/responses.constant';
 import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
 import { ListMoviesServices } from '@/modules/movies/services/ListMovies.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
@@ -16,30 +22,27 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
 
 import { Movie } from '../../typeorm/entities/Movie.entity';
 
-@ApiTags('Movies')
-@Controller('movies')
+@ApiTags(MOVIES)
+@Controller(MOVIES.toLowerCase())
 export class ListMoviesController {
   constructor(private readonly listMoviesServices: ListMoviesServices) {}
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: Movie })
+  @ApiOkResponse({ type: Movie, description: OK_RESPONSE })
   @ApiNoContentResponse({
-    description: 'This will be returned when the receive empty list',
+    description: NO_CONTENT_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @UseInterceptors(new CheckEmptyListInterceptor())
-  public async handle(
-    @Query() { name, author, genreIds, take, skip, page }: OptionsList,
-  ) {
-    const movies = await this.listMoviesServices.execute({
+  handle(@Query() { name, author, genreIds, take, skip, page }: OptionsList) {
+    return this.listMoviesServices.execute({
       name,
       author,
       genreIds,
@@ -47,7 +50,5 @@ export class ListMoviesController {
       skip,
       page,
     });
-
-    return classToClass(movies);
   }
 }

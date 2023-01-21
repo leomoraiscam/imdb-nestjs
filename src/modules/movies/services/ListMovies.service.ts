@@ -1,3 +1,4 @@
+import { MOVIES_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Inject } from '@nestjs/common';
 
 import { ISerializedResponse } from '../dtos/ISerializedMovies.dto';
@@ -7,8 +8,8 @@ import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
 
 export class ListMoviesServices {
   constructor(
-    @Inject('MOVIE_REPOSITORY')
-    private readonly movieRepository: IMoviesRepository,
+    @Inject(MOVIES_REPOSITORY)
+    private readonly moviesRepository: IMoviesRepository,
   ) {}
 
   async execute({
@@ -19,7 +20,7 @@ export class ListMoviesServices {
     page = 1,
     skip = 0,
   }: OptionsList): Promise<ISerializedResponse[] | Movie[]> {
-    const movies = await this.movieRepository.list({
+    const movies = await this.moviesRepository.list({
       name,
       author,
       genreIds,
