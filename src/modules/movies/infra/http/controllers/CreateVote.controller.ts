@@ -1,3 +1,11 @@
+import { VOTES } from '@/config/constants/resourceTags.constants';
+import {
+  CREATED_RESPONSE,
+  BAD_REQUEST_RESPONSE,
+  NOT_FOUND_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+  UNAUTHORIZED_RESPONSE,
+} from '@/config/constants/responses.constant';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import {
   Body,
@@ -13,8 +21,9 @@ import {
   ApiCreatedResponse,
   ApiBadRequestResponse,
   ApiNotFoundResponse,
+  ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { classToClass } from 'class-transformer';
 import { AuthenticatedUser } from 'src/shared/decorators/authenticatedUser.decorator';
 import { HasRoles } from 'src/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from 'src/shared/errors/dtos/exceptionError.dto';
@@ -26,7 +35,7 @@ import { CreateVotesDTO } from '../../../dtos/requests/CreateVotes.dto';
 import { CreateVotesToMoviesService } from '../../../services/CreateVotesToMovies.service';
 import { Vote } from '../../typeorm/entities/Vote.entity';
 
-@ApiTags('Vote')
+@ApiTags(VOTES)
 @Controller('movies/:movieId/votes')
 export class CreateVoteController {
   constructor(
@@ -36,31 +45,36 @@ export class CreateVoteController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
-    type: null,
-    description: 'This will be returned when the created vote',
+    type: Vote,
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
+  })
+  @ApiUnauthorizedResponse({
+    type: ValidationErrorDTO,
+    description: UNAUTHORIZED_RESPONSE,
   })
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
-    description:
-      'This will be returned when the movie to be deleted does not exist',
+    description: NOT_FOUND_RESPONSE,
+  })
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: INTERNAL_SERVER_ERROR,
   })
   @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  async handle(
+  handle(
     @AuthenticatedUser('id') id: string,
     @Param('movieId') movieId: string,
     @Body() { note }: CreateVotesDTO,
   ): Promise<Vote> {
-    const vote = await this.createVotesToMoviesService.execute({
+    return this.createVotesToMoviesService.execute({
       movieId,
       note,
       userId: id,
     });
-
-    return classToClass(vote);
   }
 }

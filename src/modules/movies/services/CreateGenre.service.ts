@@ -1,3 +1,4 @@
+import { GENRES_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException, Inject } from '@nestjs/common';
 
 import { CreateGenresDTO } from '../dtos/requests/CreateGenres.dto';
@@ -6,7 +7,7 @@ import { IGenresRepository } from '../repositories/IGenresRepository.interface';
 
 export class CreateGenreService {
   constructor(
-    @Inject('GENRE_REPOSITORY')
+    @Inject(GENRES_REPOSITORY)
     private readonly genresRepository: IGenresRepository,
   ) {}
 
@@ -17,11 +18,9 @@ export class CreateGenreService {
       throw new ConflictException('genre already exist');
     }
 
-    const genre = await this.genresRepository.create({
+    return this.genresRepository.create({
       name,
       description,
     });
-
-    return genre;
   }
 }

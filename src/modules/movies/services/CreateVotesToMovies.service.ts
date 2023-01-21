@@ -1,3 +1,7 @@
+import {
+  MOVIES_REPOSITORY,
+  VOTES_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { IMoviesRepository } from 'src/modules/movies/repositories/IMoviesRepository.interface';
 
@@ -8,9 +12,9 @@ import { IVotesRepository } from '../repositories/IVotesRepository.interface';
 @Injectable()
 export class CreateVotesToMoviesService {
   constructor(
-    @Inject('MOVIE_REPOSITORY')
+    @Inject(MOVIES_REPOSITORY)
     private readonly moviesRepository: IMoviesRepository,
-    @Inject('VOTE_REPOSITORY')
+    @Inject(VOTES_REPOSITORY)
     private readonly votesRepository: IVotesRepository,
   ) {}
 
@@ -21,12 +25,10 @@ export class CreateVotesToMoviesService {
       throw new NotFoundException('movie not found');
     }
 
-    const vote = await this.votesRepository.create({
+    return this.votesRepository.create({
       movieId,
       note,
       userId,
     });
-
-    return vote;
   }
 }
