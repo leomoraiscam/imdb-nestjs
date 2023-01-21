@@ -1,3 +1,9 @@
+import {
+  MOVIES_REPOSITORY,
+  GENRES_REPOSITORY,
+  DIRECTORS_REPOSITORY,
+  ACTORS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { Actor } from '@/modules/casts/infra/typeorm/entities/Actor.entity';
 import { Director } from '@/modules/casts/infra/typeorm/entities/Direction.entity';
 import { InMemoryActorsRepository } from '@/modules/casts/repositories/in-memory/InMemoryActors.repositories';
@@ -9,7 +15,7 @@ import { InMemoryGenresRepository } from '../repositories/in-memory/InMemoryGenr
 import { InMemoryMoviesRepository } from '../repositories/in-memory/InMemoryMovies.repository';
 import { CreateMovieService } from './CreateMovie.service';
 
-describe('Create Movie', () => {
+describe('CreateMovieService', () => {
   let createMovieService: CreateMovieService;
   let inMemoryMoviesRepository: InMemoryMoviesRepository;
   let inMemoryGenresRepository: InMemoryGenresRepository;
@@ -22,28 +28,27 @@ describe('Create Movie', () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         CreateMovieService,
-        { provide: 'MOVIE_REPOSITORY', useClass: InMemoryMoviesRepository },
-        { provide: 'GENRE_REPOSITORY', useClass: InMemoryGenresRepository },
+        { provide: MOVIES_REPOSITORY, useClass: InMemoryMoviesRepository },
+        { provide: GENRES_REPOSITORY, useClass: InMemoryGenresRepository },
         {
-          provide: 'DIRECTOR_REPOSITORY',
+          provide: DIRECTORS_REPOSITORY,
           useClass: InMemoryDirectorsRepository,
         },
-        { provide: 'ACTOR_REPOSITORY', useClass: InMemoryActorsRepository },
+        { provide: ACTORS_REPOSITORY, useClass: InMemoryActorsRepository },
       ],
     }).compile();
 
     inMemoryMoviesRepository =
-      moduleRef.get<InMemoryMoviesRepository>('MOVIE_REPOSITORY');
+      moduleRef.get<InMemoryMoviesRepository>(MOVIES_REPOSITORY);
 
     inMemoryGenresRepository =
-      moduleRef.get<InMemoryGenresRepository>('GENRE_REPOSITORY');
+      moduleRef.get<InMemoryGenresRepository>(GENRES_REPOSITORY);
 
-    inMemoryDirectorRepository = moduleRef.get<InMemoryDirectorsRepository>(
-      'DIRECTOR_REPOSITORY',
-    );
+    inMemoryDirectorRepository =
+      moduleRef.get<InMemoryDirectorsRepository>(DIRECTORS_REPOSITORY);
 
     inMemoryActorsRepository =
-      moduleRef.get<InMemoryActorsRepository>('ACTOR_REPOSITORY');
+      moduleRef.get<InMemoryActorsRepository>(ACTORS_REPOSITORY);
 
     createMovieService = moduleRef.get<CreateMovieService>(CreateMovieService);
 

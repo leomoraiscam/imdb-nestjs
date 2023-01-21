@@ -1,3 +1,9 @@
+import {
+  MOVIES_REPOSITORY,
+  GENRES_REPOSITORY,
+  DIRECTORS_REPOSITORY,
+  ACTORS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { IActorsRepository } from '@/modules/casts/repositories/ActorsRepository.interface';
 import { IDirectorsRepository } from '@/modules/casts/repositories/DirectorsRepository.interface';
 import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
@@ -9,13 +15,13 @@ import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
 
 export class CreateMovieService {
   constructor(
-    @Inject('MOVIE_REPOSITORY')
+    @Inject(MOVIES_REPOSITORY)
     private readonly moviesRepository: IMoviesRepository,
-    @Inject('GENRE_REPOSITORY')
+    @Inject(GENRES_REPOSITORY)
     private readonly genresRepository: IGenresRepository,
-    @Inject('DIRECTOR_REPOSITORY')
+    @Inject(DIRECTORS_REPOSITORY)
     private readonly directorsRepository: IDirectorsRepository,
-    @Inject('ACTOR_REPOSITORY')
+    @Inject(ACTORS_REPOSITORY)
     private readonly actorsRepository: IActorsRepository,
   ) {}
 
@@ -56,7 +62,7 @@ export class CreateMovieService {
       throw new ConflictException('Movie already exist');
     }
 
-    const movie = await this.moviesRepository.create({
+    return this.moviesRepository.create({
       name,
       description,
       author,
@@ -66,7 +72,5 @@ export class CreateMovieService {
       actors: searchActors,
       directorId,
     });
-
-    return movie;
   }
 }
