@@ -42,6 +42,7 @@ export class InMemoryMoviesRepository implements IMoviesRepository {
     duration,
     year,
     genres,
+    votes,
   }: ICreateMovieDTO): Promise<Movie> {
     const movie = new Movie();
 
@@ -53,11 +54,22 @@ export class InMemoryMoviesRepository implements IMoviesRepository {
       duration,
       year,
       genres,
+      votes,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     this.movies.push(movie);
+
+    return movie;
+  }
+
+  async save(movie: Movie): Promise<Movie> {
+    const findIndex = this.movies.findIndex(
+      (movieData) => movieData.id === movie.id,
+    );
+
+    this.movies[findIndex] = movie;
 
     return movie;
   }

@@ -14,4 +14,5 @@ export interface IMoviesRepository {
     take,
   }: OptionsList): Promise<Movie[]>;
   create(data: ICreateMovieDTO): Promise<Movie>;
+  save(movie: Movie): Promise<Movie>;
 }

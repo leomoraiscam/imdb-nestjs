@@ -86,4 +86,8 @@ export class MoviesRepository implements IMoviesRepository {
 
     return movie;
   }
+
+  async save(movie: Movie): Promise<Movie> {
+    return this.repository.save(movie);
+  }
 }
