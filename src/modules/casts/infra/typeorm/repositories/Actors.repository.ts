@@ -14,6 +14,10 @@ export class ActorsRepository implements IActorsRepository {
     private repository: Repository<Actor>,
   ) {}
 
+  async findById(id: string): Promise<Actor> {
+    return this.repository.findOne(id);
+  }
+
   async findByIds(ids: string[]): Promise<Actor[]> {
     return this.repository.findByIds(ids);
   }
@@ -50,5 +54,9 @@ export class ActorsRepository implements IActorsRepository {
     await this.repository.save(actor);
 
     return actor;
+  }
+
+  async save(actor: Actor): Promise<Actor> {
+    return this.repository.save(actor);
   }
 }

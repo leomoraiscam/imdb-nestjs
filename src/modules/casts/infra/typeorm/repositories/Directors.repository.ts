@@ -51,4 +51,8 @@ export class DirectorsRepository implements IDirectorsRepository {
 
     return director;
   }
+
+  async save(director: Director): Promise<Director> {
+    return this.repository.save(director);
+  }
 }

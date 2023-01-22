@@ -9,6 +9,10 @@ import { IActorsRepository } from '../ActorsRepository.interface';
 export class InMemoryActorsRepository implements IActorsRepository {
   private actors: Actor[] = [];
 
+  async findById(id: string): Promise<Actor> {
+    return this.actors.find((actor) => actor.id === id);
+  }
+
   async findByIds(ids: string[]): Promise<Actor[]> {
     const allActors = this.actors.filter((actor) => ids.includes(actor.id));
 
@@ -44,6 +48,16 @@ export class InMemoryActorsRepository implements IActorsRepository {
     Object.assign(actor, { id: uuid(), name, gender });
 
     this.actors.push(actor);
+
+    return actor;
+  }
+
+  public async save(actor: Actor): Promise<Actor> {
+    const findIndex = this.actors.findIndex(
+      (actorData) => actorData.id === actor.id,
+    );
+
+    this.actors[findIndex] = actor;
 
     return actor;
   }

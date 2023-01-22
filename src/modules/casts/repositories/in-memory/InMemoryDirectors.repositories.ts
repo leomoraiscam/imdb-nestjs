@@ -47,4 +47,14 @@ export class InMemoryDirectorsRepository implements IDirectorsRepository {
 
     return director;
   }
+
+  public async save(director: Director): Promise<Director> {
+    const findIndex = this.directors.findIndex(
+      (directorData) => directorData.id === director.id,
+    );
+
+    this.directors[findIndex] = director;
+
+    return director;
+  }
 }

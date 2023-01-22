@@ -7,4 +7,5 @@ export interface IDirectorsRepository {
   findByName(name: string): Promise<Director>;
   list(options: OptionsList): Promise<Director[]>;
   create(data: CreateDirectorDTO): Promise<Director>;
+  save(director: Director): Promise<Director>;
 }
