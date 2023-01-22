@@ -9,4 +9,5 @@ export interface IGenresRepository {
   list(options: OptionsList): Promise<Genre[]>;
   create(data: CreateGenresDTO): Promise<Genre>;
   save(genre: Genre): Promise<Genre>;
+  delete(id: string): Promise<void>;
 }

@@ -59,4 +59,8 @@ export class GenresRepository implements IGenresRepository {
   async save(genre: Genre): Promise<Genre> {
     return this.repository.save(genre);
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
 }

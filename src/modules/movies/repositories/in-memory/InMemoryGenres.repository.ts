@@ -66,4 +66,12 @@ export class InMemoryGenresRepository implements IGenresRepository {
 
     return genre;
   }
+
+  public async delete(id: string): Promise<void> {
+    const fieldIndex = this.genres.findIndex(
+      (genreData) => genreData.id === id,
+    );
+
+    this.genres.splice(fieldIndex, 1);
+  }
 }
