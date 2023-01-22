@@ -1,46 +1,47 @@
+import { ACTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
 import { InMemoryActorsRepository } from '../repositories/in-memory/InMemoryActors.repositories';
 import { CreateActorService } from './CreateActor.service';
 
-let createActorService: CreateActorService;
-let inMemoryActorsRepository: InMemoryActorsRepository;
-
 describe('CreateActorService', () => {
+  let createActorService: CreateActorService;
+  let inMemoryActorsRepository: InMemoryActorsRepository;
+
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         CreateActorService,
-        { provide: 'ACTOR_REPOSITORY', useClass: InMemoryActorsRepository },
+        { provide: ACTORS_REPOSITORY, useClass: InMemoryActorsRepository },
       ],
     }).compile();
 
     inMemoryActorsRepository =
-      moduleRef.get<InMemoryActorsRepository>('ACTOR_REPOSITORY');
+      moduleRef.get<InMemoryActorsRepository>(ACTORS_REPOSITORY);
 
     createActorService = moduleRef.get<CreateActorService>(CreateActorService);
   });
 
-  it('should be able return an actor when receive correct data to create the same', async () => {
+  it('should be able to create a actor when receive correct data', async () => {
     const actor = await createActorService.execute({
-      name: 'John Doe',
-      gender: 'M',
+      name: 'Glen Henderson',
+      gender: 'Male',
     });
 
     expect(actor).toHaveProperty('id');
   });
 
   it('should not be able create an actor when the same exist', async () => {
-    await inMemoryActorsRepository.create({
-      name: 'John Doe',
-      gender: 'M',
+    const { name } = await inMemoryActorsRepository.create({
+      name: 'Rebecca Francis',
+      gender: 'Female',
     });
 
     await expect(
       createActorService.execute({
-        name: 'John Doe',
-        gender: 'M',
+        name,
+        gender: 'Female',
       }),
     ).rejects.toBeInstanceOf(ConflictException);
   });

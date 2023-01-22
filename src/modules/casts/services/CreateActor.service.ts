@@ -1,3 +1,4 @@
+import { ACTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { CreateActorDTO } from '../dtos/requests/CreateActor.dto';
@@ -7,7 +8,7 @@ import { IActorsRepository } from '../repositories/ActorsRepository.interface';
 @Injectable()
 export class CreateActorService {
   constructor(
-    @Inject('ACTOR_REPOSITORY')
+    @Inject(ACTORS_REPOSITORY)
     private readonly actorsRepository: IActorsRepository,
   ) {}
 

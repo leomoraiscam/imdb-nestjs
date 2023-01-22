@@ -1,3 +1,11 @@
+import { ACTORS } from '@/config/constants/resourceTags.constants';
+import {
+  BAD_REQUEST_RESPONSE,
+  CONFLICT_RESPONSE,
+  CREATED_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+  UNAUTHORIZED_RESPONSE,
+} from '@/config/constants/responses.constant';
 import { CreateActorDTO } from '@/modules/casts/dtos/requests/CreateActor.dto';
 import { CreateActorService } from '@/modules/casts/services/CreateActor.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
@@ -9,12 +17,13 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
 import { Actor } from '../../typeorm/entities/Actor.entity';
 
-@ApiTags('Actors')
-@Controller('actors')
+@ApiTags(ACTORS)
+@Controller(ACTORS.toLowerCase())
 export class CreateActorsController {
   constructor(private readonly createActorService: CreateActorService) {}
 
@@ -22,19 +31,23 @@ export class CreateActorsController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: Actor,
-    description: 'This will be returned when the created actor',
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
+  })
+  @ApiUnauthorizedResponse({
+    type: ValidationErrorDTO,
+    description: UNAUTHORIZED_RESPONSE,
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when the actor already exist',
+    description: CONFLICT_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   handle(@Body() { name, gender }: CreateActorDTO) {
     return this.createActorService.execute({
