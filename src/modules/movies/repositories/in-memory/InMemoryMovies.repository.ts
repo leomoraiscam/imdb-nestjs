@@ -73,4 +73,12 @@ export class InMemoryMoviesRepository implements IMoviesRepository {
 
     return movie;
   }
+
+  public async delete(id: string): Promise<void> {
+    const fieldIndex = this.movies.findIndex(
+      (movieData) => movieData.id === id,
+    );
+
+    this.movies.splice(fieldIndex, 1);
+  }
 }

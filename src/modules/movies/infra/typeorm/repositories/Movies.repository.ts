@@ -90,4 +90,8 @@ export class MoviesRepository implements IMoviesRepository {
   async save(movie: Movie): Promise<Movie> {
     return this.repository.save(movie);
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
 }

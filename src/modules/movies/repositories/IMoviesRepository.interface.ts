@@ -15,4 +15,5 @@ export interface IMoviesRepository {
   }: OptionsList): Promise<Movie[]>;
   create(data: ICreateMovieDTO): Promise<Movie>;
   save(movie: Movie): Promise<Movie>;
+  delete(id: string): Promise<void>;
 }
