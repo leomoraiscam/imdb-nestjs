@@ -1,51 +1,51 @@
+import { DIRECTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
 import { InMemoryDirectorsRepository } from '../repositories/in-memory/InMemoryDirectors.repositories';
 import { CreateDirectorService } from './CreateDirector.service';
 
-let createDirectorService: CreateDirectorService;
-let inMemoryDirectorsRepository: InMemoryDirectorsRepository;
-
 describe('CreateDirectorService', () => {
+  let createDirectorService: CreateDirectorService;
+  let inMemoryDirectorsRepository: InMemoryDirectorsRepository;
+
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         CreateDirectorService,
         {
-          provide: 'DIRECTOR_REPOSITORY',
+          provide: DIRECTORS_REPOSITORY,
           useClass: InMemoryDirectorsRepository,
         },
       ],
     }).compile();
 
-    inMemoryDirectorsRepository = moduleRef.get<InMemoryDirectorsRepository>(
-      'DIRECTOR_REPOSITORY',
-    );
+    inMemoryDirectorsRepository =
+      moduleRef.get<InMemoryDirectorsRepository>(DIRECTORS_REPOSITORY);
 
     createDirectorService = moduleRef.get<CreateDirectorService>(
       CreateDirectorService,
     );
   });
 
-  it('should be able return an director when receive correct data to create the same', async () => {
+  it('should be able to create a director when receive correct data', async () => {
     const actor = await createDirectorService.execute({
-      name: 'John Doe',
-      gender: 'M',
+      name: 'Nathan Reed',
+      gender: 'Male',
     });
 
     expect(actor).toHaveProperty('id');
   });
 
   it('should not be able create an director when the same exist', async () => {
-    await inMemoryDirectorsRepository.create({
-      name: 'John Doe',
-      gender: 'M',
+    const { name } = await inMemoryDirectorsRepository.create({
+      name: 'Calvin Silva',
+      gender: 'Male',
     });
 
     await expect(
       createDirectorService.execute({
-        name: 'John Doe',
+        name,
         gender: 'M',
       }),
     ).rejects.toBeInstanceOf(ConflictException);

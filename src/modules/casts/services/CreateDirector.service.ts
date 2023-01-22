@@ -1,3 +1,4 @@
+import { DIRECTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { CreateDirectorDTO } from '../dtos/requests/CreateDirector.dto';
@@ -7,7 +8,7 @@ import { IDirectorsRepository } from '../repositories/DirectorsRepository.interf
 @Injectable()
 export class CreateDirectorService {
   constructor(
-    @Inject('DIRECTOR_REPOSITORY')
+    @Inject(DIRECTORS_REPOSITORY)
     private readonly directorsRepository: IDirectorsRepository,
   ) {}
 
