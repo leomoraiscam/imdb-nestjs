@@ -12,6 +12,10 @@ export class GenresRepository implements IGenresRepository {
     private repository: Repository<Genre>,
   ) {}
 
+  async findById(id: string): Promise<Genre> {
+    return this.repository.findOne(id);
+  }
+
   async findByIds(ids: string[]): Promise<Genre[]> {
     const allGenres = this.repository.findByIds(ids);
 
@@ -50,5 +54,9 @@ export class GenresRepository implements IGenresRepository {
     await this.repository.save(genre);
 
     return genre;
+  }
+
+  async save(genre: Genre): Promise<Genre> {
+    return this.repository.save(genre);
   }
 }

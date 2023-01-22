@@ -9,6 +9,10 @@ import { IGenresRepository } from '../IGenresRepository.interface';
 export class InMemoryGenresRepository implements IGenresRepository {
   private genres: Genre[] = [];
 
+  async findById(id: string): Promise<Genre> {
+    return this.genres.find((genre) => genre.id === id);
+  }
+
   async findByIds(ids: string[]): Promise<Genre[]> {
     const allGenres = this.genres.filter((genre) => ids.includes(genre.id));
 
@@ -49,6 +53,16 @@ export class InMemoryGenresRepository implements IGenresRepository {
     });
 
     this.genres.push(genre);
+
+    return genre;
+  }
+
+  async save(genre: Genre): Promise<Genre> {
+    const findIndex = this.genres.findIndex(
+      (genreData) => genreData.id === genre.id,
+    );
+
+    this.genres[findIndex] = genre;
 
     return genre;
   }
