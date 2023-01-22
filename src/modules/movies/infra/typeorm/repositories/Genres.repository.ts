@@ -1,4 +1,5 @@
 import { CreateGenresDTO } from '@/modules/movies/dtos/requests/CreateGenres.dto';
+import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
 import { IGenresRepository } from '@/modules/movies/repositories/IGenresRepository.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -23,6 +24,21 @@ export class GenresRepository implements IGenresRepository {
         name,
       },
     });
+  }
+
+  async list({ name, take, page }: OptionsList): Promise<Genre[]> {
+    const moviesQuery = await this.repository
+      .createQueryBuilder('m')
+      .take(take)
+      .skip(take * (page - 1));
+
+    if (name) {
+      moviesQuery.andWhere(`m.name = :name`, { name });
+    }
+
+    const genres = await moviesQuery.getMany();
+
+    return genres;
   }
 
   async create({ name, description }: CreateGenresDTO): Promise<Genre> {
