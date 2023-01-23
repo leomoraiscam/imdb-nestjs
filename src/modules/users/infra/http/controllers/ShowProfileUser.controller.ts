@@ -1,3 +1,10 @@
+import { USERS } from '@/config/constants/resourceTags.constants';
+import {
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND_RESPONSE,
+  OK_RESPONSE,
+  UNAUTHORIZED_RESPONSE,
+} from '@/config/constants/responses.constant';
 import { ShowProfileUserService } from '@/modules/users/services/ShowProfileUser.service';
 import { AuthenticatedUser } from '@/shared/decorators/authenticatedUser.decorator';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
@@ -21,7 +28,7 @@ import { classToClass } from 'class-transformer';
 
 import { User } from '../../typeorm/entities/User.entity';
 
-@ApiTags('Users')
+@ApiTags(USERS)
 @Controller('profile')
 export class ShowProfileUserController {
   constructor(private readonly showProfileService: ShowProfileUserService) {}
@@ -30,22 +37,19 @@ export class ShowProfileUserController {
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({
     type: User,
-    description:
-      'This will be returned when the user was found and the same return data',
+    description: OK_RESPONSE,
   })
   @ApiUnauthorizedResponse({
     type: ValidationErrorDTO,
-    description:
-      'This will be return when client doesnt provide Authorization Cookie',
+    description: UNAUTHORIZED_RESPONSE,
   })
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
-    description:
-      'This will be returned when the user to be deleted or does not exist',
+    description: NOT_FOUND_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @UseGuards(JwtAuthGuard)
   public async handle(@AuthenticatedUser('id') id: string): Promise<User> {
