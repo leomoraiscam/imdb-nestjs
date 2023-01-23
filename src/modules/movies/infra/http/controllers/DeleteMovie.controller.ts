@@ -4,6 +4,7 @@ import {
   NOT_FOUND_RESPONSE,
   UNAUTHORIZED_RESPONSE,
 } from '@/config/constants/responses.constant';
+import { DeleteMovieService } from '@/modules/movies/services/DeleteMovie.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import {
   Controller,
@@ -19,8 +20,6 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-
-import { DeleteMovieService } from '../../../services/DeleteMovies.service';
 
 @ApiTags(MOVIES)
 @Controller(MOVIES.toLowerCase())

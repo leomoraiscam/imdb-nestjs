@@ -6,7 +6,7 @@ import {
   CONFLICT_RESPONSE,
   INTERNAL_SERVER_ERROR,
 } from '@/config/constants/responses.constant';
-import { UpdateMovieService } from '@/modules/movies/services/UpdateMovies.service';
+import { UpdateMovieService } from '@/modules/movies/services/UpdateMovie.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { Body, Controller, Param, Put } from '@nestjs/common';
