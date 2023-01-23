@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Genre } from '../infra/typeorm/entities/Genre.entity';
 import { InMemoryMoviesRepository } from '../repositories/in-memory/InMemoryMovies.repository';
-import { UpdateMovieService } from './UpdateMovies.service';
+import { UpdateMovieService } from './UpdateMovie.service';
 
 let updateMovieService: UpdateMovieService;
 let inMemoryMoviesRepository: InMemoryMoviesRepository;

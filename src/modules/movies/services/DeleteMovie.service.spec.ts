@@ -6,7 +6,7 @@ import { Test } from '@nestjs/testing';
 import { v4 as uuidv4 } from 'uuid';
 
 import { InMemoryMoviesRepository } from '../repositories/in-memory/InMemoryMovies.repository';
-import { DeleteMovieService } from './DeleteMovies.service';
+import { DeleteMovieService } from './DeleteMovie.service';
 
 describe('DeleteMovieService', () => {
   let deleteMovieService: DeleteMovieService;
