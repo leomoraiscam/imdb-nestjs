@@ -1,3 +1,10 @@
+import {
+  MOVIES_REPOSITORY,
+  GENRES_REPOSITORY,
+  VOTES_REPOSITORY,
+  DIRECTORS_REPOSITORY,
+  ACTORS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -9,7 +16,8 @@ import { CreateGenreController } from './infra/http/controllers/CreateGenre.cont
 import { CreateMovieController } from './infra/http/controllers/CreateMovie.controller';
 import { CreateVoteController } from './infra/http/controllers/CreateVote.controller';
 import { ListMoviesController } from './infra/http/controllers/ListMovies.controller';
-import { ShowMoviesController } from './infra/http/controllers/ShowMovies.controller';
+import { ShowMovieController } from './infra/http/controllers/ShowMovie.controller';
+import { UpdateMovieController } from './infra/http/controllers/UpdateMovie.controller';
 import { Genre } from './infra/typeorm/entities/Genre.entity';
 import { Movie } from './infra/typeorm/entities/Movie.entity';
 import { Vote } from './infra/typeorm/entities/Vote.entity';
@@ -18,45 +26,48 @@ import { MoviesRepository } from './infra/typeorm/repositories/Movies.repository
 import { VotesRepository } from './infra/typeorm/repositories/Votes.repository';
 import { CreateGenreService } from './services/CreateGenre.service';
 import { CreateMovieService } from './services/CreateMovie.service';
-import { CreateVotesToMoviesService } from './services/CreateVotesToMovies.service';
+import { CreateVotesToMovieService } from './services/CreateVotesToMovie.service';
 import { ListMoviesServices } from './services/ListMovies.service';
-import { ShowMoviesServices } from './services/ShowMovies.service';
+import { ShowMovieService } from './services/ShowMovie.service';
+import { UpdateMovieService } from './services/UpdateMovie.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Movie, Genre, Vote, Actor, Director])],
   controllers: [
-    CreateGenreController,
     CreateMovieController,
-    ListMoviesController,
-    ShowMoviesController,
+    CreateGenreController,
     CreateVoteController,
+    ListMoviesController,
+    ShowMovieController,
+    UpdateMovieController,
   ],
   providers: [
     {
-      provide: 'GENRE_REPOSITORY',
-      useClass: GenresRepository,
-    },
-    {
-      provide: 'MOVIE_REPOSITORY',
+      provide: MOVIES_REPOSITORY,
       useClass: MoviesRepository,
     },
     {
-      provide: 'VOTE_REPOSITORY',
+      provide: GENRES_REPOSITORY,
+      useClass: GenresRepository,
+    },
+    {
+      provide: VOTES_REPOSITORY,
       useClass: VotesRepository,
     },
     {
-      provide: 'DIRECTOR_REPOSITORY',
+      provide: DIRECTORS_REPOSITORY,
       useClass: DirectorsRepository,
     },
     {
-      provide: 'ACTOR_REPOSITORY',
+      provide: ACTORS_REPOSITORY,
       useClass: ActorsRepository,
     },
-    CreateGenreService,
     CreateMovieService,
+    CreateGenreService,
+    CreateVotesToMovieService,
     ListMoviesServices,
-    ShowMoviesServices,
-    CreateVotesToMoviesService,
+    ShowMovieService,
+    UpdateMovieService,
   ],
 })
 export class MovieModule {}

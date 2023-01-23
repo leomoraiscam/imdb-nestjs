@@ -10,7 +10,7 @@ import { Vote } from '../infra/typeorm/entities/Vote.entity';
 import { IVotesRepository } from '../repositories/IVotesRepository.interface';
 
 @Injectable()
-export class CreateVotesToMoviesService {
+export class CreateVotesToMovieService {
   constructor(
     @Inject(MOVIES_REPOSITORY)
     private readonly moviesRepository: IMoviesRepository,
