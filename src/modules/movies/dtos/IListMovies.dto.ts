@@ -1,4 +1,4 @@
-export interface ISerializedResponse {
+export interface IListMovieDTO {
   id: string;
   name: string;
   description: string;

@@ -1,4 +1,4 @@
-export interface ICreateVoteDTO {
+export interface ICreateVotesDTO {
   userId: string;
   movieId: string;
   note: number;
