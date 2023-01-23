@@ -1,3 +1,4 @@
+import { DIRECTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Inject } from '@nestjs/common';
 
 import { OptionsList } from '../dtos/requests/OptionsToListData.dto';
@@ -6,7 +7,7 @@ import { IDirectorsRepository } from '../repositories/DirectorsRepository.interf
 
 export class ListDirectorsServices {
   constructor(
-    @Inject('DIRECTOR_REPOSITORY')
+    @Inject(DIRECTORS_REPOSITORY)
     private readonly directorsRepository: IDirectorsRepository,
   ) {}
 

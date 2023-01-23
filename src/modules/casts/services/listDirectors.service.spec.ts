@@ -1,3 +1,4 @@
+import { DIRECTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Test } from '@nestjs/testing';
 
 import { InMemoryDirectorsRepository } from '../repositories/in-memory/InMemoryDirectors.repositories';
@@ -12,7 +13,7 @@ describe('ListDirectorsService', () => {
       providers: [
         ListDirectorsServices,
         {
-          provide: 'DIRECTOR_REPOSITORY',
+          provide: DIRECTORS_REPOSITORY,
           useClass: InMemoryDirectorsRepository,
         },
       ],
@@ -21,9 +22,8 @@ describe('ListDirectorsService', () => {
     listDirectorsServices = moduleRef.get<ListDirectorsServices>(
       ListDirectorsServices,
     );
-    inMemoryDirectorsRepository = moduleRef.get<InMemoryDirectorsRepository>(
-      'DIRECTOR_REPOSITORY',
-    );
+    inMemoryDirectorsRepository =
+      moduleRef.get<InMemoryDirectorsRepository>(DIRECTORS_REPOSITORY);
   });
 
   it('should be able list all actors', async () => {

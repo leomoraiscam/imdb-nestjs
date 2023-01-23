@@ -1,3 +1,4 @@
+import { ACTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Test } from '@nestjs/testing';
 
 import { InMemoryActorsRepository } from '../repositories/in-memory/InMemoryActors.repositories';
@@ -12,7 +13,7 @@ describe('ListActorsService', () => {
       providers: [
         ListActorsServices,
         {
-          provide: 'ACTOR_REPOSITORY',
+          provide: ACTORS_REPOSITORY,
           useClass: InMemoryActorsRepository,
         },
       ],
@@ -20,7 +21,7 @@ describe('ListActorsService', () => {
 
     listActorsServices = moduleRef.get<ListActorsServices>(ListActorsServices);
     inMemoryActorsRepository =
-      moduleRef.get<InMemoryActorsRepository>('ACTOR_REPOSITORY');
+      moduleRef.get<InMemoryActorsRepository>(ACTORS_REPOSITORY);
   });
 
   it('should be able list all actors', async () => {
