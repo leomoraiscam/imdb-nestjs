@@ -1,4 +1,5 @@
 import { jwt } from '@/config/auth';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { IUsersRepository } from '@/modules/users/repositories/UsersRepository.interface';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
@@ -7,7 +8,8 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @Inject('USER_REPOSITORY') private userRepository: IUsersRepository,
+    @Inject(USERS_REPOSITORY)
+    private readonly usersRepository: IUsersRepository,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -17,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    const user = await this.userRepository.findById(payload.sub);
+    const user = await this.usersRepository.findById(payload.sub);
 
     if (!user) {
       throw new UnauthorizedException('tokenInvalid');

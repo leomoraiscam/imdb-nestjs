@@ -1,3 +1,10 @@
+import { SESSIONS } from '@/config/constants/resourceTags.constants';
+import {
+  BAD_REQUEST_RESPONSE,
+  CREATED_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+  UNAUTHORIZED_RESPONSE,
+} from '@/config/constants/responses.constant';
 import { AuthenticateUserDTO } from '@/modules/users/dtos/requests/AuthenticateUser.dto';
 import { AuthenticatedUserDTO } from '@/modules/users/dtos/responses/AuthenticatedUser.dto';
 import { AuthenticateUserService } from '@/modules/users/services/AuthenticateUser.service';
@@ -13,8 +20,8 @@ import {
 } from '@nestjs/swagger';
 import { classToClass } from 'class-transformer';
 
-@ApiTags('Sessions')
-@Controller('sessions')
+@ApiTags(SESSIONS)
+@Controller(SESSIONS.toLowerCase())
 export class AuthenticatedUserController {
   constructor(
     private readonly authenticateUserService: AuthenticateUserService,
@@ -24,19 +31,19 @@ export class AuthenticatedUserController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: AuthenticatedUserDTO,
-    description: 'This will be returned when the created session',
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
   })
   @ApiUnauthorizedResponse({
     type: ValidationErrorDTO,
-    description: 'This will be return when email or password wrong',
+    description: UNAUTHORIZED_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   public async handle(@Body() { email, password }: AuthenticateUserDTO) {
     const authenticateUser = await this.authenticateUserService.execute({

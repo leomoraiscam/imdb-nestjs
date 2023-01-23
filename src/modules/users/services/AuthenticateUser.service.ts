@@ -1,4 +1,6 @@
 import { jwt } from '@/config/auth';
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
 
@@ -10,9 +12,9 @@ import { IUsersRepository } from '../repositories/UsersRepository.interface';
 @Injectable()
 export class AuthenticateUserService {
   constructor(
-    @Inject('HASH_PROVIDER')
+    @Inject(HASH_PROVIDER)
     private readonly hashProvider: IHashProvider,
-    @Inject('USER_REPOSITORY')
+    @Inject(USERS_REPOSITORY)
     private readonly usersRepository: IUsersRepository,
   ) {}
 

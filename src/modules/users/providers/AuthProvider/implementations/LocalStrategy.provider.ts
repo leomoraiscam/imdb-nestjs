@@ -1,16 +1,19 @@
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { IUsersRepository } from '@/modules/users/repositories/UsersRepository.interface';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 
-import { BCryptHashProvider } from '../../hashProvider/implementations/BCryptHash.provider';
+import { IHashProvider } from '../../hashProvider/models/HashProvider.interface';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @Inject('USER_REPOSITORY')
-    private usersRepository: IUsersRepository,
-    private readonly hashProvider: BCryptHashProvider,
+    @Inject(USERS_REPOSITORY)
+    private readonly usersRepository: IUsersRepository,
+    @Inject(HASH_PROVIDER)
+    private readonly hashProvider: IHashProvider,
   ) {
     super({
       usernameField: 'email',

@@ -1,3 +1,5 @@
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
@@ -6,10 +8,10 @@ import { InMemoryHashProvider } from '../providers/hashProvider/in-memory/InMemo
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { AuthenticateUserService } from './AuthenticateUser.service';
 
-let authenticateUserService: AuthenticateUserService;
-let inMemoryUserRepository: InMemoryUsersRepository;
-
 describe('AuthenticateUserService', () => {
+  let authenticateUserService: AuthenticateUserService;
+  let inMemoryUserRepository: InMemoryUsersRepository;
+
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
@@ -21,13 +23,13 @@ describe('AuthenticateUserService', () => {
             sign: jest.fn(() => 'accessToken'),
           },
         },
-        { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
-        { provide: 'HASH_PROVIDER', useClass: InMemoryHashProvider },
+        { provide: USERS_REPOSITORY, useClass: InMemoryUsersRepository },
+        { provide: HASH_PROVIDER, useClass: InMemoryHashProvider },
       ],
     }).compile();
 
     inMemoryUserRepository =
-      moduleRef.get<InMemoryUsersRepository>('USER_REPOSITORY');
+      moduleRef.get<InMemoryUsersRepository>(USERS_REPOSITORY);
 
     authenticateUserService = moduleRef.get<AuthenticateUserService>(
       AuthenticateUserService,
@@ -52,7 +54,7 @@ describe('AuthenticateUserService', () => {
   it('should not be able authenticate user when the same does not exist', async () => {
     await expect(
       authenticateUserService.execute({
-        email: 'any@mail.com.br',
+        email: 'jmail@mail.com.br',
         password: '123@Test',
       }),
     ).rejects.toBeInstanceOf(UnauthorizedException);
