@@ -7,6 +7,7 @@ import {
   UNAUTHORIZED_RESPONSE,
 } from '@/config/constants/responses.constant';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
+import { CreateVotesToMovieService } from '@/modules/movies/services/CreateVotesToMovie.service';
 import {
   Body,
   Controller,
@@ -32,14 +33,13 @@ import { RolesGuard } from 'src/shared/guards/Roles.guard';
 import { JwtAuthGuard } from 'src/shared/infra/http/guards/jwtAuth.guard';
 
 import { CreateVotesDTO } from '../../../dtos/requests/CreateVotes.dto';
-import { CreateVotesToMoviesService } from '../../../services/CreateVotesToMovies.service';
 import { Vote } from '../../typeorm/entities/Vote.entity';
 
 @ApiTags(VOTES)
 @Controller('movies/:movieId/votes')
 export class CreateVoteController {
   constructor(
-    private readonly createVotesToMoviesService: CreateVotesToMoviesService,
+    private readonly createVotesToMovieService: CreateVotesToMovieService,
   ) {}
 
   @Post()
@@ -71,7 +71,7 @@ export class CreateVoteController {
     @Param('movieId') movieId: string,
     @Body() { note }: CreateVotesDTO,
   ): Promise<Vote> {
-    return this.createVotesToMoviesService.execute({
+    return this.createVotesToMovieService.execute({
       movieId,
       note,
       userId: id,
