@@ -24,7 +24,7 @@ import { Actor } from '../../typeorm/entities/Actor.entity';
 
 @ApiTags(ACTORS)
 @Controller(ACTORS.toLowerCase())
-export class CreateActorsController {
+export class CreateActorController {
   constructor(private readonly createActorService: CreateActorService) {}
 
   @Post()

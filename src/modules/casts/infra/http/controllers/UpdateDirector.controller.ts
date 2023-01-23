@@ -25,7 +25,7 @@ import { Director } from '../../typeorm/entities/Direction.entity';
 
 @ApiTags(DIRECTORS)
 @Controller(DIRECTORS.toLowerCase())
-export class UpdateActorController {
+export class UpdateDirectorController {
   constructor(private readonly updateDirectorService: UpdateDirectorService) {}
 
   @Put(':id')

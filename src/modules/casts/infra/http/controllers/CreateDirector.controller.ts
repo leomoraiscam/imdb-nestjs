@@ -23,7 +23,7 @@ import {
 import { Director } from '../../typeorm/entities/Direction.entity';
 @ApiTags(DIRECTORS)
 @Controller(DIRECTORS.toLowerCase())
-export class CreateDirectorsController {
+export class CreateDirectorController {
   constructor(private readonly createDirectorService: CreateDirectorService) {}
 
   @Post()
