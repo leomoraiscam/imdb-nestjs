@@ -9,4 +9,5 @@ export interface IActorsRepository {
   list(options: OptionsList): Promise<Actor[]>;
   create(data: CreateActorDTO): Promise<Actor>;
   save(actor: Actor): Promise<Actor>;
+  delete(id: string): Promise<void>;
 }

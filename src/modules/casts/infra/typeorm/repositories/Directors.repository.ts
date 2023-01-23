@@ -55,4 +55,8 @@ export class DirectorsRepository implements IDirectorsRepository {
   async save(director: Director): Promise<Director> {
     return this.repository.save(director);
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.softDelete(id);
+  }
 }

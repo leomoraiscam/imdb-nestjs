@@ -57,4 +57,12 @@ export class InMemoryDirectorsRepository implements IDirectorsRepository {
 
     return director;
   }
+
+  public async delete(id: string): Promise<void> {
+    const fieldIndex = this.directors.findIndex(
+      (directorData) => directorData.id === id,
+    );
+
+    this.directors.splice(fieldIndex, 1);
+  }
 }

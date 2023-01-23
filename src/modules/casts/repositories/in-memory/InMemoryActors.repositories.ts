@@ -61,4 +61,12 @@ export class InMemoryActorsRepository implements IActorsRepository {
 
     return actor;
   }
+
+  public async delete(id: string): Promise<void> {
+    const fieldIndex = this.actors.findIndex(
+      (actorData) => actorData.id === id,
+    );
+
+    this.actors.splice(fieldIndex, 1);
+  }
 }

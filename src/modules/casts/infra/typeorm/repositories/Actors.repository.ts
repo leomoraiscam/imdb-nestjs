@@ -59,4 +59,8 @@ export class ActorsRepository implements IActorsRepository {
   async save(actor: Actor): Promise<Actor> {
     return this.repository.save(actor);
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.softDelete(id);
+  }
 }

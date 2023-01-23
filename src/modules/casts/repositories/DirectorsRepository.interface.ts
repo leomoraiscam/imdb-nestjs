@@ -8,4 +8,5 @@ export interface IDirectorsRepository {
   list(options: OptionsList): Promise<Director[]>;
   create(data: CreateDirectorDTO): Promise<Director>;
   save(director: Director): Promise<Director>;
+  delete(id: string): Promise<void>;
 }
