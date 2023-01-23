@@ -1,3 +1,12 @@
+import { USERS } from '@/config/constants/resourceTags.constants';
+import {
+  BAD_REQUEST_RESPONSE,
+  CONFLICT_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND_RESPONSE,
+  OK_RESPONSE,
+  UNAUTHORIZED_RESPONSE,
+} from '@/config/constants/responses.constant';
 import { UpdateUserDTO } from '@/modules/users/dtos/requests/UpdateUser.dto';
 import { UpdateUserService } from '@/modules/users/services/UpdateUser.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
@@ -25,7 +34,7 @@ import { classToClass } from 'class-transformer';
 
 import { User } from '../../typeorm/entities/User.entity';
 
-@ApiTags('Users')
+@ApiTags(USERS)
 @Controller('profile')
 export class UpdateProfileUserController {
   constructor(private readonly updateUserService: UpdateUserService) {}
@@ -34,29 +43,27 @@ export class UpdateProfileUserController {
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({
     type: User,
-    description: 'This will be returned when user updated',
+    description: OK_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
   })
   @ApiUnauthorizedResponse({
     type: ValidationErrorDTO,
-    description:
-      'This will be return when client doesnt provide Authorization Cookie',
+    description: UNAUTHORIZED_RESPONSE,
   })
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
-    description:
-      'This will be returned when the user to be deleted or does not exist',
+    description: NOT_FOUND_RESPONSE,
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when the email is already in use',
+    description: CONFLICT_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @UseGuards(JwtAuthGuard)
   public async update(

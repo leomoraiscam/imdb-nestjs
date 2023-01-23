@@ -1,3 +1,5 @@
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import {
   BadRequestException,
   ConflictException,
@@ -14,9 +16,9 @@ import { IUsersRepository } from '../repositories/UsersRepository.interface';
 @Injectable()
 export class UpdateUserService {
   constructor(
-    @Inject('HASH_PROVIDER')
+    @Inject(HASH_PROVIDER)
     private readonly hashProvider: IHashProvider,
-    @Inject('USER_REPOSITORY')
+    @Inject(USERS_REPOSITORY)
     private readonly usersRepository: IUsersRepository,
   ) {}
 

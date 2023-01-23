@@ -1,3 +1,5 @@
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import {
   BadRequestException,
   ConflictException,
@@ -9,21 +11,21 @@ import { InMemoryHashProvider } from '../providers/hashProvider/in-memory/InMemo
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { UpdateUserService } from './UpdateUser.service';
 
-let updateUserService: UpdateUserService;
-let inMemoryUserRepository: InMemoryUsersRepository;
-
 describe('UpdateUserService', () => {
+  let updateUserService: UpdateUserService;
+  let inMemoryUserRepository: InMemoryUsersRepository;
+
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         UpdateUserService,
-        { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
-        { provide: 'HASH_PROVIDER', useClass: InMemoryHashProvider },
+        { provide: USERS_REPOSITORY, useClass: InMemoryUsersRepository },
+        { provide: HASH_PROVIDER, useClass: InMemoryHashProvider },
       ],
     }).compile();
 
     inMemoryUserRepository =
-      moduleRef.get<InMemoryUsersRepository>('USER_REPOSITORY');
+      moduleRef.get<InMemoryUsersRepository>(USERS_REPOSITORY);
 
     updateUserService = moduleRef.get<UpdateUserService>(UpdateUserService);
   });
@@ -36,10 +38,10 @@ describe('UpdateUserService', () => {
     });
 
     const userUpdated = await updateUserService.execute({
-      user_id: user.id,
+      userId: user.id,
       email: user.email,
       name: 'John Doe Two',
-      old_password: user.password,
+      oldPassword: user.password,
     });
 
     expect(userUpdated.email).toEqual('jonh@email.com');
@@ -49,10 +51,10 @@ describe('UpdateUserService', () => {
   it('should not be able update an user when the same does not exist', async () => {
     await expect(
       updateUserService.execute({
-        user_id: 'invalid-user',
+        userId: 'invalid-user',
         email: 'jonhdoe@email.cm',
         name: 'John Doe Two',
-        old_password: 'test@123',
+        oldPassword: 'test@123',
       }),
     ).rejects.toBeInstanceOf(NotFoundException);
   });
@@ -72,10 +74,10 @@ describe('UpdateUserService', () => {
 
     await expect(
       updateUserService.execute({
-        user_id: secondUser.id,
+        userId: secondUser.id,
         email: firstUser.email,
         name: secondUser.name,
-        old_password: secondUser.password,
+        oldPassword: secondUser.password,
       }),
     ).rejects.toBeInstanceOf(ConflictException);
   });
@@ -88,10 +90,10 @@ describe('UpdateUserService', () => {
     });
 
     const updatedUser = await updateUserService.execute({
-      user_id: firstUser.id,
+      userId: firstUser.id,
       email: firstUser.email,
       name: firstUser.name,
-      old_password: firstUser.password,
+      oldPassword: firstUser.password,
       password: 'Test@1234',
     });
 
@@ -107,11 +109,11 @@ describe('UpdateUserService', () => {
 
     await expect(
       updateUserService.execute({
-        user_id: user.id,
+        userId: user.id,
         name: 'Joe Smith',
         email: 'joe@example.com',
         password: '123123',
-        old_password: 'wrong-old-password',
+        oldPassword: 'wrong-old-password',
       }),
     ).rejects.toBeInstanceOf(BadRequestException);
   });
@@ -125,11 +127,11 @@ describe('UpdateUserService', () => {
 
     await expect(
       updateUserService.execute({
-        user_id: user.id,
+        userId: user.id,
         name: 'Joe Smith',
         email: 'joe@example.com',
         password: '123123',
-        old_password: '123123',
+        oldPassword: '123123',
       }),
     ).rejects.toBeInstanceOf(BadRequestException);
   });
