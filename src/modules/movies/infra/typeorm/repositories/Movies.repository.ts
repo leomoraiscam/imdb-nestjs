@@ -1,4 +1,4 @@
-import { ICreateMovieDTO } from '@/modules/movies/dtos/ICreateMovie.dto';
+import { ICreateMoviesDTO } from '@/modules/movies/dtos/ICreateMovies.dto';
 import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
 import { IMoviesRepository } from '@/modules/movies/repositories/IMoviesRepository.interface';
 import { Injectable } from '@nestjs/common';
@@ -70,7 +70,7 @@ export class MoviesRepository implements IMoviesRepository {
     genres,
     actors,
     directorId,
-  }: ICreateMovieDTO): Promise<Movie> {
+  }: ICreateMoviesDTO): Promise<Movie> {
     const movie = this.repository.create({
       name,
       description,

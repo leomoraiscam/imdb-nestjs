@@ -5,7 +5,7 @@ import {
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { IMoviesRepository } from 'src/modules/movies/repositories/IMoviesRepository.interface';
 
-import { ICreateVoteDTO } from '../dtos/ICreateVotes.dto';
+import { ICreateVotesDTO } from '../dtos/ICreateVotes.dto';
 import { Vote } from '../infra/typeorm/entities/Vote.entity';
 import { IVotesRepository } from '../repositories/IVotesRepository.interface';
 
@@ -18,7 +18,7 @@ export class CreateVotesToMoviesService {
     private readonly votesRepository: IVotesRepository,
   ) {}
 
-  async execute({ movieId, userId, note }: ICreateVoteDTO): Promise<Vote> {
+  async execute({ movieId, userId, note }: ICreateVotesDTO): Promise<Vote> {
     const movie = await this.moviesRepository.findById(movieId);
 
     if (!movie) {

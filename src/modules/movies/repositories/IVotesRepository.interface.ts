@@ -1,6 +1,6 @@
-import { ICreateVoteDTO } from '../dtos/ICreateVotes.dto';
+import { ICreateVotesDTO } from '../dtos/ICreateVotes.dto';
 import { Vote } from '../infra/typeorm/entities/Vote.entity';
 
 export interface IVotesRepository {
-  create(data: ICreateVoteDTO): Promise<Vote>;
+  create(data: ICreateVotesDTO): Promise<Vote>;
 }
