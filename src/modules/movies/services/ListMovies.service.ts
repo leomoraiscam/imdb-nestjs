@@ -1,7 +1,7 @@
 import { MOVIES_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Inject } from '@nestjs/common';
 
-import { ISerializedResponse } from '../dtos/ISerializedMovies.dto';
+import { IListMovieDTO } from '../dtos/IListMovies.dto';
 import { OptionsList } from '../dtos/requests/OptionsToListMovie.dto';
 import { Movie } from '../infra/typeorm/entities/Movie.entity';
 import { IMoviesRepository } from '../repositories/IMoviesRepository.interface';
@@ -19,7 +19,7 @@ export class ListMoviesServices {
     take = 10,
     page = 1,
     skip = 0,
-  }: OptionsList): Promise<ISerializedResponse[] | Movie[]> {
+  }: OptionsList): Promise<IListMovieDTO[] | Movie[]> {
     const movies = await this.moviesRepository.list({
       name,
       author,
