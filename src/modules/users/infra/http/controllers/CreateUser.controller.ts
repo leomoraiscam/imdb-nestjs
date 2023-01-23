@@ -1,3 +1,10 @@
+import { USERS } from '@/config/constants/resourceTags.constants';
+import {
+  BAD_REQUEST_RESPONSE,
+  CONFLICT_RESPONSE,
+  CREATED_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+} from '@/config/constants/responses.constant';
 import { CreateUserDTO } from '@/modules/users/dtos/requests/CreateUser.dto';
 import { CreateUserService } from '@/modules/users/services/CreateUser.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
@@ -14,8 +21,8 @@ import { classToClass } from 'class-transformer';
 
 import { User } from '../../typeorm/entities/User.entity';
 
-@ApiTags('Users')
-@Controller('users')
+@ApiTags(USERS)
+@Controller(USERS.toLowerCase())
 export class CreateUsersController {
   constructor(private readonly createUserService: CreateUserService) {}
 
@@ -23,19 +30,19 @@ export class CreateUsersController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: User,
-    description: 'This will be returned when the created user',
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when the email is already in use',
+    description: CONFLICT_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   async handle(@Body() { password, name, email }: CreateUserDTO) {
     const user = await this.createUserService.execute({

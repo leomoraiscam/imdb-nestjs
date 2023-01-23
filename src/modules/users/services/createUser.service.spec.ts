@@ -1,3 +1,5 @@
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
@@ -5,21 +7,21 @@ import { InMemoryHashProvider } from '../providers/hashProvider/in-memory/InMemo
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
 import { CreateUserService } from './CreateUser.service';
 
-let createUserService: CreateUserService;
-let inMemoryUserRepository: InMemoryUsersRepository;
-
 describe('CreateUserService', () => {
+  let createUserService: CreateUserService;
+  let inMemoryUserRepository: InMemoryUsersRepository;
+
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         CreateUserService,
-        { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
-        { provide: 'HASH_PROVIDER', useClass: InMemoryHashProvider },
+        { provide: USERS_REPOSITORY, useClass: InMemoryUsersRepository },
+        { provide: HASH_PROVIDER, useClass: InMemoryHashProvider },
       ],
     }).compile();
 
     inMemoryUserRepository =
-      moduleRef.get<InMemoryUsersRepository>('USER_REPOSITORY');
+      moduleRef.get<InMemoryUsersRepository>(USERS_REPOSITORY);
 
     createUserService = moduleRef.get<CreateUserService>(CreateUserService);
   });

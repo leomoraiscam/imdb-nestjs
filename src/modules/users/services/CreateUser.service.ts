@@ -1,3 +1,5 @@
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { CreateUserDTO } from '../dtos/requests/CreateUser.dto';
@@ -8,9 +10,9 @@ import { IUsersRepository } from '../repositories/UsersRepository.interface';
 @Injectable()
 export class CreateUserService {
   constructor(
-    @Inject('HASH_PROVIDER')
+    @Inject(HASH_PROVIDER)
     private readonly hashProvider: IHashProvider,
-    @Inject('USER_REPOSITORY')
+    @Inject(USERS_REPOSITORY)
     private readonly usersRepository: IUsersRepository,
   ) {}
 
