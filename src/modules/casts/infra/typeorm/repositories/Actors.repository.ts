@@ -1,4 +1,4 @@
-import { CreateActorDTO } from '@/modules/casts/dtos/requests/CreateActor.dto';
+import { CreateActorsDTO } from '@/modules/casts/dtos/requests/CreateActors.dto';
 import { OptionsList } from '@/modules/casts/dtos/requests/OptionsToListData.dto';
 import { IActorsRepository } from '@/modules/casts/repositories/ActorsRepository.interface';
 import { Injectable } from '@nestjs/common';
@@ -45,7 +45,7 @@ export class ActorsRepository implements IActorsRepository {
     return actors;
   }
 
-  async create({ name, gender }: CreateActorDTO): Promise<Actor> {
+  async create({ name, gender }: CreateActorsDTO): Promise<Actor> {
     const actor = this.repository.create({
       name,
       gender,

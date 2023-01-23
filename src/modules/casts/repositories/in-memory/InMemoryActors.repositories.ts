@@ -1,7 +1,7 @@
 import { paginate } from '@/modules/movies/utils/paginateArrayInMemory';
 import { v4 as uuid } from 'uuid';
 
-import { CreateActorDTO } from '../../dtos/requests/CreateActor.dto';
+import { CreateActorsDTO } from '../../dtos/requests/CreateActors.dto';
 import { OptionsList } from '../../dtos/requests/OptionsToListData.dto';
 import { Actor } from '../../infra/typeorm/entities/Actor.entity';
 import { IActorsRepository } from '../ActorsRepository.interface';
@@ -42,7 +42,7 @@ export class InMemoryActorsRepository implements IActorsRepository {
     return data;
   }
 
-  public async create({ name, gender }: CreateActorDTO): Promise<Actor> {
+  public async create({ name, gender }: CreateActorsDTO): Promise<Actor> {
     const actor = new Actor();
 
     Object.assign(actor, { id: uuid(), name, gender });

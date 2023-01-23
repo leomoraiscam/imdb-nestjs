@@ -6,7 +6,7 @@ import {
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED_RESPONSE,
 } from '@/config/constants/responses.constant';
-import { CreateDirectorDTO } from '@/modules/casts/dtos/requests/CreateDirector.dto';
+import { CreateDirectorsDTO } from '@/modules/casts/dtos/requests/CreateDirectors.dto';
 import { CreateDirectorService } from '@/modules/casts/services/CreateDirector.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -48,7 +48,7 @@ export class CreateDirectorController {
     type: ExceptionErrorDTO,
     description: INTERNAL_SERVER_ERROR,
   })
-  handle(@Body() { name, gender }: CreateDirectorDTO) {
+  handle(@Body() { name, gender }: CreateDirectorsDTO) {
     return this.createDirectorService.execute({
       name,
       gender,

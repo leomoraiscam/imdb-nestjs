@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { UpdateActorDTO } from '../dtos/requests/UpdateActor.dto';
+import { UpdateActorsDTO } from '../dtos/requests/UpdateActors.dto';
 import { Actor } from '../infra/typeorm/entities/Actor.entity';
 import { IActorsRepository } from '../repositories/ActorsRepository.interface';
 
@@ -21,7 +21,7 @@ export class UpdateActorService {
     gender,
     name,
     actorId,
-  }: UpdateActorDTO): Promise<Actor> {
+  }: UpdateActorsDTO): Promise<Actor> {
     const actor = await this.actorsRepository.findById(actorId);
 
     if (!actor) {

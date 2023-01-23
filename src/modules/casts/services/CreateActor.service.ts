@@ -1,7 +1,7 @@
 import { ACTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
-import { CreateActorDTO } from '../dtos/requests/CreateActor.dto';
+import { CreateActorsDTO } from '../dtos/requests/CreateActors.dto';
 import { Actor } from '../infra/typeorm/entities/Actor.entity';
 import { IActorsRepository } from '../repositories/ActorsRepository.interface';
 
@@ -12,7 +12,7 @@ export class CreateActorService {
     private readonly actorsRepository: IActorsRepository,
   ) {}
 
-  public async execute({ name, gender }: CreateActorDTO): Promise<Actor> {
+  public async execute({ name, gender }: CreateActorsDTO): Promise<Actor> {
     const checkActorsExists = await this.actorsRepository.findByName(name);
 
     if (checkActorsExists) {

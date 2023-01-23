@@ -6,7 +6,7 @@ import {
   OK_RESPONSE,
   UNAUTHORIZED_RESPONSE,
 } from '@/config/constants/responses.constant';
-import { UpdateDirectorDTO } from '@/modules/casts/dtos/requests/UpdateDirector.dto';
+import { UpdateDirectorsDTO } from '@/modules/casts/dtos/requests/UpdateDirectors.dto';
 import { UpdateDirectorService } from '@/modules/casts/services/UpdateDirector.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -48,7 +48,7 @@ export class UpdateDirectorController {
   })
   @UseGuards(JwtAuthGuard)
   handle(
-    @Body() updateDirectorDTO: UpdateDirectorDTO,
+    @Body() updateDirectorDTO: UpdateDirectorsDTO,
     @Param('id') id: string,
   ) {
     const { gender, name } = updateDirectorDTO;

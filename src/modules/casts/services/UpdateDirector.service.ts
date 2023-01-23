@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { UpdateDirectorDTO } from '../dtos/requests/UpdateDirector.dto';
+import { UpdateDirectorsDTO } from '../dtos/requests/UpdateDirectors.dto';
 import { Director } from '../infra/typeorm/entities/Direction.entity';
 import { IDirectorsRepository } from '../repositories/DirectorsRepository.interface';
 
@@ -21,7 +21,7 @@ export class UpdateDirectorService {
     gender,
     name,
     directorId,
-  }: UpdateDirectorDTO): Promise<Director> {
+  }: UpdateDirectorsDTO): Promise<Director> {
     const director = await this.directorsRepository.findById(directorId);
 
     if (!director) {

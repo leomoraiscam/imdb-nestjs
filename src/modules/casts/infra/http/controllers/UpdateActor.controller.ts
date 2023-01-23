@@ -6,7 +6,7 @@ import {
   OK_RESPONSE,
   UNAUTHORIZED_RESPONSE,
 } from '@/config/constants/responses.constant';
-import { UpdateActorDTO } from '@/modules/casts/dtos/requests/UpdateActor.dto';
+import { UpdateActorsDTO } from '@/modules/casts/dtos/requests/UpdateActors.dto';
 import { UpdateActorService } from '@/modules/casts/services/UpdateActor.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -47,7 +47,7 @@ export class UpdateActorController {
     description: INTERNAL_SERVER_ERROR,
   })
   @UseGuards(JwtAuthGuard)
-  handle(@Body() updateActorDTO: UpdateActorDTO, @Param('id') id: string) {
+  handle(@Body() updateActorDTO: UpdateActorsDTO, @Param('id') id: string) {
     const { gender, name } = updateActorDTO;
 
     return this.updateActorService.execute({

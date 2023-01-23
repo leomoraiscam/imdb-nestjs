@@ -6,7 +6,7 @@ import {
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED_RESPONSE,
 } from '@/config/constants/responses.constant';
-import { CreateActorDTO } from '@/modules/casts/dtos/requests/CreateActor.dto';
+import { CreateActorsDTO } from '@/modules/casts/dtos/requests/CreateActors.dto';
 import { CreateActorService } from '@/modules/casts/services/CreateActor.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -49,7 +49,7 @@ export class CreateActorController {
     type: ExceptionErrorDTO,
     description: INTERNAL_SERVER_ERROR,
   })
-  handle(@Body() { name, gender }: CreateActorDTO) {
+  handle(@Body() { name, gender }: CreateActorsDTO) {
     return this.createActorService.execute({
       name,
       gender,

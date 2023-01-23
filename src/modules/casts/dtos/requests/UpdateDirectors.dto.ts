@@ -1,11 +1,11 @@
 import { PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-import { CreateActorDTO } from './CreateActor.dto';
+import { CreateActorsDTO } from './CreateActors.dto';
 
-export class UpdateActorDTO extends PartialType(CreateActorDTO) {
+export class UpdateDirectorsDTO extends PartialType(CreateActorsDTO) {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  actorId?: string;
+  directorId?: string;
 }

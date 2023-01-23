@@ -1,4 +1,4 @@
-import { CreateActorDTO } from '../dtos/requests/CreateActor.dto';
+import { CreateActorsDTO } from '../dtos/requests/CreateActors.dto';
 import { OptionsList } from '../dtos/requests/OptionsToListData.dto';
 import { Actor } from '../infra/typeorm/entities/Actor.entity';
 
@@ -7,7 +7,7 @@ export interface IActorsRepository {
   findByIds(ids: string[]): Promise<Actor[]>;
   findByName(name: string): Promise<Actor>;
   list(options: OptionsList): Promise<Actor[]>;
-  create(data: CreateActorDTO): Promise<Actor>;
+  create(data: CreateActorsDTO): Promise<Actor>;
   save(actor: Actor): Promise<Actor>;
   delete(id: string): Promise<void>;
 }

@@ -1,7 +1,7 @@
 import { DIRECTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
-import { CreateDirectorDTO } from '../dtos/requests/CreateDirector.dto';
+import { CreateDirectorsDTO } from '../dtos/requests/CreateDirectors.dto';
 import { Director } from '../infra/typeorm/entities/Direction.entity';
 import { IDirectorsRepository } from '../repositories/DirectorsRepository.interface';
 
@@ -12,7 +12,10 @@ export class CreateDirectorService {
     private readonly directorsRepository: IDirectorsRepository,
   ) {}
 
-  public async execute({ name, gender }: CreateDirectorDTO): Promise<Director> {
+  public async execute({
+    name,
+    gender,
+  }: CreateDirectorsDTO): Promise<Director> {
     const checkDirectorExists = await this.directorsRepository.findByName(name);
 
     if (checkDirectorExists) {

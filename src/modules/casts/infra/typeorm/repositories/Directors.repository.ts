@@ -1,4 +1,4 @@
-import { CreateDirectorDTO } from '@/modules/casts/dtos/requests/CreateDirector.dto';
+import { CreateDirectorsDTO } from '@/modules/casts/dtos/requests/CreateDirectors.dto';
 import { OptionsList } from '@/modules/casts/dtos/requests/OptionsToListData.dto';
 import { IDirectorsRepository } from '@/modules/casts/repositories/DirectorsRepository.interface';
 import { Injectable } from '@nestjs/common';
@@ -41,7 +41,7 @@ export class DirectorsRepository implements IDirectorsRepository {
     return directors;
   }
 
-  async create({ name, gender }: CreateDirectorDTO): Promise<Director> {
+  async create({ name, gender }: CreateDirectorsDTO): Promise<Director> {
     const director = this.repository.create({
       name,
       gender,

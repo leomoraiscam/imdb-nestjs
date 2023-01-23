@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateDirectorDTO {
+export class CreateActorsDTO {
   @ApiProperty({
-    example: 'John Smith',
+    example: 'John Doe',
   })
   @IsString()
   @IsNotEmpty()
