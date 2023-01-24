@@ -25,6 +25,19 @@ export class CreateVotesToMovieService {
       throw new NotFoundException('movie not found');
     }
 
+    const vote = await this.votesRepository.findVoteByUserAndMovie({
+      userId,
+      movieId,
+    });
+
+    if (vote) {
+      Object.assign(vote, {
+        note,
+      });
+
+      return this.votesRepository.save(vote);
+    }
+
     return this.votesRepository.create({
       movieId,
       note,
