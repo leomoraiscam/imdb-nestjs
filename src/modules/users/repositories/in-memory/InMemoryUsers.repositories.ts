@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { CreateUserDTO } from '../../dtos/requests/CreateUser.dto';
+import { CreateUsersDTO } from '../../dtos/requests/CreateUsers.dto';
 import { User } from '../../infra/typeorm/entities/User.entity';
 import { IUsersRepository } from '../UsersRepository.interface';
 
@@ -19,7 +19,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
     return this.users.find((user) => user.id === id);
   }
 
-  public async create(userData: CreateUserDTO): Promise<User> {
+  public async create(userData: CreateUsersDTO): Promise<User> {
     const user = new User();
 
     Object.assign(user, { id: uuid() }, userData);

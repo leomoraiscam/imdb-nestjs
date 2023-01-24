@@ -5,7 +5,7 @@ import {
   CREATED_RESPONSE,
   INTERNAL_SERVER_ERROR,
 } from '@/config/constants/responses.constant';
-import { CreateUserDTO } from '@/modules/users/dtos/requests/CreateUser.dto';
+import { CreateUsersDTO } from '@/modules/users/dtos/requests/CreateUsers.dto';
 import { CreateUserService } from '@/modules/users/services/CreateUser.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -44,7 +44,7 @@ export class CreateUsersController {
     type: ExceptionErrorDTO,
     description: INTERNAL_SERVER_ERROR,
   })
-  async handle(@Body() { password, name, email }: CreateUserDTO) {
+  async handle(@Body() { password, name, email }: CreateUsersDTO) {
     const user = await this.createUserService.execute({
       password,
       name,

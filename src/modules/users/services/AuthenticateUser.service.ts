@@ -4,7 +4,7 @@ import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
 
-import { AuthenticateUserDTO } from '../dtos/requests/AuthenticateUser.dto';
+import { AuthenticateUsersDTO } from '../dtos/requests/AuthenticateUsers.dto';
 import { AuthenticatedUserDTO } from '../dtos/responses/AuthenticatedUser.dto';
 import { IHashProvider } from '../providers/hashProvider/models/HashProvider.interface';
 import { IUsersRepository } from '../repositories/UsersRepository.interface';
@@ -21,7 +21,7 @@ export class AuthenticateUserService {
   public async execute({
     email,
     password,
-  }: AuthenticateUserDTO): Promise<AuthenticatedUserDTO> {
+  }: AuthenticateUsersDTO): Promise<AuthenticatedUserDTO> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {

@@ -2,7 +2,7 @@ import { HASH_PROVIDER } from '@/config/constants/providers.constants';
 import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
-import { CreateUserDTO } from '../dtos/requests/CreateUser.dto';
+import { CreateUsersDTO } from '../dtos/requests/CreateUsers.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
 import { IHashProvider } from '../providers/hashProvider/models/HashProvider.interface';
 import { IUsersRepository } from '../repositories/UsersRepository.interface';
@@ -20,7 +20,7 @@ export class CreateUserService {
     name,
     email,
     password,
-  }: CreateUserDTO): Promise<User> {
+  }: CreateUsersDTO): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
 
     if (checkUserExists) {

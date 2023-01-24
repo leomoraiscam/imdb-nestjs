@@ -7,7 +7,7 @@ import {
   OK_RESPONSE,
   UNAUTHORIZED_RESPONSE,
 } from '@/config/constants/responses.constant';
-import { UpdateUserDTO } from '@/modules/users/dtos/requests/UpdateUser.dto';
+import { UpdateUsersDTO } from '@/modules/users/dtos/requests/UpdateUsers.dto';
 import { UpdateUserService } from '@/modules/users/services/UpdateUser.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -68,10 +68,10 @@ export class UpdateProfileUserController {
   @UseGuards(JwtAuthGuard)
   public async update(
     @Request() req: any,
-    @Body() updateUserDTO: UpdateUserDTO,
+    @Body() updateUsersDTO: UpdateUsersDTO,
   ): Promise<User> {
     const userId = req.user.id;
-    const { email, name, password, oldPassword } = updateUserDTO;
+    const { email, name, password, oldPassword } = updateUsersDTO;
 
     const user = await this.updateUserService.execute({
       userId,

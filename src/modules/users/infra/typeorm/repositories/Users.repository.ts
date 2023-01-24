@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '@/modules/users/dtos/requests/CreateUser.dto';
+import { CreateUsersDTO } from '@/modules/users/dtos/requests/CreateUsers.dto';
 import { IUsersRepository } from '@/modules/users/repositories/UsersRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,7 +31,11 @@ export class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async create({ name, email, password }: CreateUserDTO): Promise<User> {
+  public async create({
+    name,
+    email,
+    password,
+  }: CreateUsersDTO): Promise<User> {
     const user = this.repository.create({ email, password, name });
 
     await this.repository.save(user);

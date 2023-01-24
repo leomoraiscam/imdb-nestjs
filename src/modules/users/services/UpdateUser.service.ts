@@ -8,7 +8,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { UpdateUserDTO } from '../dtos/requests/UpdateUser.dto';
+import { UpdateUsersDTO } from '../dtos/requests/UpdateUsers.dto';
 import { User } from '../infra/typeorm/entities/User.entity';
 import { IHashProvider } from '../providers/hashProvider/models/HashProvider.interface';
 import { IUsersRepository } from '../repositories/UsersRepository.interface';
@@ -28,7 +28,7 @@ export class UpdateUserService {
     email,
     password,
     oldPassword,
-  }: UpdateUserDTO): Promise<User> {
+  }: UpdateUsersDTO): Promise<User> {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) {

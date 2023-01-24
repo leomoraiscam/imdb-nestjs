@@ -5,7 +5,7 @@ import {
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED_RESPONSE,
 } from '@/config/constants/responses.constant';
-import { AuthenticateUserDTO } from '@/modules/users/dtos/requests/AuthenticateUser.dto';
+import { AuthenticateUsersDTO } from '@/modules/users/dtos/requests/AuthenticateUsers.dto';
 import { AuthenticatedUserDTO } from '@/modules/users/dtos/responses/AuthenticatedUser.dto';
 import { AuthenticateUserService } from '@/modules/users/services/AuthenticateUser.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
@@ -45,7 +45,7 @@ export class AuthenticatedUserController {
     type: ExceptionErrorDTO,
     description: INTERNAL_SERVER_ERROR,
   })
-  public async handle(@Body() { email, password }: AuthenticateUserDTO) {
+  public async handle(@Body() { email, password }: AuthenticateUsersDTO) {
     const authenticateUser = await this.authenticateUserService.execute({
       email,
       password,
