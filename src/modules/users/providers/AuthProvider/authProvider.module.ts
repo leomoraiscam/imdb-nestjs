@@ -1,3 +1,6 @@
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
+import { BCryptHashProvider } from '@/modules/users/providers/hashProvider/implementations/BCryptHash.provider';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -11,8 +14,12 @@ import { LocalStrategy } from './implementations/LocalStrategy.provider';
   imports: [TypeOrmModule.forFeature([User]), HashProviderModule],
   providers: [
     {
-      provide: 'USER_REPOSITORY',
+      provide: USERS_REPOSITORY,
       useClass: UsersRepository,
+    },
+    {
+      provide: HASH_PROVIDER,
+      useClass: BCryptHashProvider,
     },
     LocalStrategy,
     JwtStrategy,

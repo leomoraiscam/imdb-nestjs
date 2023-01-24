@@ -1,3 +1,5 @@
+import { HASH_PROVIDER } from '@/config/constants/providers.constants';
+import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -29,25 +31,25 @@ import { UpdateUserService } from './services/UpdateUser.service';
     }),
   ],
   controllers: [
-    CreateUsersController,
-    ShowProfileUserController,
     AuthenticatedUserController,
+    CreateUsersController,
     UpdateProfileUserController,
+    ShowProfileUserController,
   ],
   providers: [
     {
-      provide: 'USER_REPOSITORY',
+      provide: USERS_REPOSITORY,
       useClass: UsersRepository,
     },
     {
-      provide: 'HASH_PROVIDER',
+      provide: HASH_PROVIDER,
       useClass: BCryptHashProvider,
     },
     JwtStrategy,
-    CreateUserService,
-    ShowProfileUserService,
-    UpdateUserService,
     AuthenticateUserService,
+    CreateUserService,
+    UpdateUserService,
+    ShowProfileUserService,
   ],
 })
 export class UsersModule {}
