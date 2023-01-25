@@ -1,4 +1,4 @@
-import { PermissionEnum } from '@/modules/accessControlList/dtos/permissions.enum';
+import { PermissionsEnum } from '@/modules/accessControlList/dtos/permissions.enum';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ export class PermissionsGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const requiredPermissions = this.reflector.getAllAndOverride<
-      PermissionEnum[]
+      PermissionsEnum[]
     >(PERMISSION_KEY, [context.getHandler(), context.getClass()]);
 
     if (!requiredPermissions) {

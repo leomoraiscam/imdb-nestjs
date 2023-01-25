@@ -6,7 +6,7 @@ import {
   CONFLICT_RESPONSE,
   INTERNAL_SERVER_ERROR,
 } from '@/config/constants/responses.constant';
-import { PermissionEnum } from '@/modules/accessControlList/dtos/permissions.enum';
+import { PermissionsEnum } from '@/modules/accessControlList/dtos/permissions.enum';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import { CreateGenresDTO } from '@/modules/movies/dtos/requests/CreateGenres.dto';
 import { CreateGenreService } from '@/modules/movies/services/CreateGenre.service';
@@ -65,9 +65,9 @@ export class CreateGenreController {
   })
   @HasRoles(RolesEnum.ADMIN, RolesEnum.USER)
   @HasPermissions(
-    PermissionEnum.CREATE,
-    PermissionEnum.UPDATE,
-    PermissionEnum.DELETE,
+    PermissionsEnum.CREATE,
+    PermissionsEnum.UPDATE,
+    PermissionsEnum.DELETE,
   )
   @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
   handle(

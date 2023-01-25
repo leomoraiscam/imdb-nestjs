@@ -1,7 +1,7 @@
 import { Permission } from '@/modules/accessControlList/infra/typeorm/entities/Permission.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreatedPermissionsRolesDTO {
+export class CreatedPermissionsRoleDTO {
   @ApiProperty({
     example: '1e131dd6-3945-460f-a417-fd2b0e90fac4',
   })

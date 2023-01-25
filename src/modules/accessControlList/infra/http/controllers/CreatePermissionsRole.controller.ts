@@ -5,10 +5,10 @@ import {
   INTERNAL_SERVER_ERROR,
   NOT_FOUND_RESPONSE,
 } from '@/config/constants/responses.constant';
-import { CreatePermissionRolesDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissionRoles.dto';
-import { CreatedPermissionRolesDTO } from '@/modules/accessControlList/dtos/http/responses/CreatedPermissionRoles.dto';
+import { CreatePermissionsRoleDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissionsRole.dto';
+import { CreatedPermissionsRoleDTO } from '@/modules/accessControlList/dtos/http/responses/CreatedPermissionsRole.dto';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
-import { CreateRolePermissionService } from '@/modules/accessControlList/services/CreateRolePermission.service';
+import { CreatePermissionsRoleService } from '@/modules/accessControlList/services/CreatePermissionsRole.service';
 import { HasRoles } from '@/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
@@ -37,13 +37,13 @@ import { Permission } from '../../typeorm/entities/Permission.entity';
 @Controller('roles/:id/permissions')
 export class CreatePermissionsRoleController {
   constructor(
-    private readonly createRolePermissionService: CreateRolePermissionService,
+    private readonly createRolePermissionService: CreatePermissionsRoleService,
   ) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
-    type: CreatedPermissionRolesDTO,
+    type: CreatedPermissionsRoleDTO,
     description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
@@ -62,7 +62,7 @@ export class CreatePermissionsRoleController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   handle(
     @Param('id') id: string,
-    @Body() { permissions }: CreatePermissionRolesDTO,
+    @Body() { permissions }: CreatePermissionsRoleDTO,
   ): Promise<Permission> {
     return this.createRolePermissionService.execute({
       roleId: id,
