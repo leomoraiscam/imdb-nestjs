@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMinSize, IsArray } from 'class-validator';
 
-export class CreatePermissionRolesDTO {
+export class CreatePermissionsRolesDTO {
   @ApiProperty({
     example: [
       '9c8b2753-c658-405d-85db-de40e20c53bf',
