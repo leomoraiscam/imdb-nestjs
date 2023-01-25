@@ -1,4 +1,4 @@
-export interface IListMovieDTO {
+export interface IListMoviesDTO {
   id: string;
   name: string;
   description: string;

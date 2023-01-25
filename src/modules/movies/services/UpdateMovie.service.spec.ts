@@ -9,13 +9,13 @@ import { Genre } from '../infra/typeorm/entities/Genre.entity';
 import { InMemoryMoviesRepository } from '../repositories/in-memory/InMemoryMovies.repository';
 import { UpdateMovieService } from './UpdateMovie.service';
 
-let updateMovieService: UpdateMovieService;
-let inMemoryMoviesRepository: InMemoryMoviesRepository;
-let director: Director;
-let actor: Actor;
-let genre: Genre;
-
 describe('UpdateMovieService', () => {
+  let updateMovieService: UpdateMovieService;
+  let inMemoryMoviesRepository: InMemoryMoviesRepository;
+  let director: Director;
+  let actor: Actor;
+  let genre: Genre;
+
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [

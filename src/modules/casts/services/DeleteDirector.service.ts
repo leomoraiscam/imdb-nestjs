@@ -6,16 +6,16 @@ import { IDirectorsRepository } from '../repositories/DirectorsRepository.interf
 export class DeleteDirectorService {
   constructor(
     @Inject(DIRECTORS_REPOSITORY)
-    private readonly directorRepository: IDirectorsRepository,
+    private readonly directorsRepository: IDirectorsRepository,
   ) {}
 
   public async execute(id: string): Promise<void> {
-    const director = await this.directorRepository.findById(id);
+    const director = await this.directorsRepository.findById(id);
 
     if (!director) {
       throw new NotFoundException('Cannot delete an non-existing director');
     }
 
-    return this.directorRepository.delete(id);
+    return this.directorsRepository.delete(id);
   }
 }

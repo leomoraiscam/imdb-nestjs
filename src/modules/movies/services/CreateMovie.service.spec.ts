@@ -19,7 +19,7 @@ describe('CreateMovieService', () => {
   let createMovieService: CreateMovieService;
   let inMemoryMoviesRepository: InMemoryMoviesRepository;
   let inMemoryGenresRepository: InMemoryGenresRepository;
-  let inMemoryDirectorRepository: InMemoryDirectorsRepository;
+  let inMemoryDirectorsRepository: InMemoryDirectorsRepository;
   let inMemoryActorsRepository: InMemoryActorsRepository;
   let actor: Actor;
   let director: Director;
@@ -44,7 +44,7 @@ describe('CreateMovieService', () => {
     inMemoryGenresRepository =
       moduleRef.get<InMemoryGenresRepository>(GENRES_REPOSITORY);
 
-    inMemoryDirectorRepository =
+    inMemoryDirectorsRepository =
       moduleRef.get<InMemoryDirectorsRepository>(DIRECTORS_REPOSITORY);
 
     inMemoryActorsRepository =
@@ -57,7 +57,7 @@ describe('CreateMovieService', () => {
         name: 'Singleton',
         gender: 'male',
       }),
-      inMemoryDirectorRepository.create({
+      inMemoryDirectorsRepository.create({
         name: 'Sylvia Evans',
         gender: 'female',
       }),
