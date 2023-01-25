@@ -1,3 +1,10 @@
+import { ACCESS_CONTROL_LIST } from '@/config/constants/resourceTags.constants';
+import {
+  BAD_REQUEST_RESPONSE,
+  CREATED_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND_RESPONSE,
+} from '@/config/constants/responses.constant';
 import { CreateACLToUserDTO } from '@/modules/accessControlList/dtos/http/requests/CreateAccessControlListToUser.dto';
 import { CreatedACLToUserDTO } from '@/modules/accessControlList/dtos/http/responses/CreatedAccessControlListToUser.dto';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
@@ -26,7 +33,7 @@ import {
 } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 
-@ApiTags('Access Control List')
+@ApiTags(ACCESS_CONTROL_LIST)
 @Controller('users/:id/acl')
 export class CreateUserAccessControlListController {
   constructor(
@@ -37,20 +44,19 @@ export class CreateUserAccessControlListController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: CreatedACLToUserDTO,
-    description: 'This will be returned when the created access to user',
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
   })
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
-    description:
-      'This will be returned when the user, role or permission to be deleted does not exist',
+    description: NOT_FOUND_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)

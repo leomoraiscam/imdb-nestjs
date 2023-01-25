@@ -1,5 +1,10 @@
+import {
+  ROLES_REPOSITORY,
+  PERMISSIONS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { Test } from '@nestjs/testing';
 
+import { RolesEnum } from '../dtos/roles.enum';
 import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemoryPermissions.repository';
 import { InMemoryRolesRepository } from '../repositories/in-memory/InMemoryRoles.repository';
 import { CreateRolePermissionService } from './CreateRolePermission.service';
@@ -14,11 +19,11 @@ describe('CreateRolesPermissionsService', () => {
       providers: [
         CreateRolePermissionService,
         {
-          provide: 'ROLE_REPOSITORY',
+          provide: ROLES_REPOSITORY,
           useClass: InMemoryRolesRepository,
         },
         {
-          provide: 'PERMISSION_REPOSITORY',
+          provide: PERMISSIONS_REPOSITORY,
           useClass: InMemoryPermissionsRepository,
         },
       ],
@@ -29,16 +34,16 @@ describe('CreateRolesPermissionsService', () => {
     );
 
     inMemoryPermissionsRepository =
-      moduleRef.get<InMemoryPermissionsRepository>('PERMISSION_REPOSITORY');
+      moduleRef.get<InMemoryPermissionsRepository>(PERMISSIONS_REPOSITORY);
 
     inMemoryRolesRepository =
-      moduleRef.get<InMemoryRolesRepository>('ROLE_REPOSITORY');
+      moduleRef.get<InMemoryRolesRepository>(ROLES_REPOSITORY);
   });
 
   it('should be able to create a permissions to specific role', async () => {
     const role = await inMemoryRolesRepository.create({
       description: 'Role to administrator',
-      name: 'admin',
+      name: RolesEnum.ADMIN,
     });
 
     const permission = await inMemoryPermissionsRepository.create({

@@ -1,3 +1,13 @@
+import {
+  ACCESS_CONTROL_LIST,
+  ROLES,
+} from '@/config/constants/resourceTags.constants';
+import {
+  BAD_REQUEST_RESPONSE,
+  CONFLICT_RESPONSE,
+  CREATED_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+} from '@/config/constants/responses.constant';
 import { CreateRolesDTO } from '@/modules/accessControlList/dtos/http/requests/CreateRoles.dto';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import { CreateRoleService } from '@/modules/accessControlList/services/CreateRole.service';
@@ -24,28 +34,28 @@ import {
 
 import { Role } from '../../typeorm/entities/Role.entity';
 
-@ApiTags('Access Control List')
-@Controller('roles')
-export class CreateRolesController {
+@ApiTags(ACCESS_CONTROL_LIST)
+@Controller(ROLES)
+export class CreateRoleController {
   constructor(private readonly createRoleService: CreateRoleService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: Role,
-    description: 'This will be returned when the created role',
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when the email is already in use',
+    description: CONFLICT_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)

@@ -1,3 +1,10 @@
+import { ACCESS_CONTROL_LIST } from '@/config/constants/resourceTags.constants';
+import {
+  BAD_REQUEST_RESPONSE,
+  CREATED_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND_RESPONSE,
+} from '@/config/constants/responses.constant';
 import { CreatePermissionRolesDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissionRoles.dto';
 import { CreatedPermissionRolesDTO } from '@/modules/accessControlList/dtos/http/responses/CreatedPermissionRoles.dto';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
@@ -26,9 +33,9 @@ import {
 
 import { Permission } from '../../typeorm/entities/Permission.entity';
 
-@ApiTags('Access Control List')
+@ApiTags(ACCESS_CONTROL_LIST)
 @Controller('roles/:id/permissions')
-export class CreateRolePermissionController {
+export class CreatePermissionsRoleController {
   constructor(
     private readonly createRolePermissionService: CreateRolePermissionService,
   ) {}
@@ -37,20 +44,19 @@ export class CreateRolePermissionController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: CreatedPermissionRolesDTO,
-    description: 'This will be returned when the created permission role',
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
   })
   @ApiNotFoundResponse({
     type: ExceptionErrorDTO,
-    description:
-      'This will be returned when the role or permission to be deleted does not exist',
+    description: NOT_FOUND_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)

@@ -1,3 +1,13 @@
+import {
+  ACCESS_CONTROL_LIST,
+  PERMISSIONS,
+} from '@/config/constants/resourceTags.constants';
+import {
+  BAD_REQUEST_RESPONSE,
+  CONFLICT_RESPONSE,
+  CREATED_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+} from '@/config/constants/responses.constant';
 import { CreatePermissionsDTO } from '@/modules/accessControlList/dtos/http/requests/CreatePermissions.dto';
 import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import { CreatePermissionService } from '@/modules/accessControlList/services/CreatePermission.service';
@@ -24,8 +34,8 @@ import {
 
 import { Permission } from '../../typeorm/entities/Permission.entity';
 
-@ApiTags('Access Control List')
-@Controller('permissions')
+@ApiTags(ACCESS_CONTROL_LIST)
+@Controller(PERMISSIONS)
 export class CreatePermissionController {
   constructor(
     private readonly createPermissionService: CreatePermissionService,
@@ -35,20 +45,19 @@ export class CreatePermissionController {
   @HttpCode(HttpStatus.CREATED)
   @ApiCreatedResponse({
     type: Permission,
-    description: 'This will be returned when the created permission',
+    description: CREATED_RESPONSE,
   })
   @ApiBadRequestResponse({
     type: ValidationErrorDTO,
-    description: 'This will be returned when has validation error',
+    description: BAD_REQUEST_RESPONSE,
   })
   @ApiConflictResponse({
     type: ExceptionErrorDTO,
-    description:
-      'This will be returned when the name of permission is already in use',
+    description: CONFLICT_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @HasRoles(RolesEnum.USER)
   @UseGuards(JwtAuthGuard, RolesGuard)

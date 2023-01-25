@@ -5,3 +5,6 @@ export const ACTORS = 'Actors';
 export const DIRECTORS = 'Directors';
 export const SESSIONS = 'Sessions';
 export const USERS = 'Users';
+export const ACCESS_CONTROL_LIST = 'Access Control List';
+export const PERMISSIONS = 'Permission';
+export const ROLES = 'Roles';
