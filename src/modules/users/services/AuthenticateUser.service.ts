@@ -1,4 +1,4 @@
-import { jwt } from '@/config/auth';
+import { jwt } from '@/config/constants/auth.constants';
 import { HASH_PROVIDER } from '@/config/constants/providers.constants';
 import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
