@@ -1,3 +1,7 @@
+import {
+  ROLES_REPOSITORY,
+  PERMISSIONS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { Inject, NotFoundException } from '@nestjs/common';
 
 import { ICreatePermissionRolesDTO } from '../dtos/ICreatePermissionRoles.dto';
@@ -7,9 +11,9 @@ import IRolesRepository from '../repositories/IRolesRepository.interface';
 
 export class CreateRolePermissionService {
   constructor(
-    @Inject('ROLE_REPOSITORY')
+    @Inject(ROLES_REPOSITORY)
     private readonly rolesRepository: IRolesRepository,
-    @Inject('PERMISSION_REPOSITORY')
+    @Inject(PERMISSIONS_REPOSITORY)
     private readonly permissionsRepository: IPermissionsRepository,
   ) {}
 

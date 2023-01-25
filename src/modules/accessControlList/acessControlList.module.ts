@@ -1,3 +1,8 @@
+import {
+  ROLES_REPOSITORY,
+  PERMISSIONS_REPOSITORY,
+  USERS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -26,15 +31,15 @@ import { CreateRolePermissionService } from './services/CreateRolePermission.ser
   ],
   providers: [
     {
-      provide: 'ROLE_REPOSITORY',
+      provide: ROLES_REPOSITORY,
       useClass: RolesRepository,
     },
     {
-      provide: 'PERMISSION_REPOSITORY',
+      provide: PERMISSIONS_REPOSITORY,
       useClass: PermissionsRepository,
     },
     {
-      provide: 'USER_REPOSITORY',
+      provide: USERS_REPOSITORY,
       useClass: UsersRepository,
     },
     CreateRoleService,

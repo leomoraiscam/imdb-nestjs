@@ -1,3 +1,8 @@
+import {
+  USERS_REPOSITORY,
+  ROLES_REPOSITORY,
+  PERMISSIONS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
 import { IUsersRepository } from '@/modules/users/repositories/UsersRepository.interface';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
@@ -9,11 +14,11 @@ import IRolesRepository from '../repositories/IRolesRepository.interface';
 @Injectable()
 export class CreateAccessControlListToUserService {
   constructor(
-    @Inject('USER_REPOSITORY')
+    @Inject(USERS_REPOSITORY)
     private readonly usersRepository: IUsersRepository,
-    @Inject('ROLE_REPOSITORY')
+    @Inject(ROLES_REPOSITORY)
     private readonly rolesRepository: IRolesRepository,
-    @Inject('PERMISSION_REPOSITORY')
+    @Inject(PERMISSIONS_REPOSITORY)
     private readonly permissionsRepository: IPermissionsRepository,
   ) {}
 

@@ -1,3 +1,4 @@
+import { ROLES_REPOSITORY } from '@/config/constants/repositories.constants';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
 import { CreateRolesDTO } from '../dtos/http/requests/CreateRoles.dto';
@@ -7,7 +8,7 @@ import { IPermissionsRepository } from '../repositories/IPermissionsRepository.i
 @Injectable()
 export class CreateRoleService {
   constructor(
-    @Inject('ROLE_REPOSITORY')
+    @Inject(ROLES_REPOSITORY)
     private readonly rolesRepository: IPermissionsRepository,
   ) {}
 

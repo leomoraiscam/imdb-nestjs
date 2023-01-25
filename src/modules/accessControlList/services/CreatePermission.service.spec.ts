@@ -1,3 +1,4 @@
+import { PERMISSIONS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { BadRequestException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
@@ -13,7 +14,7 @@ describe('CreatePermissionsService', () => {
       providers: [
         CreatePermissionService,
         {
-          provide: 'PERMISSION_REPOSITORY',
+          provide: PERMISSIONS_REPOSITORY,
           useClass: InMemoryPermissionsRepository,
         },
       ],
@@ -24,7 +25,7 @@ describe('CreatePermissionsService', () => {
     );
 
     inMemoryPermissionsRepository =
-      moduleRef.get<InMemoryPermissionsRepository>('PERMISSION_REPOSITORY');
+      moduleRef.get<InMemoryPermissionsRepository>(PERMISSIONS_REPOSITORY);
   });
 
   it('should be able to create a role', async () => {

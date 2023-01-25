@@ -1,3 +1,4 @@
+import { PERMISSIONS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
 import { CreatePermissionsDTO } from '../dtos/http/requests/CreatePermissions.dto';
@@ -7,7 +8,7 @@ import { IPermissionsRepository } from '../repositories/IPermissionsRepository.i
 @Injectable()
 export class CreatePermissionService {
   constructor(
-    @Inject('PERMISSION_REPOSITORY')
+    @Inject(PERMISSIONS_REPOSITORY)
     private readonly permissionRepository: IPermissionsRepository,
   ) {}
 

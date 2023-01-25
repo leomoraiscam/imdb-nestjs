@@ -1,6 +1,12 @@
+import {
+  USERS_REPOSITORY,
+  ROLES_REPOSITORY,
+  PERMISSIONS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { Test } from '@nestjs/testing';
 
 import { InMemoryUsersRepository } from '../../users/repositories/in-memory/InMemoryUsers.repositories';
+import { RolesEnum } from '../dtos/roles.enum';
 import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemoryPermissions.repository';
 import { InMemoryRolesRepository } from '../repositories/in-memory/InMemoryRoles.repository';
 import { CreateAccessControlListToUserService } from './CreateAccessControlListToUser.service';
@@ -15,10 +21,10 @@ describe('CreateAccessControlListService', () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         CreateAccessControlListToUserService,
-        { provide: 'USER_REPOSITORY', useClass: InMemoryUsersRepository },
-        { provide: 'ROLE_REPOSITORY', useClass: InMemoryRolesRepository },
+        { provide: USERS_REPOSITORY, useClass: InMemoryUsersRepository },
+        { provide: ROLES_REPOSITORY, useClass: InMemoryRolesRepository },
         {
-          provide: 'PERMISSION_REPOSITORY',
+          provide: PERMISSIONS_REPOSITORY,
           useClass: InMemoryPermissionsRepository,
         },
       ],
@@ -30,13 +36,13 @@ describe('CreateAccessControlListService', () => {
       );
 
     inMemoryUsersRepository =
-      moduleRef.get<InMemoryUsersRepository>('USER_REPOSITORY');
+      moduleRef.get<InMemoryUsersRepository>(USERS_REPOSITORY);
 
     inMemoryRolesRepository =
-      moduleRef.get<InMemoryRolesRepository>('ROLE_REPOSITORY');
+      moduleRef.get<InMemoryRolesRepository>(ROLES_REPOSITORY);
 
     inMemoryPermissionsRepository =
-      moduleRef.get<InMemoryPermissionsRepository>('PERMISSION_REPOSITORY');
+      moduleRef.get<InMemoryPermissionsRepository>(PERMISSIONS_REPOSITORY);
   });
 
   it('should be able to create a permissions to specific role', async () => {
@@ -48,7 +54,7 @@ describe('CreateAccessControlListService', () => {
 
     const role = await inMemoryRolesRepository.create({
       description: 'Role to administrator',
-      name: 'admin',
+      name: RolesEnum.ADMIN,
     });
 
     const permission = await inMemoryPermissionsRepository.create({
