@@ -9,14 +9,14 @@ import { IPermissionsRepository } from '../repositories/IPermissionsRepository.i
 export class CreatePermissionService {
   constructor(
     @Inject(PERMISSIONS_REPOSITORY)
-    private readonly permissionRepository: IPermissionsRepository,
+    private readonly permissionsRepository: IPermissionsRepository,
   ) {}
 
   async execute({
     description,
     name,
   }: CreatePermissionsDTO): Promise<Permission> {
-    const checkPermissionExist = await this.permissionRepository.findByName(
+    const checkPermissionExist = await this.permissionsRepository.findByName(
       name,
     );
 
@@ -24,7 +24,7 @@ export class CreatePermissionService {
       throw new BadRequestException('Permission already exist');
     }
 
-    const permission = await this.permissionRepository.create({
+    const permission = await this.permissionsRepository.create({
       description,
       name,
     });
