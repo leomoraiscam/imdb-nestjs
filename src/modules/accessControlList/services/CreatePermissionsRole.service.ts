@@ -9,7 +9,7 @@ import { Role } from '../infra/typeorm/entities/Role.entity';
 import { IPermissionsRepository } from '../repositories/IPermissionsRepository.interface';
 import IRolesRepository from '../repositories/IRolesRepository.interface';
 
-export class CreateRolePermissionService {
+export class CreatePermissionsRoleService {
   constructor(
     @Inject(ROLES_REPOSITORY)
     private readonly rolesRepository: IRolesRepository,

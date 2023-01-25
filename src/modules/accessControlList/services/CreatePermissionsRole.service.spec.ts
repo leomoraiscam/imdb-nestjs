@@ -7,17 +7,17 @@ import { Test } from '@nestjs/testing';
 import { RolesEnum } from '../dtos/roles.enum';
 import { InMemoryPermissionsRepository } from '../repositories/in-memory/InMemoryPermissions.repository';
 import { InMemoryRolesRepository } from '../repositories/in-memory/InMemoryRoles.repository';
-import { CreateRolePermissionService } from './CreateRolePermission.service';
+import { CreatePermissionsRoleService } from './CreatePermissionsRole.service';
 
-describe('CreateRolesPermissionsService', () => {
-  let createRolePermissionService: CreateRolePermissionService;
+describe('CreatePermissionsRolesService', () => {
+  let createPermissionsRoleService: CreatePermissionsRoleService;
   let inMemoryRolesRepository: InMemoryRolesRepository;
   let inMemoryPermissionsRepository: InMemoryPermissionsRepository;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
-        CreateRolePermissionService,
+        CreatePermissionsRoleService,
         {
           provide: ROLES_REPOSITORY,
           useClass: InMemoryRolesRepository,
@@ -29,8 +29,8 @@ describe('CreateRolesPermissionsService', () => {
       ],
     }).compile();
 
-    createRolePermissionService = moduleRef.get<CreateRolePermissionService>(
-      CreateRolePermissionService,
+    createPermissionsRoleService = moduleRef.get<CreatePermissionsRoleService>(
+      CreatePermissionsRoleService,
     );
 
     inMemoryPermissionsRepository =
@@ -51,7 +51,7 @@ describe('CreateRolesPermissionsService', () => {
       name: 'create_user',
     });
 
-    const permissionsRole = await createRolePermissionService.execute({
+    const permissionsRole = await createPermissionsRoleService.execute({
       roleId: role.id,
       permissions: [permission.id],
     });
