@@ -1,8 +1,10 @@
 # compiled output
 /dist
 /node_modules
+.pgdata
 
 /src/shared/docs
+.env
 
 # Logs
 logs
