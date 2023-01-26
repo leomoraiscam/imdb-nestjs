@@ -42,17 +42,67 @@ describe('ListGenresService', () => {
     ]);
   });
 
-  it('should be able list all genres', async () => {
-    const take = 1;
+  it('should be able list all genres with default pagination values', async () => {
+    const genres = await listGenresService.execute({});
+
+    expect(genres.length).toBe(3);
+  });
+
+  it('should be able list genres with custom pagination values', async () => {
     const page = 1;
-    const skip = 2;
+    const perPage = 2;
 
     const genres = await listGenresService.execute({
-      take,
-      skip,
+      perPage,
       page,
     });
 
     expect(genres.length).toBe(2);
+  });
+
+  it('should be able list genres in second page with two objects', async () => {
+    const page = 2;
+    const perPage = 1;
+
+    const genres = await listGenresService.execute({
+      perPage,
+      page,
+    });
+
+    expect(genres.length).toBe(1);
+  });
+
+  it('should be able list genres in second page with insufficient objects', async () => {
+    const page = 2;
+    const perPage = 10;
+
+    const genres = await listGenresService.execute({
+      perPage,
+      page,
+    });
+
+    expect(genres.length).toBe(0);
+  });
+
+  it('should be able list genres with default pagination and filter by name', async () => {
+    const genres = await listGenresService.execute({
+      keyword: 'sci-fy',
+    });
+
+    expect(genres.length).toBe(1);
+  });
+
+  it.only('should be able list genres with custom pagination and filter by name', async () => {
+    const keyword = 'sci-fy';
+    const page = 3;
+    const perPage = 8;
+
+    const genres = await listGenresService.execute({
+      keyword,
+      page,
+      perPage,
+    });
+
+    expect(genres.length).toBe(0);
   });
 });

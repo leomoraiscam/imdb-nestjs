@@ -1,8 +1,8 @@
+import { CommonOptionsDTO } from '@/shared/dtos/Options.dto';
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
 import { IsOptional, IsString } from 'class-validator';
 
-export class OptionsList {
+export class ListMoviesDTO extends CommonOptionsDTO {
   @ApiPropertyOptional({
     example: 'Transformers',
   })
@@ -25,25 +25,4 @@ export class OptionsList {
   @IsString()
   @IsOptional()
   genreIds?: string;
-
-  @ApiPropertyOptional({
-    example: 10,
-  })
-  @IsOptional()
-  @Transform(({ value }) => Number(value))
-  take?: number;
-
-  @ApiPropertyOptional({
-    example: 0,
-  })
-  @IsOptional()
-  @Transform(({ value }) => Number(value))
-  skip?: number;
-
-  @ApiPropertyOptional({
-    example: 1,
-  })
-  @IsOptional()
-  @Transform(({ value }) => Number(value))
-  page?: number;
 }

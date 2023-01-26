@@ -1,4 +1,4 @@
-import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
+import { ListMoviesDTO } from '@/modules/movies/dtos/requests/ListMovies.dto';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ICreateMoviesDTO } from '../../dtos/ICreateMovies.dto';
@@ -17,22 +17,19 @@ export class InMemoryMoviesRepository implements IMoviesRepository {
     return this.movies.find((movie) => movie.name === name);
   }
 
-  async list({ take, skip }: OptionsList): Promise<Movie[]> {
-    let data = [];
+  async list({ perPage, page, keyword }: ListMoviesDTO): Promise<Movie[]> {
+    page = page || 1;
+    perPage = perPage || 10;
 
-    take = take || 1;
-    skip = skip || 10;
+    let paginatedMovies = paginate(this.movies, perPage, page);
 
-    const auxVar = this.movies;
+    if (keyword) {
+      paginatedMovies = paginatedMovies.filter(({ name }) =>
+        name.includes(keyword),
+      );
+    }
 
-    data = auxVar.map((term) => {
-      const json = Object.assign({}, term);
-      return json;
-    });
-
-    data = paginate(data, skip, take);
-
-    return data;
+    return paginatedMovies;
   }
 
   async create({

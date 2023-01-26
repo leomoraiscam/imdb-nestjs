@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { CreateGenresDTO } from '../../dtos/requests/CreateGenres.dto';
-import { OptionsList } from '../../dtos/requests/OptionsToListMovie.dto';
+import { ListGenresDTO } from '../../dtos/requests/ListGenres.dto';
 import { Genre } from '../../infra/typeorm/entities/Genre.entity';
 import { paginate } from '../../utils/paginateArrayInMemory';
 import { IGenresRepository } from '../IGenresRepository.interface';
@@ -23,22 +23,19 @@ export class InMemoryGenresRepository implements IGenresRepository {
     return this.genres.find((genre) => genre.name === name);
   }
 
-  async list({ take, skip }: OptionsList): Promise<Genre[]> {
-    let data = [];
+  async list({ perPage, page, keyword }: ListGenresDTO): Promise<Genre[]> {
+    page = page || 1;
+    perPage = perPage || 10;
 
-    take = take || 1;
-    skip = skip || 10;
+    let paginatedGenres = paginate(this.genres, perPage, page);
 
-    const auxVar = this.genres;
+    if (keyword) {
+      paginatedGenres = paginatedGenres.filter(({ name }) =>
+        name.includes(keyword),
+      );
+    }
 
-    data = auxVar.map((term) => {
-      const json = Object.assign({}, term);
-      return json;
-    });
-
-    data = paginate(data, skip, take);
-
-    return data;
+    return paginatedGenres;
   }
 
   async create({ name, description }: CreateGenresDTO): Promise<Genre> {

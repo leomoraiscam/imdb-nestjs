@@ -1,5 +1,5 @@
 import { ICreateMoviesDTO } from '@/modules/movies/dtos/ICreateMovies.dto';
-import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
+import { ListMoviesDTO } from '@/modules/movies/dtos/requests/ListMovies.dto';
 import { IMoviesRepository } from '@/modules/movies/repositories/IMoviesRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -30,17 +30,18 @@ export class MoviesRepository implements IMoviesRepository {
     name,
     author,
     genreIds,
-    take,
     page,
-  }: OptionsList): Promise<Movie[]> {
+    perPage,
+    keyword,
+  }: ListMoviesDTO): Promise<Movie[]> {
     const moviesQuery = await this.repository
       .createQueryBuilder('m')
       .leftJoinAndSelect('m.genres', 'movies_genres')
       .leftJoinAndSelect('m.votes', 'votes')
       .leftJoinAndSelect('m.actors', 'actors')
       .leftJoinAndSelect('m.director', 'directors')
-      .take(take)
-      .skip(take * (page - 1));
+      .take(perPage)
+      .skip(perPage * (page - 1));
 
     if (name) {
       moviesQuery.andWhere(`m.name = :name`, { name });
@@ -48,6 +49,10 @@ export class MoviesRepository implements IMoviesRepository {
 
     if (author) {
       moviesQuery.andWhere(`m.author = :author`, { author });
+    }
+
+    if (keyword) {
+      moviesQuery.andWhere(`m.name like :name`, { name: `%${keyword}%` });
     }
 
     if (genreIds) {

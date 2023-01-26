@@ -4,7 +4,7 @@ import {
   NO_CONTENT_RESPONSE,
   INTERNAL_SERVER_ERROR,
 } from '@/config/constants/responses.constant';
-import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
+import { ListMoviesDTO } from '@/modules/movies/dtos/requests/ListMovies.dto';
 import { ListMoviesServices } from '@/modules/movies/services/ListMovies.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { CheckEmptyListInterceptor } from '@/shared/interceptors/checkEmptyList.interceptor';
@@ -41,14 +41,16 @@ export class ListMoviesController {
     description: INTERNAL_SERVER_ERROR,
   })
   @UseInterceptors(new CheckEmptyListInterceptor())
-  handle(@Query() { name, author, genreIds, take, skip, page }: OptionsList) {
+  handle(
+    @Query() { name, author, genreIds, page, perPage, keyword }: ListMoviesDTO,
+  ) {
     return this.listMoviesServices.execute({
       name,
       author,
       genreIds,
-      take,
-      skip,
       page,
+      perPage,
+      keyword,
     });
   }
 }

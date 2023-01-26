@@ -109,31 +109,53 @@ describe('ListMoviesService', () => {
     ]);
   });
 
-  it('should be able list all movies', async () => {
-    const take = 1;
+  it('should be able list all movies with default pagination values', async () => {
+    const movies = await listMoviesServices.execute({});
+
+    expect(movies.length).toBe(3);
+  });
+
+  it('should be able list movies with custom pagination values', async () => {
     const page = 1;
-    const skip = 2;
+    const perPage = 2;
 
     const movies = await listMoviesServices.execute({
-      take,
-      skip,
+      perPage,
       page,
     });
 
     expect(movies.length).toBe(2);
   });
 
-  it('should be able list movies with pagination', async () => {
-    const take = 1;
-    const page = 1;
-    const skip = 2;
+  it('should be able list movies in second page with two objects', async () => {
+    const page = 2;
+    const perPage = 1;
 
     const movies = await listMoviesServices.execute({
-      take,
-      skip,
+      perPage,
       page,
     });
 
-    expect(movies.length).toBe(2);
+    expect(movies.length).toBe(1);
+  });
+
+  it('should be able list movies in second page with insufficient objects', async () => {
+    const page = 2;
+    const perPage = 10;
+
+    const movies = await listMoviesServices.execute({
+      perPage,
+      page,
+    });
+
+    expect(movies.length).toBe(0);
+  });
+
+  it('should be able list movies with default pagination and filter by name', async () => {
+    const movies = await listMoviesServices.execute({
+      keyword: 'Fast',
+    });
+
+    expect(movies.length).toBe(1);
   });
 });

@@ -4,7 +4,8 @@ import {
   NO_CONTENT_RESPONSE,
   INTERNAL_SERVER_ERROR,
 } from '@/config/constants/responses.constant';
-import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
+import { ListGenresDTO } from '@/modules/movies/dtos/requests/ListGenres.dto';
+// import { OptionsList } from '@/modules/movies/dtos/requests/OptionsToListMovie.dto';
 import { ListGenresService } from '@/modules/movies/services/ListGenres.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { CheckEmptyListInterceptor } from '@/shared/interceptors/checkEmptyList.interceptor';
@@ -41,11 +42,10 @@ export class ListGenresController {
     description: INTERNAL_SERVER_ERROR,
   })
   @UseInterceptors(new CheckEmptyListInterceptor())
-  handle(@Query() { take, skip, page }: OptionsList) {
+  handle(@Query() { page, perPage }: ListGenresDTO) {
     return this.listGenresService.execute({
-      take,
-      skip,
       page,
+      perPage,
     });
   }
 }
