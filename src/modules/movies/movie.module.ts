@@ -9,7 +9,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Actor } from '../casts/infra/typeorm/entities/Actor.entity';
-import { Director } from '../casts/infra/typeorm/entities/Direction.entity';
+import { Director } from '../casts/infra/typeorm/entities/Director.entity';
 import { ActorsRepository } from '../casts/infra/typeorm/repositories/Actors.repository';
 import { DirectorsRepository } from '../casts/infra/typeorm/repositories/Directors.repository';
 import { CreateGenreController } from './infra/http/controllers/CreateGenre.controller';
