@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AccessControlListModule } from './modules/accessControlList/acessControlList.module';
 import { CastModule } from './modules/casts/cast.module';
+import { HealthCheck } from './modules/healthCheck/healthCheck.module';
 import { MovieModule } from './modules/movies/movie.module';
 import { UsersModule } from './modules/users/users.module';
 
@@ -11,6 +12,7 @@ import { UsersModule } from './modules/users/users.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     PostgresProviderModule,
+    HealthCheck,
     UsersModule,
     AccessControlListModule,
     MovieModule,

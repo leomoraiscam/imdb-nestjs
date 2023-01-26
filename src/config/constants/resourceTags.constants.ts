@@ -8,3 +8,4 @@ export const USERS = 'Users';
 export const ACCESS_CONTROL_LIST = 'Access Control List';
 export const PERMISSIONS = 'Permission';
 export const ROLES = 'Roles';
+export const HEALTH_CHECK = 'Health Check';
