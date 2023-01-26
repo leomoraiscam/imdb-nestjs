@@ -1,26 +1,18 @@
 import { Permission } from '@/modules/accessControlList/infra/typeorm/entities/Permission.entity';
 import { Role } from '@/modules/accessControlList/infra/typeorm/entities/Role.entity';
+import { BaseEntity } from '@/shared/infra/typeorm/entities/Base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import {
   Column,
-  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('users')
-export class User {
-  @ApiProperty({
-    example: 'cc1b9ff1-6956-4db1-9500-9fbd9b37635d',
-  })
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class User extends BaseEntity {
   @ApiProperty({
     example: 'John Doe',
   })
@@ -52,14 +44,6 @@ export class User {
     inverseJoinColumns: [{ name: 'permission_id' }],
   })
   permissions: Permission[];
-
-  @ApiProperty()
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @ApiProperty()
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 
   @ApiProperty()
   @DeleteDateColumn({ name: 'deleted_at' })

@@ -1,23 +1,10 @@
 import { Movie } from '@/modules/movies/infra/typeorm/entities/Movie.entity';
+import { BaseEntity } from '@/shared/infra/typeorm/entities/Base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, DeleteDateColumn } from 'typeorm';
 
 @Entity('directors')
-export class Director {
-  @ApiProperty({
-    example: '5c88a6a9-ccb2-4149-b1e7-a3412577bbe8',
-  })
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Director extends BaseEntity {
   @ApiProperty({
     example: 'Joe Smith',
   })
@@ -32,14 +19,6 @@ export class Director {
 
   @OneToMany(() => Movie, (movies) => movies.director)
   movies?: Movie[];
-
-  @ApiProperty()
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @ApiProperty()
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 
   @ApiProperty()
   @DeleteDateColumn({ name: 'deleted_at' })

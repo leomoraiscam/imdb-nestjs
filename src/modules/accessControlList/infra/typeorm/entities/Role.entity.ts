@@ -1,24 +1,11 @@
+import { BaseEntity } from '@/shared/infra/typeorm/entities/Base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
 import { Permission } from './Permission.entity';
 
 @Entity('roles')
-export class Role {
-  @ApiProperty({
-    example: '1e131dd6-3945-460f-a417-fd2b0e90fac4',
-  })
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Role extends BaseEntity {
   @ApiProperty({
     example: 'admin',
   })
@@ -38,12 +25,4 @@ export class Role {
     inverseJoinColumns: [{ name: 'permission_id' }],
   })
   permissions?: Permission[];
-
-  @ApiProperty()
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @ApiProperty()
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

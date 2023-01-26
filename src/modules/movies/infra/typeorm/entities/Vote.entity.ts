@@ -1,22 +1,11 @@
 import { Movie } from '@/modules/movies/infra/typeorm/entities/Movie.entity';
 import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
+import { BaseEntity } from '@/shared/infra/typeorm/entities/Base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('votes')
-export class Vote {
-  @ApiProperty()
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Vote extends BaseEntity {
   @ApiProperty()
   @Column()
   note: number;
@@ -36,12 +25,4 @@ export class Vote {
   @ManyToOne(() => User, (user) => user)
   @JoinColumn({ name: 'user_id' })
   user: User;
-
-  @ApiProperty()
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @ApiProperty()
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

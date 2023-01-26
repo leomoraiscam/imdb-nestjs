@@ -1,20 +1,9 @@
+import { BaseEntity } from '@/shared/infra/typeorm/entities/Base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity('permissions')
-export class Permission {
-  @ApiProperty({
-    example: '5a8ace8d-3181-4ee7-8603-2e8801238dbb',
-  })
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Permission extends BaseEntity {
   @ApiProperty({
     example: 'create',
   })
@@ -26,12 +15,4 @@ export class Permission {
   })
   @Column()
   description: string;
-
-  @ApiProperty()
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @ApiProperty()
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

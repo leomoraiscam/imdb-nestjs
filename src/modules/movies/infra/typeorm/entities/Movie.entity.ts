@@ -1,30 +1,22 @@
 import { Actor } from '@/modules/casts/infra/typeorm/entities/Actor.entity';
 import { Director } from '@/modules/casts/infra/typeorm/entities/Director.entity';
 import { Vote } from '@/modules/movies/infra/typeorm/entities/Vote.entity';
+import { BaseEntity } from '@/shared/infra/typeorm/entities/Base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 import { Genre } from './Genre.entity';
 
 @Entity('movies')
-export class Movie {
-  @ApiProperty({
-    example: '935a220e-a653-4856-80ba-990a71aa069d',
-  })
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Movie extends BaseEntity {
   @ApiProperty({
     example: 'Transformers',
   })
@@ -81,12 +73,4 @@ export class Movie {
 
   @OneToMany(() => Vote, (vote) => vote.movie)
   votes: Vote[];
-
-  @ApiProperty()
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @ApiProperty()
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }
