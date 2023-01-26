@@ -3,7 +3,6 @@ export const CREATED_RESPONSE =
   'This will be returned when the created a entity resource';
 export const NO_CONTENT_RESPONSE =
   'This will be returned when the empty data to this entity';
-
 export const BAD_REQUEST_RESPONSE =
   'This will be returned when has validation error';
 export const UNAUTHORIZED_RESPONSE =
