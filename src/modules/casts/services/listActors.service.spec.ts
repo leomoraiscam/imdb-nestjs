@@ -19,102 +19,88 @@ describe('ListActorsService', () => {
       ],
     }).compile();
 
-    listActorsServices = moduleRef.get<ListActorsServices>(ListActorsServices);
     inMemoryActorsRepository =
       moduleRef.get<InMemoryActorsRepository>(ACTORS_REPOSITORY);
+
+    listActorsServices = moduleRef.get<ListActorsServices>(ListActorsServices);
+
+    await Promise.all([
+      inMemoryActorsRepository.create({
+        name: 'Glen Henderson',
+        gender: 'Female',
+      }),
+      inMemoryActorsRepository.create({
+        name: 'Franklin Chandler',
+        gender: 'Male',
+      }),
+      inMemoryActorsRepository.create({
+        name: 'Maggie Henderson',
+        gender: 'Female',
+      }),
+    ]);
   });
 
-  it('should be able list all actors', async () => {
-    const take = 1;
+  it('should be able list all actors with default pagination values', async () => {
+    const actors = await listActorsServices.execute({});
+
+    expect(actors.length).toBe(3);
+  });
+
+  it('should be able list actors with custom pagination values', async () => {
     const page = 1;
-    const skip = 2;
-
-    await inMemoryActorsRepository.create({
-      name: 'john doe 1',
-      gender: 'M',
-    });
-
-    await inMemoryActorsRepository.create({
-      name: 'john doe 2',
-      gender: 'M',
-    });
-
-    await inMemoryActorsRepository.create({
-      name: 'john doe 3',
-      gender: 'M',
-    });
+    const perPage = 2;
 
     const actors = await listActorsServices.execute({
-      take,
-      skip,
+      perPage,
       page,
     });
 
     expect(actors.length).toBe(2);
   });
 
-  // it.skip('should be able list movies with pagination', async () => {
-  //   const take = 1;
-  //   const page = 1;
-  //   const skip = 2;
+  it('should be able list actors in second page with two objects', async () => {
+    const page = 2;
+    const perPage = 1;
 
-  //   await inMemoryMoviesRepository.create({
-  //     name: 'transformers',
-  //     description: 'action genre',
-  //     author: 'leo',
-  //     duration: '1h30min',
-  //     year: 2010,
-  //     genres: [
-  //       {
-  //         id: '37b75d18-d4cf-499a-9129-b71f2c4abc76',
-  //         name: 'aventura',
-  //         description: 'this all movies of adventure',
-  //         createdAt: new Date(),
-  //         updatedAt: new Date(),
-  //       },
-  //     ],
-  //   });
+    const actors = await listActorsServices.execute({
+      perPage,
+      page,
+    });
 
-  //   await inMemoryMoviesRepository.create({
-  //     name: 'transformers',
-  //     description: 'action genre',
-  //     author: 'leo',
-  //     duration: '1h30min',
-  //     year: 2010,
-  //     genres: [
-  //       {
-  //         id: '37b75d18-d4cf-499a-9129-b71f2c4abc76',
-  //         name: 'aventura',
-  //         description: 'this all movies of adventure',
-  //         createdAt: new Date(),
-  //         updatedAt: new Date(),
-  //       },
-  //     ],
-  //   });
+    expect(actors.length).toBe(1);
+  });
 
-  //   await inMemoryMoviesRepository.create({
-  //     name: 'transformers',
-  //     description: 'action genre',
-  //     author: 'leo',
-  //     duration: '1h30min',
-  //     year: 2010,
-  //     genres: [
-  //       {
-  //         id: '37b75d18-d4cf-499a-9129-b71f2c4abc76',
-  //         name: 'aventura',
-  //         description: 'this all movies of adventure',
-  //         createdAt: new Date(),
-  //         updatedAt: new Date(),
-  //       },
-  //     ],
-  //   });
+  it('should be able list actors in second page with insufficient objects', async () => {
+    const page = 2;
+    const perPage = 10;
 
-  //   const movies = await listMoviesServices.execute({
-  //     take,
-  //     skip,
-  //     page,
-  //   });
+    const actors = await listActorsServices.execute({
+      perPage,
+      page,
+    });
 
-  //   expect(movies.length).toBe(2);
-  // });
+    expect(actors.length).toBe(0);
+  });
+
+  it('should be able list actors with default pagination and filter by name', async () => {
+    const actors = await listActorsServices.execute({
+      name: 'Henderson',
+    });
+
+    expect(actors.length).toBe(1);
+  });
+
+  it('should be able list actors with custom pagination and filter by name', async () => {
+    const keyword = 'Henderson';
+    const page = 3;
+    const perPage = 8;
+
+    const actors = await listActorsServices.execute({
+      keyword,
+      page,
+      perPage,
+    });
+
+    expect(actors.length).toBe(0);
+  });
 });

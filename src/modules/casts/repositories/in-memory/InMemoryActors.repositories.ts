@@ -2,7 +2,7 @@ import { paginate } from '@/modules/movies/utils/paginateArrayInMemory';
 import { v4 as uuid } from 'uuid';
 
 import { CreateActorsDTO } from '../../dtos/requests/CreateActors.dto';
-import { OptionsList } from '../../dtos/requests/OptionsToListData.dto';
+import { ListCastsDTO } from '../../dtos/requests/ListCasts.dto';
 import { Actor } from '../../infra/typeorm/entities/Actor.entity';
 import { IActorsRepository } from '../ActorsRepository.interface';
 
@@ -23,23 +23,19 @@ export class InMemoryActorsRepository implements IActorsRepository {
     return this.actors.find((actor) => actor.name === name);
   }
 
-  async list({ take, skip }: OptionsList): Promise<Actor[]> {
-    let data = [];
+  async list({ page, perPage, name }: ListCastsDTO): Promise<Actor[]> {
+    page = page || 1;
+    perPage = perPage || 10;
 
-    take = take || 1;
-    skip = skip || 10;
+    let paginatedActors = paginate(this.actors, perPage, page);
 
-    const auxVar = this.actors;
+    if (name) {
+      paginatedActors = paginatedActors.filter(({ name }) =>
+        name.includes(name),
+      );
+    }
 
-    data = auxVar.map((actor) => {
-      const json = Object.assign({}, actor);
-
-      return json;
-    });
-
-    data = paginate(data, skip, take);
-
-    return data;
+    return paginatedActors;
   }
 
   public async create({ name, gender }: CreateActorsDTO): Promise<Actor> {

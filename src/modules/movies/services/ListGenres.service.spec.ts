@@ -92,7 +92,7 @@ describe('ListGenresService', () => {
     expect(genres.length).toBe(1);
   });
 
-  it.only('should be able list genres with custom pagination and filter by name', async () => {
+  it('should be able list genres with custom pagination and filter by name', async () => {
     const keyword = 'sci-fy';
     const page = 3;
     const perPage = 8;

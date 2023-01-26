@@ -1,7 +1,7 @@
 import { DIRECTORS_REPOSITORY } from '@/config/constants/repositories.constants';
 import { Inject } from '@nestjs/common';
 
-import { OptionsList } from '../dtos/requests/OptionsToListData.dto';
+import { ListCastsDTO } from '../dtos/requests/ListCasts.dto';
 import { Director } from '../infra/typeorm/entities/Direction.entity';
 import { IDirectorsRepository } from '../repositories/DirectorsRepository.interface';
 
@@ -12,14 +12,14 @@ export class ListDirectorsServices {
   ) {}
 
   async execute({
-    take = 10,
     page = 1,
-    skip = 0,
-  }: OptionsList): Promise<Director[]> {
+    perPage = 10,
+    name,
+  }: ListCastsDTO): Promise<Director[]> {
     return this.directorsRepository.list({
       page,
-      skip,
-      take,
+      perPage,
+      name,
     });
   }
 }

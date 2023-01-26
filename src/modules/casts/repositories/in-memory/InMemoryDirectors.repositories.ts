@@ -2,7 +2,7 @@ import { paginate } from '@/modules/movies/utils/paginateArrayInMemory';
 import { v4 as uuid } from 'uuid';
 
 import { CreateDirectorsDTO } from '../../dtos/requests/CreateDirectors.dto';
-import { OptionsList } from '../../dtos/requests/OptionsToListData.dto';
+import { ListCastsDTO } from '../../dtos/requests/ListCasts.dto';
 import { Director } from '../../infra/typeorm/entities/Direction.entity';
 import { IDirectorsRepository } from '../DirectorsRepository.interface';
 
@@ -19,23 +19,19 @@ export class InMemoryDirectorsRepository implements IDirectorsRepository {
     return this.directors.find((director) => director.name === name);
   }
 
-  async list({ take, skip }: OptionsList): Promise<Director[]> {
-    let data = [];
+  async list({ page, perPage, name }: ListCastsDTO): Promise<Director[]> {
+    page = page || 1;
+    perPage = perPage || 10;
 
-    take = take || 1;
-    skip = skip || 10;
+    let paginatedDirectors = paginate(this.directors, perPage, page);
 
-    const auxVar = this.directors;
+    if (name) {
+      paginatedDirectors = paginatedDirectors.filter(({ name }) =>
+        name.includes(name),
+      );
+    }
 
-    data = auxVar.map((director) => {
-      const json = Object.assign({}, director);
-
-      return json;
-    });
-
-    data = paginate(data, skip, take);
-
-    return data;
+    return paginatedDirectors;
   }
 
   public async create({ name, gender }: CreateDirectorsDTO): Promise<Director> {

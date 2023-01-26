@@ -1,4 +1,10 @@
-import { OptionsList } from '@/modules/casts/dtos/requests/OptionsToListData.dto';
+import { ACTORS } from '@/config/constants/resourceTags.constants';
+import {
+  INTERNAL_SERVER_ERROR,
+  NO_CONTENT_RESPONSE,
+  OK_RESPONSE,
+} from '@/config/constants/responses.constant';
+import { ListCastsDTO } from '@/modules/casts/dtos/requests/ListCasts.dto';
 import { ListActorsServices } from '@/modules/casts/services/ListActors.service';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { CheckEmptyListInterceptor } from '@/shared/interceptors/checkEmptyList.interceptor';
@@ -19,28 +25,27 @@ import {
 
 import { Actor } from '../../typeorm/entities/Actor.entity';
 
-@ApiTags('Actors')
-@Controller('actors')
+@ApiTags(ACTORS)
+@Controller(ACTORS.toLowerCase())
 export class ListActorsController {
   constructor(private readonly listActorsServices: ListActorsServices) {}
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: Actor })
+  @ApiOkResponse({ type: Actor, description: OK_RESPONSE })
   @ApiNoContentResponse({
-    description: 'This will be returned when the receive empty list',
+    description: NO_CONTENT_RESPONSE,
   })
   @ApiInternalServerErrorResponse({
     type: ExceptionErrorDTO,
-    description: 'This will be returned when an unexpected error occurs',
+    description: INTERNAL_SERVER_ERROR,
   })
   @UseInterceptors(new CheckEmptyListInterceptor())
-  async handle(@Query() { name, take, skip, page }: OptionsList) {
+  async handle(@Query() { name, page, perPage }: ListCastsDTO) {
     return this.listActorsServices.execute({
       name,
-      take,
-      skip,
       page,
+      perPage,
     });
   }
 }

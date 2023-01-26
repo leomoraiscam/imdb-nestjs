@@ -1,5 +1,5 @@
 import { CreateDirectorsDTO } from '@/modules/casts/dtos/requests/CreateDirectors.dto';
-import { OptionsList } from '@/modules/casts/dtos/requests/OptionsToListData.dto';
+import { ListCastsDTO } from '@/modules/casts/dtos/requests/ListCasts.dto';
 import { IDirectorsRepository } from '@/modules/casts/repositories/DirectorsRepository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,14 +26,16 @@ export class DirectorsRepository implements IDirectorsRepository {
     });
   }
 
-  async list({ name, take, page }: OptionsList): Promise<Director[]> {
+  async list({ name, page, perPage }: ListCastsDTO): Promise<Director[]> {
     const directorsQuery = await this.repository
-      .createQueryBuilder('m')
-      .take(take)
-      .skip(take * (page - 1));
+      .createQueryBuilder('director')
+      .take(perPage)
+      .skip(perPage * (page - 1));
 
     if (name) {
-      directorsQuery.andWhere(`m.name = :name`, { name });
+      directorsQuery.andWhere(`director.name like :name`, {
+        name: `%${name}%`,
+      });
     }
 
     const directors = await directorsQuery.getMany();
