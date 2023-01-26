@@ -21,7 +21,7 @@ import {
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 
-import { Director } from '../../typeorm/entities/Direction.entity';
+import { Director } from '../../typeorm/entities/Director.entity';
 
 @ApiTags(DIRECTORS)
 @Controller(DIRECTORS.toLowerCase())

@@ -2,7 +2,7 @@ import { DIRECTORS_REPOSITORY } from '@/config/constants/repositories.constants'
 import { Inject } from '@nestjs/common';
 
 import { ListCastsDTO } from '../dtos/requests/ListCasts.dto';
-import { Director } from '../infra/typeorm/entities/Direction.entity';
+import { Director } from '../infra/typeorm/entities/Director.entity';
 import { IDirectorsRepository } from '../repositories/DirectorsRepository.interface';
 
 export class ListDirectorsServices {

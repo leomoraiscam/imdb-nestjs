@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 
 import { UpdateDirectorsDTO } from '../dtos/requests/UpdateDirectors.dto';
-import { Director } from '../infra/typeorm/entities/Direction.entity';
+import { Director } from '../infra/typeorm/entities/Director.entity';
 import { IDirectorsRepository } from '../repositories/DirectorsRepository.interface';
 
 @Injectable()

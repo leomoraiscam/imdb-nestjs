@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { CreateDirectorsDTO } from '../../dtos/requests/CreateDirectors.dto';
 import { ListCastsDTO } from '../../dtos/requests/ListCasts.dto';
-import { Director } from '../../infra/typeorm/entities/Direction.entity';
+import { Director } from '../../infra/typeorm/entities/Director.entity';
 import { IDirectorsRepository } from '../DirectorsRepository.interface';
 
 export class InMemoryDirectorsRepository implements IDirectorsRepository {

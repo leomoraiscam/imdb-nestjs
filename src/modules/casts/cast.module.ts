@@ -12,7 +12,7 @@ import { ListDirectorsController } from './infra/http/controllers/ListDirectors.
 import { UpdateActorController } from './infra/http/controllers/UpdateActor.controller';
 import { UpdateDirectorController } from './infra/http/controllers/UpdateDirector.controller';
 import { Actor } from './infra/typeorm/entities/Actor.entity';
-import { Director } from './infra/typeorm/entities/Direction.entity';
+import { Director } from './infra/typeorm/entities/Director.entity';
 import { ActorsRepository } from './infra/typeorm/repositories/Actors.repository';
 import { DirectorsRepository } from './infra/typeorm/repositories/Directors.repository';
 import { CreateActorService } from './services/CreateActor.service';

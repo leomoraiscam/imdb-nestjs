@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Director } from '../entities/Direction.entity';
+import { Director } from '../entities/Director.entity';
 
 @Injectable()
 export class DirectorsRepository implements IDirectorsRepository {

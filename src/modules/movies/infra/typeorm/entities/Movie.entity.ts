@@ -1,5 +1,5 @@
 import { Actor } from '@/modules/casts/infra/typeorm/entities/Actor.entity';
-import { Director } from '@/modules/casts/infra/typeorm/entities/Direction.entity';
+import { Director } from '@/modules/casts/infra/typeorm/entities/Director.entity';
 import { Vote } from '@/modules/movies/infra/typeorm/entities/Vote.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import {

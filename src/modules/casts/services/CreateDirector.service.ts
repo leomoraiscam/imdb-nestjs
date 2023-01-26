@@ -2,7 +2,7 @@ import { DIRECTORS_REPOSITORY } from '@/config/constants/repositories.constants'
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { CreateDirectorsDTO } from '../dtos/requests/CreateDirectors.dto';
-import { Director } from '../infra/typeorm/entities/Direction.entity';
+import { Director } from '../infra/typeorm/entities/Director.entity';
 import { IDirectorsRepository } from '../repositories/DirectorsRepository.interface';
 
 @Injectable()
