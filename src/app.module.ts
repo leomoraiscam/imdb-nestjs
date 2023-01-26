@@ -1,5 +1,6 @@
+import { PostgresProviderModule } from '@/shared/infra/typeorm/typeorm.module';
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 import { AccessControlListModule } from './modules/accessControlList/acessControlList.module';
 import { CastModule } from './modules/casts/cast.module';
@@ -8,17 +9,8 @@ import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5454,
-      username: 'docker',
-      password: 'docker',
-      database: 'imdb',
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      autoLoadEntities: false,
-      synchronize: false,
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
+    PostgresProviderModule,
     UsersModule,
     AccessControlListModule,
     MovieModule,
