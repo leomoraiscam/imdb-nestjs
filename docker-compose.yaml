@@ -1,22 +1,39 @@
-
-version: '3'
+version: '3.7'
 
 services:
+  app:
+    build: .
+    container_name: imdb-app
+    volumes:
+      - .:/home/node/app
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+      - "${APP_DEBUG_PORT}:${APP_DEBUG_PORT}"
+    env_file:
+      - ./.env
+    networks:
+      - imdb_env_nw
+
   postgres:
     image: postgres
     container_name: postgres-imdb
     tty: true
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      - "POSTGRES_USER=${DB_USER}"
+      - "POSTGRES_PASSWORD=${DB_PASSWORD}"
+      - "POSTGRES_PORT=${DB_PORT}" 
+      - "POSTGRES_DB=${DB_NAME}"
     volumes:
       - .pgdata:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=imdb
-      - POSTGRES_USER=docker
-      - POSTGRES_PORT=5454
-    ports:
-      - '5454:5454'
-    command: -p 5454
+    command: "-p ${DB_PORT}"
+    networks:
+      - imdb_env_nw
 
 volumes:
   pgdata:
     driver: local
+networks:
+  imdb_env_nw:
+    driver: bridge
