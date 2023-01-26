@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AccessControlListModule } from './modules/acessControlList/acessControlList.module';
+import { AccessControlListModule } from './modules/accessControlList/acessControlList.module';
+import { CastModule } from './modules/casts/cast.module';
 import { MovieModule } from './modules/movies/movie.module';
 import { UsersModule } from './modules/users/users.module';
-import { VoteModule } from './modules/votes/vote.module';
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import { VoteModule } from './modules/votes/vote.module';
     UsersModule,
     AccessControlListModule,
     MovieModule,
-    VoteModule,
+    CastModule,
   ],
 })
 export class AppModule {}
