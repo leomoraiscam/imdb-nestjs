@@ -63,7 +63,6 @@ export class CreateGenreController {
     type: ExceptionErrorDTO,
     description: INTERNAL_SERVER_ERROR,
   })
-  @HasRoles(RolesEnum.ADMIN, RolesEnum.USER)
   @HasPermissions(
     PermissionsEnum.CREATE,
     PermissionsEnum.UPDATE,
