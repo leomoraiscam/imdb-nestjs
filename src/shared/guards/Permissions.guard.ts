@@ -22,7 +22,7 @@ export class PermissionsGuard implements CanActivate {
 
     const { user } = context.switchToHttp().getRequest();
 
-    const permissionExists = user.permissions.map(
+    const permissionExists = user.user.permissions.map(
       (permission) => permission.name,
     );
 
