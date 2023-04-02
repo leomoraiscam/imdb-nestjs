@@ -6,3 +6,4 @@ export const VOTES_REPOSITORY = 'VotesRepository';
 export const USERS_REPOSITORY = 'UsersRepository';
 export const ROLES_REPOSITORY = 'RolesRepository';
 export const PERMISSIONS_REPOSITORY = 'PermissionsRepository';
+export const USERS_TOKENS_REPOSITORY = 'UsersTokensRepository';
