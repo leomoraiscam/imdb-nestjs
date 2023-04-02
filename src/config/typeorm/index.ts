@@ -14,10 +14,10 @@ export const ormConfig = (
   const environments: IConfigEnvironment = {
     local: {
       host: 'localhost',
-      port: 5432,
+      port: 5454,
       username: 'docker',
       password: 'docker',
-      database: 'nestjs',
+      database: 'imdb',
       autoLoadEntities: true,
       entities: [`${__dirname}/dist/**/*.entity{.ts,.js}`],
     },
