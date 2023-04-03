@@ -3,6 +3,7 @@ import { UserToken } from '../infra/typeorm/entities/UserToken.entity';
 
 export interface IUsersTokensRepository {
   findByUserId(userId: string): Promise<UserToken | undefined>;
+  findByRefreshToken(token: string): Promise<UserToken | undefined>;
   findByUserIdAndRefreshToken(
     userId: string,
     token: string,

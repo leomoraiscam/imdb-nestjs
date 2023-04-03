@@ -1,22 +1,33 @@
+import { SESSIONS } from '@/config/constants/resourceTags.constants';
 import {
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Request,
-} from '@nestjs/common';
+  CREATED_RESPONSE,
+  INTERNAL_SERVER_ERROR,
+} from '@/config/constants/responses.constant';
+import { RefreshTokenDTO } from '@/modules/users/dtos/responses/RefreshToken.dto';
+import { RefreshTokenService } from '@/modules/users/services/RefreshToken.service';
+import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
+import { Controller, Post, Headers } from '@nestjs/common';
+import {
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
-import { RefreshTokenService } from '../../../services/RefreshToken.service';
-
+@ApiTags(SESSIONS)
 @Controller('refresh-token')
 export class RefreshTokenController {
   constructor(private readonly refreshTokenService: RefreshTokenService) {}
 
   @Post()
-  @HttpCode(HttpStatus.CREATED)
-  public async handle(@Request() req: any) {
-    const token = req.headers['x-access-token'];
-
+  @ApiCreatedResponse({
+    type: RefreshTokenDTO,
+    description: CREATED_RESPONSE,
+  })
+  @ApiInternalServerErrorResponse({
+    type: ExceptionErrorDTO,
+    description: INTERNAL_SERVER_ERROR,
+  })
+  public async handle(@Headers('x-access-token') token: string) {
     const refreshToken = await this.refreshTokenService.execute(token);
 
     return refreshToken;
