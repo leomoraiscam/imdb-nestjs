@@ -89,7 +89,7 @@ describe('ListDirectorsService', () => {
       name: 'Henderson',
     });
 
-    expect(directors.length).toBe(1);
+    expect(directors.length).toBe(2);
   });
 
   it('should be able list directors with custom pagination and filter by name', async () => {

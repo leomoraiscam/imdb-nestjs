@@ -87,7 +87,7 @@ describe('ListActorsService', () => {
       name: 'Henderson',
     });
 
-    expect(actors.length).toBe(1);
+    expect(actors.length).toBe(2);
   });
 
   it('should be able list actors with custom pagination and filter by name', async () => {

@@ -5,7 +5,7 @@ import {
   ACTORS_REPOSITORY,
 } from '@/config/constants/repositories.constants';
 import { Actor } from '@/modules/casts/infra/typeorm/entities/Actor.entity';
-import { Director } from '@/modules/casts/infra/typeorm/entities/Direction.entity';
+import { Director } from '@/modules/casts/infra/typeorm/entities/Director.entity';
 import { InMemoryActorsRepository } from '@/modules/casts/repositories/in-memory/InMemoryActors.repositories';
 import { InMemoryDirectorsRepository } from '@/modules/casts/repositories/in-memory/InMemoryDirectors.repositories';
 import { ConflictException } from '@nestjs/common';

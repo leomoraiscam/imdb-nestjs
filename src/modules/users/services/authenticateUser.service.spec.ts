@@ -1,11 +1,19 @@
-import { HASH_PROVIDER } from '@/config/constants/providers.constants';
-import { USERS_REPOSITORY } from '@/config/constants/repositories.constants';
+import {
+  DATE_PROVIDER,
+  HASH_PROVIDER,
+} from '@/config/constants/providers.constants';
+import {
+  USERS_REPOSITORY,
+  USERS_TOKENS_REPOSITORY,
+} from '@/config/constants/repositories.constants';
 import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 
+import { InMemoryDateProvider } from '../providers/dateProvider/in-memory/InMemoryDate.provider';
 import { InMemoryHashProvider } from '../providers/hashProvider/in-memory/InMemoryHash.provider';
 import { InMemoryUsersRepository } from '../repositories/in-memory/InMemoryUsers.repositories';
+import { InMemoryUsersTokensRepository } from '../repositories/in-memory/InMemoryUsersTokens.repository';
 import { AuthenticateUserService } from './AuthenticateUser.service';
 
 describe('AuthenticateUserService', () => {
@@ -25,6 +33,14 @@ describe('AuthenticateUserService', () => {
         },
         { provide: USERS_REPOSITORY, useClass: InMemoryUsersRepository },
         { provide: HASH_PROVIDER, useClass: InMemoryHashProvider },
+        {
+          provide: USERS_TOKENS_REPOSITORY,
+          useClass: InMemoryUsersTokensRepository,
+        },
+        {
+          provide: DATE_PROVIDER,
+          useClass: InMemoryDateProvider,
+        },
       ],
     }).compile();
 

@@ -3,7 +3,7 @@ import {
   VOTES_REPOSITORY,
 } from '@/config/constants/repositories.constants';
 import { Actor } from '@/modules/casts/infra/typeorm/entities/Actor.entity';
-import { Director } from '@/modules/casts/infra/typeorm/entities/Direction.entity';
+import { Director } from '@/modules/casts/infra/typeorm/entities/Director.entity';
 import { User } from '@/modules/users/infra/typeorm/entities/User.entity';
 import { NotFoundException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
