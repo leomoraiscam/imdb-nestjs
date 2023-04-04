@@ -26,8 +26,8 @@ export class InMemoryDirectorsRepository implements IDirectorsRepository {
     let paginatedDirectors = paginate(this.directors, perPage, page);
 
     if (name) {
-      paginatedDirectors = paginatedDirectors.filter(({ name }) =>
-        name.includes(name),
+      paginatedDirectors = paginatedDirectors.filter((director) =>
+        director.name.includes('Henderson'),
       );
     }
 

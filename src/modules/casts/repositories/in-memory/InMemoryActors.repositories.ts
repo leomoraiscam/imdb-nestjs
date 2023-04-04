@@ -30,8 +30,8 @@ export class InMemoryActorsRepository implements IActorsRepository {
     let paginatedActors = paginate(this.actors, perPage, page);
 
     if (name) {
-      paginatedActors = paginatedActors.filter(({ name }) =>
-        name.includes(name),
+      paginatedActors = paginatedActors.filter((actor) =>
+        actor.name.includes(name),
       );
     }
 
