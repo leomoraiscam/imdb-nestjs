@@ -7,11 +7,9 @@ import {
   INTERNAL_SERVER_ERROR,
 } from '@/config/constants/responses.constant';
 import { PermissionsEnum } from '@/modules/accessControlList/dtos/permissions.enum';
-import { RolesEnum } from '@/modules/accessControlList/dtos/roles.enum';
 import { CreateGenresDTO } from '@/modules/movies/dtos/requests/CreateGenres.dto';
 import { CreateGenreService } from '@/modules/movies/services/CreateGenre.service';
 import { HasPermissions } from '@/shared/decorators/permissions.decorator';
-import { HasRoles } from '@/shared/decorators/roles.decorator';
 import { ExceptionErrorDTO } from '@/shared/errors/dtos/exceptionError.dto';
 import { ValidationErrorDTO } from '@/shared/errors/dtos/validationError.dto';
 import { PermissionsGuard } from '@/shared/guards/Permissions.guard';

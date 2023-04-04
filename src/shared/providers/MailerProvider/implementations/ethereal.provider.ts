@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { MAIL_TEMPLATE_PROVIDER } from '@/config/constants/providers.constants';
 import { Inject, Injectable } from '@nestjs/common';
 import {
